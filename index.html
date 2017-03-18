@@ -92,7 +92,8 @@
       
         <hr>
 <h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h4><h4 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h4><h4 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h4><h4 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h4><h4 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h4><hr>
-<h5 id="常用的文件命令"><a href="#常用的文件命令" class="headerlink" title="常用的文件命令"></a>常用的文件命令</h5><ul>
+<h5 id="常用的文件命令"><a href="#常用的文件命令" class="headerlink" title="常用的文件命令"></a>常用的文件命令</h5><p>在fedora25系统的/bin目录下有1538多个命令，绝大部分命令我们平常都用不到，这里选取了一组常用命令，也是工作开发中必须要熟记掌握的。文章最后附有Linux命令大全手册。</p>
+<ul>
 <li><h6 id="pwd-显示当前目录"><a href="#pwd-显示当前目录" class="headerlink" title="pwd 显示当前目录"></a>pwd 显示当前目录</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ pwd  </div><div class="line">/home/highsung</div></pre></td></tr></table></figure>
 </li>
 <li><h6 id="cd-切换目录"><a href="#cd-切换目录" class="headerlink" title="cd  切换目录"></a>cd  切换目录</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ cd /  // 切换到根目录</div><div class="line">$ pwd</div><div class="line">/</div><div class="line">$ cd    // 什么都不指定，切换到用户目录</div><div class="line">$ pwd</div><div class="line">/home/highsung</div><div class="line">$ cd ~  // ~代表用户目录，同cd</div><div class="line">$ pwd</div><div class="line">/home/highsung</div></pre></td></tr></table></figure>
@@ -141,35 +142,13 @@
 <li><h6 id="tar-压缩和解压"><a href="#tar-压缩和解压" class="headerlink" title="tar   压缩和解压"></a>tar   压缩和解压</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$ tar -zcvf abc.tar.gz *.txt</div><div class="line">a.txt</div><div class="line">b.txt</div><div class="line">c.txt</div><div class="line">$ mkdir mydir2</div><div class="line">$ cp abc.tar.gz mydir2</div><div class="line">$ cd mydir2</div><div class="line">$ ls</div><div class="line">abc.tar.gz</div><div class="line">$ tar zxvf abc.tar.gz</div><div class="line">a.txt</div><div class="line">b.txt</div><div class="line">c.txt</div><div class="line">$ ls</div><div class="line">abc.tar.gz  a.txt  b.txt  c.txt</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h5 id="用户管理-1"><a href="#用户管理-1" class="headerlink" title="用户管理"></a>用户管理</h5><ul>
-<li><h6 id="useradd-添加用户"><a href="#useradd-添加用户" class="headerlink" title="useradd 添加用户"></a>useradd 添加用户</h6></li>
-<li><h6 id="userdel-删除用户"><a href="#userdel-删除用户" class="headerlink" title="userdel 删除用户"></a>userdel 删除用户</h6></li>
-<li><h6 id="usermod-修改账号"><a href="#usermod-修改账号" class="headerlink" title="usermod 修改账号"></a>usermod 修改账号</h6></li>
-<li><h6 id="passwd-修改用户密码"><a href="#passwd-修改用户密码" class="headerlink" title="passwd  修改用户密码"></a>passwd  修改用户密码</h6></li>
-<li><h6 id="groupadd-添加用户组"><a href="#groupadd-添加用户组" class="headerlink" title="groupadd 添加用户组"></a>groupadd 添加用户组</h6></li>
-<li><h6 id="groupdel-删除用户组"><a href="#groupdel-删除用户组" class="headerlink" title="groupdel 删除用户组"></a>groupdel 删除用户组</h6></li>
-<li><h6 id="newgrp-切换用户组"><a href="#newgrp-切换用户组" class="headerlink" title="newgrp   切换用户组"></a>newgrp   切换用户组</h6></li>
-<li><h6 id="sudo-赋予普通用户root权限"><a href="#sudo-赋予普通用户root权限" class="headerlink" title="sudo    赋予普通用户root权限"></a>sudo    赋予普通用户root权限</h6></li>
-</ul>
-<h5 id="网络配置-1"><a href="#网络配置-1" class="headerlink" title="网络配置"></a>网络配置</h5><ul>
-<li><h6 id="ifconfig"><a href="#ifconfig" class="headerlink" title="ifconfig"></a>ifconfig</h6></li>
-</ul>
-<h5 id="软件安装-1"><a href="#软件安装-1" class="headerlink" title="软件安装"></a>软件安装</h5><ul>
-<li><h6 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h6></li>
-</ul>
-<h5 id="进程管理-1"><a href="#进程管理-1" class="headerlink" title="进程管理"></a>进程管理</h5><ul>
-<li><h6 id="kill-9-17788"><a href="#kill-9-17788" class="headerlink" title="kill -9 17788"></a>kill -9 17788</h6></li>
-<li><h6 id="netstat-tln-grep-8080"><a href="#netstat-tln-grep-8080" class="headerlink" title="netstat -tln | grep 8080"></a>netstat -tln | grep 8080</h6></li>
-<li><h6 id="lsof-i-8080"><a href="#lsof-i-8080" class="headerlink" title="lsof -i :8080"></a>lsof -i :8080</h6></li>
-<li><h6 id="ps-aux-grep-java-查看java进程"><a href="#ps-aux-grep-java-查看java进程" class="headerlink" title="ps aux|grep java 查看java进程"></a>ps aux|grep java 查看java进程</h6></li>
-<li><h6 id="ps-ef"><a href="#ps-ef" class="headerlink" title="ps -ef"></a>ps -ef</h6></li>
-</ul>
+<p>你知道文章开始说的1500多个命令怎么来的吗？用如下命令就知道了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ls -al | wc -l</div><div class="line">1539</div></pre></td></tr></table></figure></p>
 <p>更多资料<br><a href="http://man.linuxde.net/" target="_blank" rel="external">Linux命令大全</a><br><a href="http://cn.linux.vbird.org/linux_basic/linux_basic.php" target="_blank" rel="external">鸟哥Linux私菜</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj0f96ygr000k8cufn16cbtlx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj0f9usqz000prsufvadvpmqv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -367,7 +346,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0f96ygp000j8cuf83z181hc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0f9usqw000mrsufmnhpulvf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -438,7 +417,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0f96ygt000m8cufgb3nmptw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0f9usqx000nrsufat3ycl6f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -477,7 +456,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj0f96yh3000v8cufm5bikfod" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj0f9usr6000vrsuf6r0r3e51" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大学生实训/">大学生实训</a></li></ul>
@@ -521,7 +500,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/cdut/" data-id="cj0f96ygv000n8cuftucff5he" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/14/school/cdut/cdut/" data-id="cj0f9usr1000rrsufaueu9y57" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/校园采风/">校园采风</a></li></ul>
@@ -572,7 +551,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/13/hexo/hexo部署博文到github/" data-id="cj0f96ygg000g8cuf9zjltxkz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/13/hexo/hexo部署博文到github/" data-id="cj0f9usqo000jrsuf2ux35mp8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo-git/">hexo git</a></li></ul>
