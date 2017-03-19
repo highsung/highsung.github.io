@@ -102,7 +102,7 @@
 <p>清楚了文件/etc/passwd，/etc/shadow，/etc/group的内容含义，下面先来操作下用户组。</p>
 <ul>
 <li><p>创建用户组</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// 创建mygroup1组</div><div class="line">$ sudo groupadd mygroup1      </div><div class="line">// 创建mygroup2组，同时指定组ID</div><div class="line">$ sudo groupadd -g 1010 mygroup2  </div><div class="line">// 创建mygroup3组</div><div class="line">$ sudo groupadd mygroup3  </div><div class="line">$ cat /etc/group</div><div class="line">...</div><div class="line">highsung:x:1000:</div><div class="line">// 组ID是在最后的highsung组ID上加1</div><div class="line">mygroup1:x:1001:  </div><div class="line">// 组ID强制指定1010</div><div class="line">mygroup2:x:1010:</div><div class="line">// 组ID是在最后的mygroup2组ID上加1 </div><div class="line">mygroup3:x:1011:</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// 创建mygroup1组</div><div class="line">$ sudo groupadd mygroup1      </div><div class="line">// 创建mygroup2组，同时指定组ID</div><div class="line">$ sudo groupadd -g 1010 mygroup2  </div><div class="line">// 创建mygroup3组</div><div class="line">$ sudo groupadd mygroup3  </div><div class="line">$ cat /etc/group</div><div class="line">...</div><div class="line">highsung:x:1000:</div><div class="line">// 组ID是在最后的highsung组ID上加1</div><div class="line">mygroup1:x:1001:  </div><div class="line">// 组ID强制指定1010</div><div class="line">mygroup2:x:1010:</div><div class="line">// 组ID是在最后的mygroup2组ID上加1</div><div class="line">mygroup3:x:1011:</div></pre></td></tr></table></figure>
 </li>
 <li><p>修改用户组<br>根据组名来修改，把mygroup3组的组名改成mygroup31，组ID改成1031</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ sudo groupmod -g 1031 -n mygroup31 mygroup3</div><div class="line">$ cat /etc/group</div><div class="line">...</div><div class="line">highsung:x:1000:</div><div class="line">mygroup1:x:1001:</div><div class="line">mygroup2:x:1010:</div><div class="line">mygroup31:x:1031:</div></pre></td></tr></table></figure>
@@ -118,11 +118,8 @@
 <li><p>修改用户</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// user1添加到wheel组</div><div class="line">$ sudo usermod -G wheel user1</div><div class="line">$ cat /etc/group</div><div class="line">wheel:x:10:highsung,user2,user1</div><div class="line">// user1名字改为user11</div><div class="line">$ sudo usermod -l user11 user1</div><div class="line">$ cat /etc/group</div><div class="line">wheel:x:10:highsung,user2,user11</div><div class="line">// usr11的主目录还是/home/user1</div><div class="line">$ cat /etc/passwd</div><div class="line">user11:x:1001:1002::/home/user1:/bin/bash</div></pre></td></tr></table></figure>
 </li>
-<li><p>删除用户<br><code>`
-// 删除3个文件中user2的记录，保留home目录
-$ sudo userdel user2
-// 删除3个文件中user2的记录，删除home目录
-$ sudo userdel -r user1</code></p>
+<li><p>删除用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 删除3个文件中user2的记录，保留home目录</div><div class="line">$ sudo userdel user2</div><div class="line">// 删除3个文件中user2的记录，删除home目录</div><div class="line">$ sudo userdel -r user1</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>更多资料<br><a href="http://man.linuxde.net/" target="_blank" rel="external">Linux命令大全</a><br><a href="http://cn.linux.vbird.org/" target="_blank" rel="external">鸟哥Linux私菜</a></p>
@@ -130,7 +127,7 @@ $ sudo userdel -r user1</code></p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj0gqe1hs000n1cuf0wunhv4r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj0gqfqvp000kusuf86ccay6u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -222,7 +219,7 @@ $ sudo userdel -r user1</code></p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj0gqe1hm000j1cufegcihclb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj0gqfqvv000ousufgensjzcb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -420,7 +417,7 @@ $ sudo userdel -r user1</code></p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0gqe1ho000k1cufrrs6hedo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0gqfqvt000nusufmcjt5zb5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -491,7 +488,7 @@ $ sudo userdel -r user1</code></p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0gqe1hq000m1cufmo7lhl3t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0gqfqvo000jusufu6dzc8aa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -530,7 +527,7 @@ $ sudo userdel -r user1</code></p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj0gqe1i4000x1cufbpwu3fr4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj0gqfqw4000wusufs4int9gf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大学生实训/">大学生实训</a></li></ul>
@@ -574,7 +571,7 @@ $ sudo userdel -r user1</code></p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/cdut/" data-id="cj0gqe1i0000u1cuf6671knbg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/14/school/cdut/cdut/" data-id="cj0gqfqvr000musuffyw76wgi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/校园采风/">校园采风</a></li></ul>
@@ -625,7 +622,7 @@ $ sudo userdel -r user1</code></p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/13/hexo/hexo部署博文到github/" data-id="cj0gqe1hf000g1cufyiim7trf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/13/hexo/hexo部署博文到github/" data-id="cj0gqfqvh000gusufoqckusvn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo-git/">hexo git</a></li></ul>
