@@ -68,6 +68,351 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-course/embeded/lesson_5" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/19/course/embeded/lesson_5/" class="article-date">
+  <time datetime="2017-03-19T14:30:00.000Z" itemprop="datePublished">2017-03-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/19/course/embeded/lesson_5/">（5）Linux常用命令-软件管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="Linux系统分类"><a href="#Linux系统分类" class="headerlink" title="Linux系统分类"></a>Linux系统分类</h4><h4 id="软件包安装原理和命令"><a href="#软件包安装原理和命令" class="headerlink" title="软件包安装原理和命令"></a>软件包安装原理和命令</h4><h4 id="在线安装和手动下载源码安装"><a href="#在线安装和手动下载源码安装" class="headerlink" title="在线安装和手动下载源码安装"></a>在线安装和手动下载源码安装</h4><hr>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_5/install_soft.jpg" alt="image"></p>
+<h5 id="大多数现代类-Unix-操作系统都提供了一个集中的软件包管理机制，以帮助用户搜索、安装和管理软件。而软件通常以「包」的形式存储在仓库「repository」中，对软件包的使用和管理被称为包管理。而-Linux-包的基本组成部分通常有：共享库、应用程序、服务和文档。"><a href="#大多数现代类-Unix-操作系统都提供了一个集中的软件包管理机制，以帮助用户搜索、安装和管理软件。而软件通常以「包」的形式存储在仓库「repository」中，对软件包的使用和管理被称为包管理。而-Linux-包的基本组成部分通常有：共享库、应用程序、服务和文档。" class="headerlink" title="大多数现代类 Unix 操作系统都提供了一个集中的软件包管理机制，以帮助用户搜索、安装和管理软件。而软件通常以「包」的形式存储在仓库「repository」中，对软件包的使用和管理被称为包管理。而 Linux 包的基本组成部分通常有：共享库、应用程序、服务和文档。"></a>大多数现代类 Unix 操作系统都提供了一个集中的软件包管理机制，以帮助用户搜索、安装和管理软件。而软件通常以「包」的形式存储在仓库「repository」中，对软件包的使用和管理被称为包管理。而 Linux 包的基本组成部分通常有：共享库、应用程序、服务和文档。</h5><h5 id="包管理通常不仅限于软件的一次性安装，还包括了对已安装软件包进行升级的工具。「包仓库」有助于确保代码已经在你使用的系统上进行了审核，并由软件开发者或包维护者进行管理。"><a href="#包管理通常不仅限于软件的一次性安装，还包括了对已安装软件包进行升级的工具。「包仓库」有助于确保代码已经在你使用的系统上进行了审核，并由软件开发者或包维护者进行管理。" class="headerlink" title="包管理通常不仅限于软件的一次性安装，还包括了对已安装软件包进行升级的工具。「包仓库」有助于确保代码已经在你使用的系统上进行了审核，并由软件开发者或包维护者进行管理。"></a>包管理通常不仅限于软件的一次性安装，还包括了对已安装软件包进行升级的工具。「包仓库」有助于确保代码已经在你使用的系统上进行了审核，并由软件开发者或包维护者进行管理。</h5><h5 id="本文将介绍常用-Linux-发行版对：搜索、安装和升级等包管理方面的基本方式和快速参考，可以帮助你快速了解不同-Linux-包管理基本操作与技巧。"><a href="#本文将介绍常用-Linux-发行版对：搜索、安装和升级等包管理方面的基本方式和快速参考，可以帮助你快速了解不同-Linux-包管理基本操作与技巧。" class="headerlink" title="本文将介绍常用 Linux 发行版对：搜索、安装和升级等包管理方面的基本方式和快速参考，可以帮助你快速了解不同 Linux 包管理基本操作与技巧。"></a>本文将介绍常用 Linux 发行版对：搜索、安装和升级等包管理方面的基本方式和快速参考，可以帮助你快速了解不同 Linux 包管理基本操作与技巧。</h5><h4 id="1-软件包管理介绍"><a href="#1-软件包管理介绍" class="headerlink" title="1. 软件包管理介绍"></a>1. 软件包管理介绍</h4><p>大多数流行的 Linux 发行版在包管理工具、方式和形式都大同小异，但却还是有平台差异。</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>静态安装包格式</th>
+<th>在线安装命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Debian</td>
+<td>.deb</td>
+<td>apt, apt-cache、apt-get、dpkg</td>
+</tr>
+<tr>
+<td>Ubuntu</td>
+<td>.deb</td>
+<td>apt、apt-cache、apt-get、dpkg</td>
+</tr>
+<tr>
+<td>CentOS</td>
+<td>.rpm</td>
+<td>yum</td>
+</tr>
+<tr>
+<td>Fedora</td>
+<td>.rpm</td>
+<td>yum、dnf</td>
+</tr>
+</tbody>
+</table>
+<p>Debian及其衍生产品如：Ubuntu、Linux Mint 和 Raspbian 的安装包格式为.deb文件，apt-get是最常见包操作命令，可搜索库、安装包及其依赖和管理升级。而要直接安装现成.deb包时需要使用dpkg命令。</p>
+<p>CentOS、Fedora及Red Hat系列Linux使用RPM安装包文件，并使用yum命令管理包文件。</p>
+<p>在最新的Fedora版本中，yum命令已被dnf取代进行包管理。</p>
+<h4 id="2-更新本地包数据库列表"><a href="#2-更新本地包数据库列表" class="headerlink" title="2.更新本地包数据库列表"></a>2.更新本地包数据库列表</h4><p>大多数 Linux 都使用本地数据库来存储远程可用的包仓库列表，所以在安装或升级包之前最好更新一下这个数据库。</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Debian / Ubuntu</td>
+<td>sudo apt-get update</td>
+</tr>
+<tr>
+<td>CentOS</td>
+<td>yum check-update</td>
+</tr>
+<tr>
+<td>Fedora</td>
+<td>dnf check-update</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-升级已安装的包"><a href="#3-升级已安装的包" class="headerlink" title="3.升级已安装的包"></a>3.升级已安装的包</h4><p>在没有包管理方式时，要升级并保持 Linux 已装软件处在最新版本是一个巨大的工程，管理员和用户不得不手动跟踪上游软件版本变化及安全警告。在有了包管理系统之后，只需几条命令便可保持软件最新。</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>命令</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Debian / Ubuntu</td>
+<td>sudo apt-get upgrade</td>
+<td>仅升级已安装的软件包</td>
+</tr>
+<tr>
+<td></td>
+<td>sudo apt-get dist-upgrade</td>
+<td>可添加或删除程序包，以满足新的依赖。</td>
+</tr>
+<tr>
+<td>CentOS</td>
+<td>sudo yum update</td>
+<td></td>
+</tr>
+<tr>
+<td>Fedora</td>
+<td>sudo dnf upgrade</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4-查找-搜索软件包"><a href="#4-查找-搜索软件包" class="headerlink" title="4.查找/搜索软件包"></a>4.查找/搜索软件包</h4><p>大多数 Linux 桌面版本都提供用户可搜索和安装软包的界面，这是找寻和安装软件的最佳方法。但对于追求效率和服务器管理员来说，使用命令行工具查找/搜索软件包才是正途。</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>命令</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Debian / Ubuntu</td>
+<td>apt-cache search</td>
+<td>搜索内容</td>
+</tr>
+<tr>
+<td>CentOS</td>
+<td>yum search</td>
+<td>搜索内容</td>
+</tr>
+<tr>
+<td></td>
+<td>yum search all</td>
+<td>搜索所有内容，包括包描述</td>
+</tr>
+<tr>
+<td>Fedora</td>
+<td>dnf search</td>
+<td>搜索内容</td>
+</tr>
+<tr>
+<td></td>
+<td>dnf search all</td>
+<td>搜索所有内容，包括包描述</td>
+</tr>
+</tbody>
+</table>
+<h4 id="5-查看某个软件包信息"><a href="#5-查看某个软件包信息" class="headerlink" title="5.查看某个软件包信息"></a>5.查看某个软件包信息</h4><p>在决定安装哪个包之前，我们往往都需要查看该软件包的详细说明。包的说明文件中通常包括：包名、版本号及依赖列表等元数据，可以使用如下命令来查看。</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>命令</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Debian / Ubuntu</td>
+<td>apt-cache show 包名</td>
+<td>显示有关软件包的本地缓存信息</td>
+</tr>
+<tr>
+<td></td>
+<td>dpkg -s 包名</td>
+<td>显示包的当前安装状态</td>
+</tr>
+<tr>
+<td>CentOS</td>
+<td>yum info 包名</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>yum deplist 包名</td>
+<td>列出包的所有信息</td>
+</tr>
+<tr>
+<td>Fedora</td>
+<td>dnf info 包名</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>dnf repoquery –requires 包名</td>
+<td>列出包的所有信息</td>
+</tr>
+</tbody>
+</table>
+<h4 id="6-从软件仓库安装包"><a href="#6-从软件仓库安装包" class="headerlink" title="6.从软件仓库安装包"></a>6.从软件仓库安装包</h4><p>一旦我们知道某个软件包的名称之后，便可以使用如下命令从软件仓库安装包。</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>命令</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Debian / Ubuntu</td>
+<td>sudo apt-get install 包名</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>sudo apt-get install 包1 包2 …</td>
+<td>安装所有列出的包</td>
+</tr>
+<tr>
+<td></td>
+<td>sudo apt-get install -y 包名</td>
+<td>无需提示直接安装</td>
+</tr>
+<tr>
+<td>CentOS</td>
+<td>sudo yum install 包名</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>sudo yum install 包1 包2 …</td>
+<td>安装所有列出的包</td>
+</tr>
+<tr>
+<td></td>
+<td>sudo yum install -y 包名</td>
+<td>无需提示直接安装</td>
+</tr>
+<tr>
+<td>Fedora</td>
+<td>sudo dnf install 包名</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>sudo dnf install 包1 包2 …</td>
+<td>安装所有列出的包</td>
+</tr>
+<tr>
+<td></td>
+<td>sudo dnf install -y 包名</td>
+<td>无需提示直接安装</td>
+</tr>
+</tbody>
+</table>
+<h4 id="7-从本地文件系统直接安装包"><a href="#7-从本地文件系统直接安装包" class="headerlink" title="7.从本地文件系统直接安装包"></a>7.从本地文件系统直接安装包</h4><p>很多时候，我们在进行测试或从某个地方直接拿到软件包之后需要从本地文件系统直接安装包。Debian 及衍生系统可以使用 dpkg 进行安装，CentOS 和 Fedora 系统使用 yum 和 dnf 命令进行安装。</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>命令</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Debian / Ubuntu</td>
+<td>sudo dpkg -i 包名.deb</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>sudo apt-get install -y gdebi&amp;&amp; sudo gdebi 包名.deb</td>
+<td>使用gdebi检索缺少的依赖关系</td>
+</tr>
+<tr>
+<td>CentOS</td>
+<td>sudo yum install 包名.rpm</td>
+<td></td>
+</tr>
+<tr>
+<td>Fedora</td>
+<td>sudo dnf install 包名.rpm</td>
+</tr>
+</tbody>
+</table>
+<h4 id="8-移除已安装的包"><a href="#8-移除已安装的包" class="headerlink" title="8.移除已安装的包"></a>8.移除已安装的包</h4><p>由于包管理器知道哪些文件是由哪个包提供的，所以在卸载不需要的软件包之后通常可以获得一个干净的系统。</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>命令</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Debian / Ubuntu</td>
+<td>sudo apt-get remove 包名</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>sudo apt-get autoremove</td>
+<td>自动移除已知不需要的包</td>
+</tr>
+<tr>
+<td>CentOS</td>
+<td>sudo yum remove 包名</td>
+<td></td>
+</tr>
+<tr>
+<td>Fedora</td>
+<td>sudo dnf erase 包名</td>
+</tr>
+</tbody>
+</table>
+<h4 id="9-动手安装qtcreator，firefox"><a href="#9-动手安装qtcreator，firefox" class="headerlink" title="9.动手安装qtcreator，firefox"></a>9.动手安装qtcreator，firefox</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo dnf install -y qtcreator</div><div class="line">$ sudo dnf install -y firefox</div></pre></td></tr></table></figure>
+<h4 id="10-编译源码方式，安装nginx"><a href="#10-编译源码方式，安装nginx" class="headerlink" title="10.编译源码方式，安装nginx"></a>10.编译源码方式，安装nginx</h4><ul>
+<li><a href="http://nginx.org/download/nginx-1.11.10.tar.gz" target="_blank" rel="external">点击</a>下载nginx源码</li>
+<li><p>解压源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar zxvf nginx-1.11.10.tar.gz</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置并编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cd nginx-1.11.10</div><div class="line">$ ./configure --without-http_rewrite_module --without-http_gzip_module</div><div class="line">$ make</div></pre></td></tr></table></figure>
+</li>
+<li><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo make install</div></pre></td></tr></table></figure>
+</li>
+<li><p>运行nginx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo /usr/local/nginx/sbin/nginx</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>打开firefox，访问<a href="http://127.0.0.1" target="_blank" rel="external">http://127.0.0.1</a><br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_5/20170319234932.png" alt="image"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj0gv7cpl000o9wufnw0jclmg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-course/embeded/lesson_4" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/19/course/embeded/lesson_4/" class="article-date">
@@ -93,7 +438,7 @@
         <hr>
 <h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="修改账号密码"><a href="#修改账号密码" class="headerlink" title="修改账号密码"></a>修改账号密码</h4><h4 id="用户组管理"><a href="#用户组管理" class="headerlink" title="用户组管理"></a>用户组管理</h4><h4 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h4><hr>
 <p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_4/user.jpg" alt="image"></p>
-<h5 id="Linux和Windows最大不同之处，就是从账号登录开始。Windows下大多数用户习惯开机即用，跳过登录窗口。而Linux环境则强制用户选择账号密码登录。虽然Linux整体账号设计比Windows更严谨，但增强我们的安全意识更重要。"><a href="#Linux和Windows最大不同之处，就是从账号登录开始。Windows下大多数用户习惯开机即用，跳过登录窗口。而Linux环境则强制用户选择账号密码登录。虽然Linux整体账号设计比Windows更严谨，但增强我们的安全意识更重要。" class="headerlink" title="Linux和Windows最大不同之处，就是从账号登录开始。Windows下大多数用户习惯开机即用，跳过登录窗口。而Linux环境则强制用户选择账号密码登录。虽然Linux整体账号设计比Windows更严谨，但增强我们的安全意识更重要。"></a>Linux和Windows最大不同之处，就是从账号登录开始。Windows下大多数用户习惯开机即用，跳过登录窗口。而Linux环境则强制用户选择账号密码登录。虽然Linux整体账号设计比Windows更严谨，但增强我们的安全意识更重要。</h5><h5 id="对于初学者，习惯拿root账号登录和后续操作，须不知会埋下诸多雷。因为root权限下访问和生成的一些文件，切换成其他账号登录后，很可能无对等权限访问的。也有人会说，这个Linux系统就我一人使用，拿root登录可不可以，答案当然是可以。但你要清楚root权限下操作对系统所带来的影响。root账号拥有系统最高权限，所谓权利越大，责任越大。"><a href="#对于初学者，习惯拿root账号登录和后续操作，须不知会埋下诸多雷。因为root权限下访问和生成的一些文件，切换成其他账号登录后，很可能无对等权限访问的。也有人会说，这个Linux系统就我一人使用，拿root登录可不可以，答案当然是可以。但你要清楚root权限下操作对系统所带来的影响。root账号拥有系统最高权限，所谓权利越大，责任越大。" class="headerlink" title="对于初学者，习惯拿root账号登录和后续操作，须不知会埋下诸多雷。因为root权限下访问和生成的一些文件，切换成其他账号登录后，很可能无对等权限访问的。也有人会说，这个Linux系统就我一人使用，拿root登录可不可以，答案当然是可以。但你要清楚root权限下操作对系统所带来的影响。root账号拥有系统最高权限，所谓权利越大，责任越大。"></a>对于初学者，习惯拿root账号登录和后续操作，须不知会埋下诸多雷。因为root权限下访问和生成的一些文件，切换成其他账号登录后，很可能无对等权限访问的。也有人会说，这个Linux系统就我一人使用，拿root登录可不可以，答案当然是可以。但你要清楚root权限下操作对系统所带来的影响。root账号拥有系统最高权限，所谓权利越大，责任越大。</h5><h5 id="建议玩法：创建一个非root账号登录，需要更高权限执行命令时，可以在命令前加sudo，sudo命令的含义是以root权限执行。"><a href="#建议玩法：创建一个非root账号登录，需要更高权限执行命令时，可以在命令前加sudo，sudo命令的含义是以root权限执行。" class="headerlink" title="建议玩法：创建一个非root账号登录，需要更高权限执行命令时，可以在命令前加sudo，sudo命令的含义是以root权限执行。"></a>建议玩法：创建一个非root账号登录，需要更高权限执行命令时，可以在命令前加sudo，sudo命令的含义是以root权限执行。</h5><h4 id="1-修改账号密码"><a href="#1-修改账号密码" class="headerlink" title="1. 修改账号密码"></a>1. 修改账号密码</h4><p>  查看当前账号<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ whoami   // 显示当前账户</div><div class="line">highsung</div><div class="line">$ su root  // 切换到root</div><div class="line">密码：</div><div class="line"># whoami</div><div class="line">root</div><div class="line"># su highsung</div><div class="line">$</div></pre></td></tr></table></figure></p>
+<h5 id="Linux和Windows最大不同之处，就是从账号登录开始。Windows下大多数用户习惯开机即用，跳过登录窗口。而Linux环境则强制用户选择账号密码登录。虽然Linux整体账号设计比Windows更严谨，但增强我们的安全意识更重要。"><a href="#Linux和Windows最大不同之处，就是从账号登录开始。Windows下大多数用户习惯开机即用，跳过登录窗口。而Linux环境则强制用户选择账号密码登录。虽然Linux整体账号设计比Windows更严谨，但增强我们的安全意识更重要。" class="headerlink" title="Linux和Windows最大不同之处，就是从账号登录开始。Windows下大多数用户习惯开机即用，跳过登录窗口。而Linux环境则强制用户选择账号密码登录。虽然Linux整体账号设计比Windows更严谨，但增强我们的安全意识更重要。"></a>Linux和Windows最大不同之处，就是从账号登录开始。Windows下大多数用户习惯开机即用，跳过登录窗口。而Linux环境则强制用户选择账号密码登录。虽然Linux整体账号设计比Windows更严谨，但增强我们的安全意识更重要。</h5><h5 id="对于初学者，习惯拿root账号登录和后续操作，须不知会埋下诸多雷。因为root权限下访问和生成的一些文件，切换成其他账号登录后，很可能无对等权限访问。也有人会说，这个Linux系统就我一人使用，拿root登录可不可以，答案当然是可以。但你要清楚root权限下操作对系统所带来的影响。root账号拥有系统最高权限，所谓权利越大，责任越大。"><a href="#对于初学者，习惯拿root账号登录和后续操作，须不知会埋下诸多雷。因为root权限下访问和生成的一些文件，切换成其他账号登录后，很可能无对等权限访问。也有人会说，这个Linux系统就我一人使用，拿root登录可不可以，答案当然是可以。但你要清楚root权限下操作对系统所带来的影响。root账号拥有系统最高权限，所谓权利越大，责任越大。" class="headerlink" title="对于初学者，习惯拿root账号登录和后续操作，须不知会埋下诸多雷。因为root权限下访问和生成的一些文件，切换成其他账号登录后，很可能无对等权限访问。也有人会说，这个Linux系统就我一人使用，拿root登录可不可以，答案当然是可以。但你要清楚root权限下操作对系统所带来的影响。root账号拥有系统最高权限，所谓权利越大，责任越大。"></a>对于初学者，习惯拿root账号登录和后续操作，须不知会埋下诸多雷。因为root权限下访问和生成的一些文件，切换成其他账号登录后，很可能无对等权限访问。也有人会说，这个Linux系统就我一人使用，拿root登录可不可以，答案当然是可以。但你要清楚root权限下操作对系统所带来的影响。root账号拥有系统最高权限，所谓权利越大，责任越大。</h5><h5 id="建议玩法：创建一个非root账号登录，需要更高权限执行命令时，可以在命令前加sudo，sudo命令的含义是以root权限执行。"><a href="#建议玩法：创建一个非root账号登录，需要更高权限执行命令时，可以在命令前加sudo，sudo命令的含义是以root权限执行。" class="headerlink" title="建议玩法：创建一个非root账号登录，需要更高权限执行命令时，可以在命令前加sudo，sudo命令的含义是以root权限执行。"></a>建议玩法：创建一个非root账号登录，需要更高权限执行命令时，可以在命令前加sudo，sudo命令的含义是以root权限执行。</h5><h4 id="1-修改账号密码"><a href="#1-修改账号密码" class="headerlink" title="1. 修改账号密码"></a>1. 修改账号密码</h4><p>  查看当前账号<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ whoami   // 显示当前账户</div><div class="line">highsung</div><div class="line">$ su root  // 切换到root</div><div class="line">密码：</div><div class="line"># whoami</div><div class="line">root</div><div class="line"># su highsung</div><div class="line">$</div></pre></td></tr></table></figure></p>
 <p>  修改密码，fedora25中密码必须是8个及以上字符，且不能全是数字。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ passwd</div><div class="line">更改用户 highsung 的密码 。</div><div class="line">为 highsung 更改 STRESS 密码。</div><div class="line">Current password:</div><div class="line">新的 密码：</div><div class="line">重新输入新的 密码：</div><div class="line">passwd：所有的身份验证令牌已经成功更新。</div></pre></td></tr></table></figure></p>
 <p>  当然也可在root账号下，修改其他账号密码。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ su root</div><div class="line">密码：</div><div class="line"># passwd highsung</div><div class="line">更改用户 highsung 的密码 。</div><div class="line">新的 密码：</div><div class="line">重新输入新的 密码：</div><div class="line">passwd：所有的身份验证令牌已经成功更新。</div></pre></td></tr></table></figure></p>
 <h4 id="2-用户组管理"><a href="#2-用户组管理" class="headerlink" title="2. 用户组管理"></a>2. 用户组管理</h4><p>在操作用户组前，我们先来看看/etc/passwd，/etc/shadow，/etc/group这三个文件内容。<br>/etc/passwd中每一行记录着一个用户信息，每行记录被冒号(:)分隔为7个字段，其格式和具体含义如下：<br>用户名:口令:用户标识ID:组标识ID:注释性描述:主目录:登录Shell。<br>下面的口令字段都是x，代表这项没有值。因为所有用户的口令信息都存放在/etc/shadow中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ sudo cat /etc/passwd</div><div class="line">root:x:0:0:root:/root:/bin/bash</div><div class="line">bin:x:1:1:bin:/bin:/sbin/nologin</div><div class="line">daemon:x:2:2:daemon:/sbin:/sbin/nologin</div><div class="line">...</div><div class="line">highsung:x:1000:1000:highsung:/home/highsung:/bin/bash</div></pre></td></tr></table></figure></p>
@@ -128,10 +473,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj0gqgolu000nvsufynwtdfk5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj0gv7cpe000k9wufi2uhpklm" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
 
     </footer>
   </div>
@@ -154,7 +499,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/16/course/embeded/lesson_3/">嵌入式开发-（3）Linux常用命令-文件操作</a>
+      <a class="article-title" href="/2017/03/16/course/embeded/lesson_3/">（3）Linux常用命令-文件操作</a>
     </h1>
   
 
@@ -220,10 +565,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj0gqgolp000jvsufdcvn6r0l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj0gv7cpj000n9wufh43i6qcg" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
 
     </footer>
   </div>
@@ -246,7 +591,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/16/course/embeded/lesson_2/">嵌入式开发-（2）虚拟机和Linux安装使用</a>
+      <a class="article-title" href="/2017/03/16/course/embeded/lesson_2/">（2）虚拟机和Linux安装使用</a>
     </h1>
   
 
@@ -418,10 +763,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0gqgols000mvsufxnzcf34p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0gv7cpg000m9wuft6zogt3t" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
 
     </footer>
   </div>
@@ -444,7 +789,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/16/course/embeded/lesson_1/">嵌入式开发-（1）课程介绍</a>
+      <a class="article-title" href="/2017/03/16/course/embeded/lesson_1/">（1）课程介绍</a>
     </h1>
   
 
@@ -489,10 +834,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0gqgolq000kvsufzwbbgy6z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0gv7cpd000j9wufke9joxxs" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
 
     </footer>
   </div>
@@ -528,7 +873,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj0gqgom5000xvsuf8pluuq6x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj0gv7cq100139wuf0edspnvc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大学生实训/">大学生实训</a></li></ul>
@@ -572,7 +917,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/cdut/" data-id="cj0gqgolv000ovsufq4ew0muq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/14/school/cdut/cdut/" data-id="cj0gv7cpp000r9wufdaed9k9y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/校园采风/">校园采风</a></li></ul>
@@ -623,7 +968,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/13/hexo/hexo部署博文到github/" data-id="cj0gqgolh000gvsuff9cqxa9o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/13/hexo/hexo部署博文到github/" data-id="cj0gv7cp5000g9wufrkbyfyin" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo-git/">hexo git</a></li></ul>
@@ -647,7 +992,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-git/">hexo git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大学生实训/">大学生实训</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/校园采风/">校园采风</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-git/">hexo git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大学生实训/">大学生实训</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/校园采风/">校园采风</a></li></ul>
     </div>
   </div>
 
@@ -657,7 +1002,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/hexo-git/" style="font-size: 10px;">hexo git</a> <a href="/tags/大学生实训/" style="font-size: 10px;">大学生实训</a> <a href="/tags/嵌入式开发/" style="font-size: 20px;">嵌入式开发</a> <a href="/tags/校园采风/" style="font-size: 10px;">校园采风</a>
+      <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/hexo-git/" style="font-size: 10px;">hexo git</a> <a href="/tags/大学生实训/" style="font-size: 10px;">大学生实训</a> <a href="/tags/嵌入式开发/" style="font-size: 20px;">嵌入式开发</a> <a href="/tags/校园采风/" style="font-size: 10px;">校园采风</a>
     </div>
   </div>
 
@@ -679,23 +1024,23 @@
       <ul>
         
           <li>
+            <a href="/2017/03/19/course/embeded/lesson_5/">（5）Linux常用命令-软件管理</a>
+          </li>
+        
+          <li>
             <a href="/2017/03/19/course/embeded/lesson_4/">嵌入式开发-（4）Linux常用命令-账号管理</a>
           </li>
         
           <li>
-            <a href="/2017/03/16/course/embeded/lesson_3/">嵌入式开发-（3）Linux常用命令-文件操作</a>
+            <a href="/2017/03/16/course/embeded/lesson_3/">（3）Linux常用命令-文件操作</a>
           </li>
         
           <li>
-            <a href="/2017/03/16/course/embeded/lesson_2/">嵌入式开发-（2）虚拟机和Linux安装使用</a>
+            <a href="/2017/03/16/course/embeded/lesson_2/">（2）虚拟机和Linux安装使用</a>
           </li>
         
           <li>
-            <a href="/2017/03/16/course/embeded/lesson_1/">嵌入式开发-（1）课程介绍</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/14/school/cdut/2017/shixun_0227_0310/">成都理工计科学院14级嵌入式实训</a>
+            <a href="/2017/03/16/course/embeded/lesson_1/">（1）课程介绍</a>
           </li>
         
       </ul>
