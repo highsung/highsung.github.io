@@ -17,7 +17,7 @@
 大多数现代类 Unix 操作系统都提供了一个集中的软件包管理机制，以帮助用户搜索、安装和管理软件。而软件通常以「包」的形式存储在仓库「repository」中，对软件包的使用和管理被称为包管理。而 Linux 包的基本组成部分通常有：共享库、应用程序、服务和文档。包管理通常不仅限于软件的一次性安装，还包括了对已安装软件包进行">
 <meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_5/install_soft.jpg">
 <meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_5/20170319234932.png">
-<meta property="og:updated_time" content="2017-03-20T02:20:13.080Z">
+<meta property="og:updated_time" content="2017-03-20T05:30:11.747Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（5）Linux常用命令-软件管理">
 <meta name="twitter:description" content="内容Linux系统分类软件包安装原理和命令在线安装和手动下载源码安装
@@ -136,7 +136,7 @@
 <p>Debian及其衍生产品如：Ubuntu、Linux Mint 和 Raspbian 的安装包格式为.deb文件，apt-get是最常见包操作命令，可搜索库、安装包及其依赖和管理升级。而要直接安装现成.deb包时需要使用dpkg命令。</p>
 <p>CentOS、Fedora及Red Hat系列Linux使用RPM安装包文件，并使用yum命令管理包文件。</p>
 <p>在最新的Fedora版本中，yum命令已被dnf取代进行包管理。</p>
-<h4 id="2-更新本地包数据库列表"><a href="#2-更新本地包数据库列表" class="headerlink" title="2.更新本地包数据库列表"></a>2.更新本地包数据库列表</h4><p>大多数 Linux 都使用本地数据库来存储远程可用的包仓库列表，所以在安装或升级包之前最好更新一下这个数据库。</p>
+<h4 id="2-更新本地包数据库列表"><a href="#2-更新本地包数据库列表" class="headerlink" title="2. 更新本地包数据库列表"></a>2. 更新本地包数据库列表</h4><p>大多数 Linux 都使用本地数据库来存储远程可用的包仓库列表，所以在安装或升级包之前最好更新一下这个数据库。</p>
 <table>
 <thead>
 <tr>
@@ -159,7 +159,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="3-升级已安装的包"><a href="#3-升级已安装的包" class="headerlink" title="3.升级已安装的包"></a>3.升级已安装的包</h4><p>在没有包管理方式时，要升级并保持 Linux 已装软件处在最新版本是一个巨大的工程，管理员和用户不得不手动跟踪上游软件版本变化及安全警告。在有了包管理系统之后，只需几条命令便可保持软件最新。</p>
+<h4 id="3-升级已安装的包"><a href="#3-升级已安装的包" class="headerlink" title="3. 升级已安装的包"></a>3. 升级已安装的包</h4><p>在没有包管理方式时，要升级并保持 Linux 已装软件处在最新版本是一个巨大的工程，管理员和用户不得不手动跟踪上游软件版本变化及安全警告。在有了包管理系统之后，只需几条命令便可保持软件最新。</p>
 <table>
 <thead>
 <tr>
@@ -190,7 +190,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="4-查找-搜索软件包"><a href="#4-查找-搜索软件包" class="headerlink" title="4.查找/搜索软件包"></a>4.查找/搜索软件包</h4><p>大多数 Linux 桌面版本都提供用户可搜索和安装软包的界面，这是找寻和安装软件的最佳方法。但对于追求效率和服务器管理员来说，使用命令行工具查找/搜索软件包才是正途。</p>
+<h4 id="4-查找-搜索软件包"><a href="#4-查找-搜索软件包" class="headerlink" title="4. 查找/搜索软件包"></a>4. 查找/搜索软件包</h4><p>大多数 Linux 桌面版本都提供用户可搜索和安装软包的界面，这是找寻和安装软件的最佳方法。但对于追求效率和服务器管理员来说，使用命令行工具查找/搜索软件包才是正途。</p>
 <table>
 <thead>
 <tr>
@@ -227,7 +227,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="5-查看某个软件包信息"><a href="#5-查看某个软件包信息" class="headerlink" title="5.查看某个软件包信息"></a>5.查看某个软件包信息</h4><p>在决定安装哪个包之前，我们往往都需要查看该软件包的详细说明。包的说明文件中通常包括：包名、版本号及依赖列表等元数据，可以使用如下命令来查看。</p>
+<h4 id="5-查看某个软件包信息"><a href="#5-查看某个软件包信息" class="headerlink" title="5. 查看某个软件包信息"></a>5. 查看某个软件包信息</h4><p>在决定安装哪个包之前，我们往往都需要查看该软件包的详细说明。包的说明文件中通常包括：包名、版本号及依赖列表等元数据，可以使用如下命令来查看。</p>
 <table>
 <thead>
 <tr>
@@ -269,7 +269,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="6-从软件仓库安装包"><a href="#6-从软件仓库安装包" class="headerlink" title="6.从软件仓库安装包"></a>6.从软件仓库安装包</h4><p>一旦我们知道某个软件包的名称之后，便可以使用如下命令从软件仓库安装包。</p>
+<h4 id="6-从软件仓库安装包"><a href="#6-从软件仓库安装包" class="headerlink" title="6. 从软件仓库安装包"></a>6. 从软件仓库安装包</h4><p>一旦我们知道某个软件包的名称之后，便可以使用如下命令从软件仓库安装包。</p>
 <table>
 <thead>
 <tr>
@@ -326,7 +326,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="7-从本地文件系统直接安装包"><a href="#7-从本地文件系统直接安装包" class="headerlink" title="7.从本地文件系统直接安装包"></a>7.从本地文件系统直接安装包</h4><p>很多时候，我们在进行测试或从某个地方直接拿到软件包之后需要从本地文件系统直接安装包。Debian 及衍生系统可以使用 dpkg 进行安装，CentOS 和 Fedora 系统使用 yum 和 dnf 命令进行安装。</p>
+<h4 id="7-从本地文件系统直接安装包"><a href="#7-从本地文件系统直接安装包" class="headerlink" title="7. 从本地文件系统直接安装包"></a>7. 从本地文件系统直接安装包</h4><p>很多时候，我们在进行测试或从某个地方直接拿到软件包之后需要从本地文件系统直接安装包。Debian 及衍生系统可以使用 dpkg 进行安装，CentOS 和 Fedora 系统使用 yum 和 dnf 命令进行安装。</p>
 <table>
 <thead>
 <tr>
@@ -357,7 +357,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="8-移除已安装的包"><a href="#8-移除已安装的包" class="headerlink" title="8.移除已安装的包"></a>8.移除已安装的包</h4><p>由于包管理器知道哪些文件是由哪个包提供的，所以在卸载不需要的软件包之后通常可以获得一个干净的系统。</p>
+<h4 id="8-移除已安装的包"><a href="#8-移除已安装的包" class="headerlink" title="8. 移除已安装的包"></a>8. 移除已安装的包</h4><p>由于包管理器知道哪些文件是由哪个包提供的，所以在卸载不需要的软件包之后通常可以获得一个干净的系统。</p>
 <table>
 <thead>
 <tr>
@@ -375,7 +375,7 @@
 <tr>
 <td></td>
 <td>sudo apt-get autoremove</td>
-<td>自动移除已知不需要的包</td>
+<td>自动移除不需要的包</td>
 </tr>
 <tr>
 <td>CentOS</td>
@@ -388,8 +388,8 @@
 </tr>
 </tbody>
 </table>
-<h4 id="9-动手安装qtcreator，firefox"><a href="#9-动手安装qtcreator，firefox" class="headerlink" title="9.动手安装qtcreator，firefox"></a>9.动手安装qtcreator，firefox</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo dnf install -y qtcreator</div><div class="line">$ sudo dnf install -y firefox</div></pre></td></tr></table></figure>
-<h4 id="10-编译源码方式，安装nginx"><a href="#10-编译源码方式，安装nginx" class="headerlink" title="10.编译源码方式，安装nginx"></a>10.编译源码方式，安装nginx</h4><ul>
+<h4 id="9-动手安装qtcreator，firefox"><a href="#9-动手安装qtcreator，firefox" class="headerlink" title="9. 动手安装qtcreator，firefox"></a>9. 动手安装qtcreator，firefox</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo dnf install -y qtcreator</div><div class="line">$ sudo dnf install -y firefox</div></pre></td></tr></table></figure>
+<h4 id="10-编译源码方式，安装nginx"><a href="#10-编译源码方式，安装nginx" class="headerlink" title="10. 编译源码方式，安装nginx"></a>10. 编译源码方式，安装nginx</h4><ul>
 <li><a href="http://nginx.org/download/nginx-1.11.10.tar.gz" target="_blank" rel="external">点击</a>下载nginx源码</li>
 <li><p>解压源码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar zxvf nginx-1.11.10.tar.gz</div></pre></td></tr></table></figure>
@@ -409,7 +409,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj0hhkqoi000kk0ufln4vo0c0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj0i5esz90018goufxnp1dwwx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
