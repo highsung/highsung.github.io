@@ -68,6 +68,350 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-course/embeded/lesson_7" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/20/course/embeded/lesson_7/" class="article-date">
+  <time datetime="2017-03-20T05:37:00.000Z" itemprop="datePublished">2017-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/20/course/embeded/lesson_7/">（7）Linux Shell</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="Shell简介"><a href="#Shell简介" class="headerlink" title="Shell简介"></a>Shell简介</h4><h4 id="Shell配置和操作"><a href="#Shell配置和操作" class="headerlink" title="Shell配置和操作"></a>Shell配置和操作</h4><h4 id="Shell脚本"><a href="#Shell脚本" class="headerlink" title="Shell脚本"></a>Shell脚本</h4><hr>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_7/link.jpg" alt="image"></p>
+<h5 id="Shell-是操作系统的外壳，是用户使用操作系统的命令接口；接受用户以命令行方式输入的命令-包括系统提供的内部命令、独立存在于某个目录下的程序），同时也能解释执行由Shell命令编写的Shell程序。"><a href="#Shell-是操作系统的外壳，是用户使用操作系统的命令接口；接受用户以命令行方式输入的命令-包括系统提供的内部命令、独立存在于某个目录下的程序），同时也能解释执行由Shell命令编写的Shell程序。" class="headerlink" title="Shell 是操作系统的外壳，是用户使用操作系统的命令接口；接受用户以命令行方式输入的命令(包括系统提供的内部命令、独立存在于某个目录下的程序），同时也能解释执行由Shell命令编写的Shell程序。"></a>Shell 是操作系统的外壳，是用户使用操作系统的命令接口；接受用户以命令行方式输入的命令(包括系统提供的内部命令、独立存在于某个目录下的程序），同时也能解释执行由Shell命令编写的Shell程序。</h5><h5 id="Shell、用户和内核的关系见下图："><a href="#Shell、用户和内核的关系见下图：" class="headerlink" title="Shell、用户和内核的关系见下图："></a>Shell、用户和内核的关系见下图：</h5><p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_7/shell.png" alt="image"></p>
+<p>从上图中可以看出，Shell是用户和Linux系统之间交互的桥梁。黑客，有个性的程序员或工程师习惯在Shell中输入各种命令和配置指令。界面的各种炫，对他们来说都是out之物。</p>
+<h6 id="1-Shell大概工作流程："><a href="#1-Shell大概工作流程：" class="headerlink" title="1. Shell大概工作流程："></a>1. Shell大概工作流程：</h6><ul>
+<li>接受来自键盘的命令</li>
+<li>检查命令的正确性</li>
+<li>命令错误则给出报错信息</li>
+<li>命令正确则使用相应的系统调用执行命令(产生进程)</li>
+<li>命令执行完毕，给出命令执行的结果</li>
+</ul>
+<hr>
+<p>执行过程：分为前台执行和后台执行<br>前台：Shell 要等待命令（进程）结束，才恢复自身的运行，即回到终端提示符。<br>后台：Shell 不必等待命令（进程）结束，就恢复自身的运行，即回到终端提示符。在执行时命令后&amp;，例：$ gcc m.c&amp;</p>
+<h6 id="2-Shell分类："><a href="#2-Shell分类：" class="headerlink" title="2. Shell分类："></a>2. Shell分类：</h6><p>目前主要有下列版本的Shell：</p>
+<ul>
+<li>Bourne Shell：贝尔实验室开发</li>
+<li>Bash：GNU的Bourne Again Shell，是GNU操作系统上的默认Shell。</li>
+<li>Korn Shell：是对Bourne Shell扩展，大部分通它一样。</li>
+<li>C Shell：SUN公司Shell的BSD版本。<br>查看当前Linux账号Shell版本，采用的GNU bash。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/passwd</div><div class="line">highsung:x:1000:1000:highsung:/home/highsung:/bin/bash</div><div class="line">user2:x:1002:1001::/home/user2:/bin/bash</div><div class="line">user11:x:1001:1002::/home/user1:/bin/bash</div><div class="line">$ bash --version</div><div class="line">GNU bash，版本 4.3.43(1)-release (x86_64-redhat-linux-gnu)</div><div class="line">Copyright (C) 2013 Free Software Foundation, Inc.</div><div class="line">许可证 GPLv3+: GNU GPL 许可证第三版或者更新版本 &lt;http://gnu.org/licenses/gpl.html&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h6 id="3-Shell相关配置"><a href="#3-Shell相关配置" class="headerlink" title="3. Shell相关配置"></a>3. Shell相关配置</h6><ul>
+<li><p>Linux中每个用户都可指定他的Shell。<br>示例：useradd -s选项指定，无指定则用系统默认Shell程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">useradd -s /bin/bash</div></pre></td></tr></table></figure>
+<p>highsung、user2、user11都是系统默认Shell程序：/bin/bash。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/passwd</div><div class="line">highsung:x:1000:1000:highsung:/home/highsung:/bin/bash</div><div class="line">user2:x:1002:1001::/home/user2:/bin/bash</div><div class="line">user11:x:1001:1002::/home/user1:/bin/bash</div></pre></td></tr></table></figure>
+</li>
+<li><p>Shell的配置，Linux系统中每个用户都有各自的Shell工作环境，这样会导致命令提示，环境变量等的不一致。</p>
+<ul>
+<li>这些环境配置，集中在主目录下的.bash_profile，.bashrc，.bash_history文件。</li>
+<li>.bashrc读取全局的/etc/bashrc的配置，.bahs_profile又读取.bashrc中的配置。</li>
+<li>从上面的逻辑可以看出，可以把个性化的配置保存在.bahs_profile，全局配置保存在/etc/bashrc。</li>
+<li>命令历史是Bash提供的一种功能，它保存了最近执行过的1000条命令，保存在.bash_history文件中。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$HISTFILESIZE 定义.bash_history存放历史记录的个数</div><div class="line">$ echo $HISTFILESIZE</div><div class="line">1000</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h6 id="5-Shell基本操作"><a href="#5-Shell基本操作" class="headerlink" title="5. Shell基本操作:"></a>5. Shell基本操作:</h6><ul>
+<li><p>Shell的启动和退出<br>用户在成功登录进入系统后，系统提供产生一个特定的Shell的拷贝(这是用户的第一个进程)负责解释执行用户的命令或Shell脚本。在系统提示符后用户键入的命令或Shell脚本名，来执行特定的命令或Shell脚本，用户希望中止命令或脚本的执行，可以用【ctrl+c】。<br>用户结束工作希望退出系统，可以按下面的键或命令:<br>【ctrl+d】<br>exit  命令<br>logout 命令</p>
+</li>
+<li><p>查看历史命令<br>历史命令就是上次在Shell中输入的命令。前面已经提到，历史命令保存在主目录下.bash_history。</p>
+<ul>
+<li><p>通过history命令查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ history</div><div class="line">  1  ls</div><div class="line">  2  rm /1</div><div class="line">  3  sudo rm /1</div><div class="line">  4  clear</div><div class="line">  5  ls</div><div class="line">  6  ls /</div><div class="line">  7  ls</div><div class="line">  8  ls / -al</div><div class="line">  9  clear</div><div class="line"> 10  ls / -al</div></pre></td></tr></table></figure>
+</li>
+<li><p>执行历史命令<br>!n:  执行编号为n的命令历史.<br>!-n: 执行命令历史中倒数第n个命令.<br>!!:  执行上一个历史命令.（在历史记录中不加入）<br>!字符串:  执行以“字符串”开头的历史命令.<br>!?字符串?: 执行包含“字符串”的历史命令.</p>
+</li>
+<li><p>命令历史的配置<br>给环境变量HISTFILE赋值，给出与.bash_history 不同的文件保存命令历史,例如： HISTFILE=newfile。<br>给环境变量HISTFILESIZE赋值，给出命令历史文件保存历史事件的个数,例如： HISTFILESIZE=1000。</p>
+</li>
+<li><p>别名，在Bash中可以使用alias命令为命令取一个别名，其中别名的内容可以是命令名、选项和参数。别名可以使用户键入命令时变得方便、简单。可以使用unalias命令来取消别名。</p>
+<ul>
+<li>定义别名格式：alias  [别名=“原命令”]<ul>
+<li>原命令中包含命令名、选项和参数。</li>
+<li>原命令中如有空格或特殊字符，应将其用单引号括起来。</li>
+<li>等号=边不能有空格</li>
+<li>不带任何参数的 alias  命令则显示已经定义的别名及其对应的命令。</li>
+<li>本次登录建立的别名仅在本次登录有效，如果希望在每次登录都有效，应把alias 命令写入初始化脚本文件~/.bash_profile。</li>
+</ul>
+</li>
+<li>例子：<br>$ alias  .. =’cd ..’<br>$ alias  cp =’cp -i’<br>$ alias  ll =’ls -l’</li>
+<li>取消别名格式：unalias  别名<br>例：$unalias ll<br>$alias ll<br>ll:alias not found</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Shell特殊字符<ul>
+<li>通配符<br>?:  表示任意的单个字符<br>*:  表示任意长的任意的字符串<br>[ ]:  表示匹配放在 [ ] 中的字符集中的单个字符</li>
+<li>例子：<br>*   表示当前目录下的所有文件<br>f<em>  表示当前目录下以f 开头的文件<br>\</em>.txt  表示当前目录下以.txt结尾的文件<br>*sh*   表示当前目录下所有名字包含sh 的文件<br>x[ml]   表示当前目录下以xm 或xl 开头的所有文件</li>
+</ul>
+</li>
+</ul>
+<h6 id="6-Shell脚本"><a href="#6-Shell脚本" class="headerlink" title="6. Shell脚本:"></a>6. Shell脚本:</h6><p>用户可以将Linux的命令（文件，用户，网络等命令）以编程的方式组合起来提交给Shell，Shell负责解释执行这种程序设计语言。Linux把由这种程序设计语言构成的文件称为Shell Script，或Shell脚本。</p>
+<ul>
+<li><p>新建sh1.sh文件，内容“#!/bin/bash echo “hello bash””，增加可运行权限，再执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ vi sh1.sh</div><div class="line">#!/bin/bash</div><div class="line">echo &quot;hello bash&quot;</div><div class="line">$ chmod +x sh1.sh</div><div class="line">$ ./sh1.sh</div><div class="line">hello bash</div></pre></td></tr></table></figure>
+<ul>
+<li>第一行的#!后指定Shell类型</li>
+<li>文中#代表注释符</li>
+<li>Shell脚本文件需+x权限才可执行</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj0jl14q000122ouf0j860ktw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-course/embeded/lesson_6" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/20/course/embeded/lesson_6/" class="article-date">
+  <time datetime="2017-03-20T02:24:00.000Z" itemprop="datePublished">2017-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/20/course/embeded/lesson_6/">（6）Linux常用命令-进程和网络管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h4><h4 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h4><hr>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_5/install_soft.jpg" alt="image"></p>
+<h5 id="进程管理主要涉及查看，查找当前运行进程ID，名称，CPU，内存等占用情况，杀死某些进程。"><a href="#进程管理主要涉及查看，查找当前运行进程ID，名称，CPU，内存等占用情况，杀死某些进程。" class="headerlink" title="进程管理主要涉及查看，查找当前运行进程ID，名称，CPU，内存等占用情况，杀死某些进程。"></a>进程管理主要涉及查看，查找当前运行进程ID，名称，CPU，内存等占用情况，杀死某些进程。</h5><h5 id="网络管理方面，查看系统网络适配器状态，启动，关闭网络适配器。ping某个IP是否被占用，修改主机IP地址和netmask。"><a href="#网络管理方面，查看系统网络适配器状态，启动，关闭网络适配器。ping某个IP是否被占用，修改主机IP地址和netmask。" class="headerlink" title="网络管理方面，查看系统网络适配器状态，启动，关闭网络适配器。ping某个IP是否被占用，修改主机IP地址和netmask。"></a>网络管理方面，查看系统网络适配器状态，启动，关闭网络适配器。ping某个IP是否被占用，修改主机IP地址和netmask。</h5><h4 id="1-进程管理"><a href="#1-进程管理" class="headerlink" title="1. 进程管理"></a>1. 进程管理</h4><ul>
+<li>查看当前系统进程运行情况，类似于Windows任务管理器<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">$ top</div><div class="line">top - 11:02:20 up  3:04,  0 users,  load average: 0.00, 0.02, 0.03</div><div class="line">Tasks: 147 total,   2 running, 145 sleeping,   0 stopped,   0 zombie</div><div class="line">%Cpu(s):  2.0 us,  0.7 sy,  0.0 ni, 96.6 id,  0.0 wa,  0.7 hi,  0.0 si,  0.0 st</div><div class="line">KiB Mem :   997172 total,   316164 free,   245008 used,   436000 buff/cache</div><div class="line">KiB Swap:  2256892 total,  2221596 free,    35296 used.   540444 avail Mem</div><div class="line"></div><div class="line">   PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND     </div><div class="line">   890 root      20   0  365924  42104  10380 S  1.0  4.2   0:30.62 Xorg        </div><div class="line">  1653 highsung  20   0  640080  23676  17356 S  1.0  2.4   0:11.89 lxterminal  </div><div class="line">  1518 highsung  20   0  388036  16792  12372 S  0.3  1.7   0:14.86 vmtoolsd    </div><div class="line">  1632 highsung  20   0  474348  19304  14828 S  0.3  1.9   0:17.55 clipit      </div><div class="line"> 22461 highsung  20   0  156640   3952   3476 R  0.3  0.4   0:00.03 top         </div><div class="line">     1 root      20   0  149252   7864   6348 S  0.0  0.8   0:02.01 systemd     </div><div class="line">     2 root      20   0       0      0      0 S  0.0  0.0   0:00.03 kthreadd    </div><div class="line">     3 root      20   0       0      0      0 S  0.0  0.0   0:04.10 ksoftirqd/0</div><div class="line">     5 root       0 -20       0      0      0 S  0.0  0.0   0:00.00 kworker/0:+</div><div class="line">     7 root      20   0       0      0      0 S  0.0  0.0   0:00.82 rcu_sched   </div><div class="line">     8 root      20   0       0      0      0 S  0.0  0.0   0:00.00 rcu_bh      </div><div class="line">     9 root      20   0       0      0      0 R  0.0  0.0   0:01.06 rcuos/0     </div><div class="line">    10 root      20   0       0      0      0 S  0.0  0.0   0:00.00 rcuob/0</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>top - 11:02:20</td>
+<td>当前系统时间</td>
+</tr>
+<tr>
+<td>up  3:04</td>
+<td>系统开机时长，格式：小时:分钟</td>
+</tr>
+<tr>
+<td>0 users</td>
+<td>0个登录用户</td>
+</tr>
+<tr>
+<td>load average: 0.00, 0.02, 0.03</td>
+<td>系统负载，即任务队列的平均长度。三个数值分别为 1分钟、5分钟、15分钟前到现在的平均值。</td>
+</tr>
+<tr>
+<td>Tasks: 147 total</td>
+<td>进程总数</td>
+</tr>
+<tr>
+<td>2 running</td>
+<td>正在运行的进程数2个</td>
+</tr>
+<tr>
+<td>145 sleeping</td>
+<td>睡眠的进程数145个</td>
+</tr>
+<tr>
+<td>0 stopped</td>
+<td>停止的进程数0个</td>
+</tr>
+<tr>
+<td>0 zombie</td>
+<td>僵尸进程数0个</td>
+</tr>
+<tr>
+<td>%Cpu(s):  2.0 us</td>
+<td>用户空间占用CPU百分比</td>
+</tr>
+<tr>
+<td>0.7 sy</td>
+<td>内核空间占用CPU百分比</td>
+</tr>
+<tr>
+<td>0.0 ni</td>
+<td>用户进程空间内改变过优先级的进程占用CPU百分比</td>
+</tr>
+<tr>
+<td>96.6 id</td>
+<td>空闲CPU百分比</td>
+</tr>
+<tr>
+<td>0.0 wa</td>
+<td>等待输入输出的CPU时间百分比</td>
+</tr>
+<tr>
+<td>KiB Mem :   997172 total</td>
+<td>物理内存总量</td>
+</tr>
+<tr>
+<td>316164 free</td>
+<td>空闲内存总量</td>
+</tr>
+<tr>
+<td>245008 used</td>
+<td>使用的物理内存总量</td>
+</tr>
+<tr>
+<td>436000 buff/cache</td>
+<td>用作内核缓存的内存量</td>
+</tr>
+<tr>
+<td>KiB Swap:  2256892 total</td>
+<td>交换区总量</td>
+</tr>
+<tr>
+<td>2221596 free</td>
+<td>空闲交换区总量</td>
+</tr>
+<tr>
+<td>35296 used</td>
+<td>使用的交换区总量</td>
+</tr>
+<tr>
+<td>540444 avail Mem</td>
+<td>可用缓冲的交换区总量</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>查找某个进程是否运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">查找firefox是否启动，结果没有</div><div class="line">$ ps aux | grep firefox</div><div class="line">highsung  22559  0.0  0.0 119392   908 pts/0    S+   11:31   0:00 grep --color=auto firefox</div><div class="line">查找nginx是否运行，发现2个进程，1个master，1个worker</div><div class="line">$ ps aux | grep nginx</div><div class="line">root      21802  0.0  0.0  15932   360 ?        Ss   09:50   0:00 nginx: master process /usr/local/nginx/sbin/nginx</div><div class="line">nobody    21803  0.0  0.2  18444  2516 ?        S    09:50   0:00 nginx: worker process</div><div class="line">highsung  22561  0.0  0.0 119392   916 pts/0    S+   11:31   0:00 grep --color=auto nginx</div></pre></td></tr></table></figure>
+</li>
+<li><p>强制杀死某个进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">杀死nignx进程，9是kill信号，21802和21803是进程号</div><div class="line">$ sudo  kill -9 21802</div><div class="line">[sudo] highsung 的密码：</div><div class="line">$ sudo  kill -9 21803</div><div class="line">$ ps aux | grep nginx</div><div class="line">highsung  22603  0.0  0.0 119392   952 pts/0    S+   11:48   0:00 grep --color=auto nginx</div><div class="line">$</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-网络管理"><a href="#2-网络管理" class="headerlink" title="2. 网络管理"></a>2. 网络管理</h4><ul>
+<li>查看网络适配器，发现有2个：ens33和lo。lo是环回地址，适合本机测试访问。外网访问通过ens33通信。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">$ ifconfig</div><div class="line">ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</div><div class="line">        inet 192.168.124.139  netmask 255.255.255.0  broadcast 192.168.124.255</div><div class="line">        inet6 fe80::17b9:bbb6:331d:db1e  prefixlen 64  scopeid 0x20&lt;link&gt;</div><div class="line">        ether 00:0c:29:8e:58:5c  txqueuelen 1000  (Ethernet)</div><div class="line">        RX packets 277372  bytes 331067727 (315.7 MiB)</div><div class="line">        RX errors 0  dropped 0  overruns 0  frame 0</div><div class="line">        TX packets 82261  bytes 5244773 (5.0 MiB)</div><div class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</div><div class="line"></div><div class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</div><div class="line">        inet 127.0.0.1  netmask 255.0.0.0</div><div class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</div><div class="line">        loop  txqueuelen 1  (Local Loopback)</div><div class="line">        RX packets 1227  bytes 317260 (309.8 KiB)</div><div class="line">        RX errors 0  dropped 0  overruns 0  frame 0</div><div class="line">        TX packets 1227  bytes 317260 (309.8 KiB)</div><div class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>flags=4163<up,broadcast,running,multicast></up,broadcast,running,multicast></td>
+<td>UP（网卡开启状态）RUNNING（网卡的网线被接上）MULTICAST（支持组播）</td>
+</tr>
+<tr>
+<td>mtu 1500</td>
+<td>最大物理传输单元字节数</td>
+</tr>
+<tr>
+<td>inet 192.168.124.139</td>
+<td>IP地址</td>
+</tr>
+<tr>
+<td>netmask 255.255.255.0</td>
+<td>子网掩码</td>
+</tr>
+<tr>
+<td>broadcast 192.168.124.255</td>
+<td>广播地址</td>
+</tr>
+<tr>
+<td>ether 00:0c:29:8e:58:5c</td>
+<td>Mac地址</td>
+</tr>
+<tr>
+<td>RX packets 277372  bytes 331067727 (315.7 MiB)</td>
+<td>接收数据包字节数</td>
+</tr>
+<tr>
+<td>RX errors 0  dropped 0  overruns 0  frame 0</td>
+<td>接收错误包，丢包</td>
+</tr>
+<tr>
+<td>TX packets 82261  bytes 5244773 (5.0 MiB)</td>
+<td>发送数据包字节数</td>
+</tr>
+<tr>
+<td>TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</td>
+<td>发送错误包，丢包</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>dropped，表示这个数据包已经进入到网卡的接收缓存fifo队列，并且开始被系统中断处理准备进行数据包拷贝（从网卡缓存fifo队列拷贝到系统内存），但由于此时的系统原因（比如内存不够等）导致这个数据包被丢掉，即这个数据包被Linux系统丢掉。</li>
+<li>overruns，表示这个数据包还没有被进入到网卡的接收缓存fifo队列就被丢掉，因此此时网卡的fifo是满的。为什么fifo会是满的？因为系统繁忙，来不及响应网卡中断，导致网卡里的数据包没有及时的拷贝到系统内存，fifo是满的就导致后面的数据包进不来，即这个数据包被网卡硬件丢掉。所以，个人觉得遇到overruns非0，需要检测cpu负载与cpu中断情况。</li>
+</ul>
+<p>开关网络适配器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">关闭ens33</div><div class="line">$ sudo ifconfig ens33 down</div><div class="line">开启ens33</div><div class="line">$ sudo ifconfig ens33 up</div></pre></td></tr></table></figure></p>
+<p>测试与其他主机是否可通信：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ping通一个外网域名，意味本机可以上网，听歌，下载文件等</div><div class="line">$ ping hao123.com</div><div class="line">PING hao123.com (180.149.132.19) 56(84) bytes of data.</div><div class="line">64 bytes from 180.149.132.19 (180.149.132.19): icmp_seq=1 ttl=128 time=75.7 ms</div><div class="line">64 bytes from 180.149.132.19 (180.149.132.19): icmp_seq=2 ttl=128 time=76.1 ms</div><div class="line">64 bytes from 180.149.132.19 (180.149.132.19): icmp_seq=3 ttl=128 time=76.6 ms</div><div class="line">ping通一个局域网地址，意味本机网络软硬件配置正常</div><div class="line">$ ping 192.168.1.1</div><div class="line">PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.</div><div class="line">64 bytes from 192.168.1.1: icmp_seq=1 ttl=128 time=2.00 ms</div><div class="line">64 bytes from 192.168.1.1: icmp_seq=2 ttl=128 time=3.14 ms</div><div class="line">ping不通局域网地址，意味另一台主机未开机，IP有误，防火墙开启等</div><div class="line">$ ping 192.168.1.111</div><div class="line">PING 192.168.1.111 (192.168.1.111) 56(84) bytes of data.</div><div class="line">From 192.168.1.104 icmp_seq=3 Destination Host Unreachable</div></pre></td></tr></table></figure></p>
+<p>设置本机IP，子网掩码，广播IP，MTU，Mac:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ifconfig ens33 192.168.124.239 netmask 255.255.255.0 broadcast 192.168.124.255</div><div class="line">ifconfig ens33 mtu 1400</div><div class="line">ifconfig ens33 hw ether 22:AA:BB:CC:DD:EE</div></pre></td></tr></table></figure></p>
+<p>最后说下虚拟机访问网络的问题：</p>
+<ol>
+<li>当虚拟机需要访问外网，比如通过apt-get，dnf安装软件时：需要在虚拟机软件中把Linux网络适配器修改成“NAT模式”，系统自动获取IP即可。</li>
+</ol>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_6/20170320124721.png" alt="image"></p>
+<ol>
+<li>当虚拟机需要局域网通信，比如访问开发板，挂载nfs系统时：需要在虚拟机软件中把Linux网络适配器修改成“桥接模式”，手动设置系统的局域网IP，设置前可以先ping下准备设置的IP是否已被占用。</li>
+</ol>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_6/20170320124826.png" alt="image"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj0jl14q200132oufj9wc1mdg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-course/embeded/lesson_5" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/19/course/embeded/lesson_5/" class="article-date">
@@ -395,13 +739,14 @@
 <li><p>运行nginx</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo /usr/local/nginx/sbin/nginx</div></pre></td></tr></table></figure>
 </li>
+<li><p>打开firefox，访问<a href="http://127.0.0.1" target="_blank" rel="external">http://127.0.0.1</a><br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_5/20170319234932.png" alt="image"></p>
+</li>
 </ul>
-<p>打开firefox，访问<a href="http://127.0.0.1" target="_blank" rel="external">http://127.0.0.1</a><br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_5/20170319234932.png" alt="image"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj0i5esz90018goufxnp1dwwx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj0jl14q400152oufnszlg6h9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -472,7 +817,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj0i5esyx000ugoufyg9x0rdy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj0jl14pp000q2ouf2hunchou" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -579,7 +924,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj0i5esz0000wgoufrybaavx7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj0jl14pl000o2ouf9zlg6vrg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -777,7 +1122,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0i5esyx000tgoufqst42z1m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0jl14pk000n2oufpx8qff2r" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -848,7 +1193,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0i5esz1000ygoufl8bj8u96" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0jl14pq000s2oufmqibx87k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -887,7 +1232,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj0i5eszd001bgoufmw8kif5w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj0jl14qa001b2ouf3ygomkpq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大学生实训/">大学生实训</a></li></ul>
@@ -931,7 +1276,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/cdut/" data-id="cj0i5esz50015gouf03ilxsvg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/14/school/cdut/cdut/" data-id="cj0jl14pu000u2oufdwcviebi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/校园采风/">校园采风</a></li></ul>
@@ -982,7 +1327,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/13/hexo/hexo部署博文到github/" data-id="cj0i5esyp000qgoufpcczbcjk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/13/hexo/hexo部署博文到github/" data-id="cj0jl14pc000k2ouf3efnoh5f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo-git/">hexo git</a></li></ul>
@@ -1038,6 +1383,14 @@
       <ul>
         
           <li>
+            <a href="/2017/03/20/course/embeded/lesson_7/">（7）Linux Shell</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/20/course/embeded/lesson_6/">（6）Linux常用命令-进程和网络管理</a>
+          </li>
+        
+          <li>
             <a href="/2017/03/19/course/embeded/lesson_5/">（5）Linux常用命令-软件管理</a>
           </li>
         
@@ -1047,14 +1400,6 @@
         
           <li>
             <a href="/2017/03/16/course/embeded/lesson_3/">（3）Linux常用命令-文件操作</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/16/course/embeded/lesson_2/">（2）虚拟机和Linux安装使用</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/16/course/embeded/lesson_1/">（1）课程介绍</a>
           </li>
         
       </ul>
