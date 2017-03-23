@@ -19,7 +19,7 @@ gdb简介GDB, the GNU Project debugger, allows you to see what is going on ‘in
 The p">
 <meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_9/link.jpg">
 <meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_9/20170323135654.png">
-<meta property="og:updated_time" content="2017-03-23T06:14:01.401Z">
+<meta property="og:updated_time" content="2017-03-23T15:29:41.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（9）gdb">
 <meta name="twitter:description" content="内容gdb简介程序调试gdb进阶
@@ -109,7 +109,8 @@ The p">
 <p>GDB，GNU项目调试器，可以让您看到在执行另一个程序时发生了什么 - 或者其他程序在崩溃时正在做什么。</p>
 <p>被调试的程序可以用Ada，C，C ++，Objective-C，Pascal（和许多其他语言）编写。 这些程序可能与GDB（本地）或另一台机器（远程）在同一台机器上执行。 GDB可以运行在大多数流行的UNIX和Microsoft Windows中。</p>
 <h4 id="程序调试-1"><a href="#程序调试-1" class="headerlink" title="程序调试"></a>程序调试</h4><ul>
-<li><p>gdb常用指令</p>
+<li>gdb常用指令</li>
+</ul>
 <ol>
 <li><p>检测gdb是否安装及版本号，若未安装gdb会提示“未找到命令”。fedora25默认已安装。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> $ gdb -v</div><div class="line">GNU gdb (GDB) Fedora 7.12-24.fc25</div><div class="line">Copyright (C) 2016 Free Software Foundation, Inc.</div></pre></td></tr></table></figure>
@@ -148,8 +149,6 @@ The p">
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">  (gdb) finish</div><div class="line">Run till exit from #0  sum (n=100) at test.c:6</div><div class="line">0x0000000000400577 in main (argv=1, args=0x7fffffffe2b8) at test.c:22</div><div class="line">22	    printf(&quot;result[1-100]=%d\n&quot;,sum(100));</div><div class="line">Value returned is $10 = 5050</div><div class="line">(gdb) n</div></pre></td></tr></table></figure>
 </li>
 </ol>
-</li>
-</ul>
 <h4 id="gdb进阶-1"><a href="#gdb进阶-1" class="headerlink" title="gdb进阶"></a>gdb进阶</h4><p>一般来说，调试程序时需要编译器带-g参数，如果没有-g，将看不到程序的函数名，变量名，所替代将是运行时的内存地址。<br>启动gdb的方法有以下几种：</p>
 <ol>
 <li>gdb &lt;program&gt;  带调试信息的program程序。</li>
@@ -169,14 +168,14 @@ The p">
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">  (gdb) set env XM1=111</div><div class="line">(gdb) show env XM1</div><div class="line">XM1 = 111</div><div class="line">(gdb) show env</div><div class="line">XDG_VTNR=1</div><div class="line">SSH_AGENT_PID=1183</div><div class="line">...</div><div class="line">LINES=24</div><div class="line">COLUMNS=80</div><div class="line">XM1=111</div></pre></td></tr></table></figure>
 </li>
 <li><p>程序的输入输出<br>info terminal 显示程序用到的终端模式，可以重定向到某个文件，如run &gt; outfile<br>也可用tty 命令指定输入输出的终端设备。如 tty /dev/ttyb</p>
-<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_9/20170323135654.png" alt="image"></p>
 </li>
 </ol>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_9/20170323135654.png" alt="image"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj0mjv73s0010hkufz8ln4izi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj0mk0xm500104cufyw3ft3qk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
