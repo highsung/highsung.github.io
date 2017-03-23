@@ -19,7 +19,7 @@ gdb简介GDB, the GNU Project debugger, allows you to see what is going on ‘in
 The p">
 <meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_9/link.jpg">
 <meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_9/20170323135654.png">
-<meta property="og:updated_time" content="2017-03-23T06:09:31.336Z">
+<meta property="og:updated_time" content="2017-03-23T06:14:01.401Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（9）gdb">
 <meta name="twitter:description" content="内容gdb简介程序调试gdb进阶
@@ -152,17 +152,17 @@ The p">
 </ul>
 <h4 id="gdb进阶-1"><a href="#gdb进阶-1" class="headerlink" title="gdb进阶"></a>gdb进阶</h4><p>一般来说，调试程序时需要编译器带-g参数，如果没有-g，将看不到程序的函数名，变量名，所替代将是运行时的内存地址。<br>启动gdb的方法有以下几种：</p>
 <ol>
-<li>gdb “&lt;”program”&gt;”  带调试信息的program程序。</li>
-<li>gdb <program> core core文件是program程序非法执行后生产的文件，可以用它还原程序崩溃现场。</program></li>
-<li>gdb <program> <pid> 调试一个正常运行的进程，gdb会自动attach上去并调试它。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ sudo gdb /usr/local/nginx/sbin/nginx 3832</div><div class="line">(gdb) quit</div><div class="line">A debugging session is active.</div><div class="line"></div><div class="line">	Inferior 1 [process 3832] will be detached.</div><div class="line"></div><div class="line">Quit anyway? (y or n) y</div><div class="line">Detaching from program: /usr/local/nginx/sbin/nginx, process 3832</div></pre></td></tr></table></figure>
-</pid></program></li>
+<li>gdb &lt;program&gt;  带调试信息的program程序。</li>
+<li>gdb &lt;program&gt; core core文件是program程序非法执行后生产的文件，可以用它还原程序崩溃现场。</li>
+<li>gdb &lt;program&gt; &lt;PID&gt; 调试一个正常运行的进程，gdb会自动attach上去并调试它。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ sudo gdb /usr/local/nginx/sbin/nginx 3832</div><div class="line">(gdb) quit</div><div class="line">A debugging session is active.</div><div class="line"></div><div class="line">	Inferior 1 [process 3832] will be detached.</div><div class="line"></div><div class="line">Quit anyway? (y or n) y</div><div class="line">Detaching from program: /usr/local/nginx/sbin/nginx, process 3832</div></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>在gdb准备执行run或r指令前，可以对一些环境参数进行设置：</p>
 <ol>
 <li><p>程序运行参数。<br>set args 指定运行时参数。如：set arg 1 2 3 4<br>show args 可以查看设置好的参数。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">  (gdb) set args 1 2 3 4</div><div class="line">(gdb) show args</div><div class="line">Argument list to give program being debugged when it is started is &quot;1 2 3 4&quot;.</div></pre></td></tr></table></figure>
 </li>
-<li><p>程序工作路径<br>path <dir> 添加程序的工作路径<br>show paths<br>当前目录被添加到了工作路径</dir></p>
+<li><p>程序工作路径<br>path &lt;dir&gt; 添加程序的工作路径<br>show paths<br>当前目录被添加到了工作路径</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">  (gdb) path .</div><div class="line">Executable and object file path: /home/highsung/dev/lesson_9:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/highsung/.local/bin:/home/highsung/bin</div><div class="line">(gdb) show paths</div><div class="line">Executable and object file path: /home/highsung/dev/lesson_9:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/highsung/.local/bin:/home/highsung/bin</div></pre></td></tr></table></figure>
 </li>
 <li><p>添加环境变量<br>set environment varname=[value] 设置环境变量<br>show environment [varname] 查看环境变量</p>
@@ -176,7 +176,7 @@ The p">
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj0m02c37000vi8ufviaqxtac" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj0mfzj9o0013osufblggyf8i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -186,15 +186,6 @@ The p">
   
     
 <nav id="article-nav">
-  
-    <a href="/2017/03/23/course/embeded/lesson_10/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          （9）Makefile
-        
-      </div>
-    </a>
   
   
     <a href="/2017/03/21/course/embeded/lesson_8/" id="article-nav-older" class="article-nav-link-wrap">
@@ -250,10 +241,6 @@ The p">
       <ul>
         
           <li>
-            <a href="/2017/03/23/course/embeded/lesson_10/">（9）Makefile</a>
-          </li>
-        
-          <li>
             <a href="/2017/03/22/course/embeded/lesson_9/">（9）gdb</a>
           </li>
         
@@ -267,6 +254,10 @@ The p">
         
           <li>
             <a href="/2017/03/20/course/embeded/lesson_6/">（6）Linux常用命令-进程和网络管理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/19/course/embeded/lesson_5/">（5）Linux常用命令-软件管理</a>
           </li>
         
       </ul>

@@ -68,115 +68,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-course/embeded/lesson_10" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/23/course/embeded/lesson_10/" class="article-date">
-  <time datetime="2017-03-23T06:04:00.000Z" itemprop="datePublished">2017-03-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/course/embeded/lesson_10/">（9）Makefile</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="Makefile简介"><a href="#Makefile简介" class="headerlink" title="Makefile简介"></a>Makefile简介</h4><h4 id="Makefile内部结构"><a href="#Makefile内部结构" class="headerlink" title="Makefile内部结构"></a>Makefile内部结构</h4><h4 id="Makefile实例"><a href="#Makefile实例" class="headerlink" title="Makefile实例"></a>Makefile实例</h4><hr>
-<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_9/link.jpg" alt="image"></p>
-<h5 id="gdb简介"><a href="#gdb简介" class="headerlink" title="gdb简介"></a>gdb简介</h5><p>GDB, the GNU Project debugger, allows you to see what is going on ‘inside’ another program while it executes – or what another program was doing at the moment it crashed.</p>
-<p>The program being debugged can be written in Ada, C, C++, Objective-C, Pascal (and many other languages). Those programs might be executing on the same machine as GDB (native) or on another machine (remote). GDB can run on most popular UNIX and Microsoft Windows variants.</p>
-<p>GDB，GNU项目调试器，可以让您看到在执行另一个程序时发生了什么 - 或者其他程序在崩溃时正在做什么。</p>
-<p>被调试的程序可以用Ada，C，C ++，Objective-C，Pascal（和许多其他语言）编写。 这些程序可能与GDB（本地）或另一台机器（远程）在同一台机器上执行。 GDB可以运行在大多数流行的UNIX和Microsoft Windows中。</p>
-<h4 id="程序调试"><a href="#程序调试" class="headerlink" title="程序调试"></a>程序调试</h4><ul>
-<li><p>gdb常用指令</p>
-<ol>
-<li><p>检测gdb是否安装及版本号，若未安装gdb会提示“未找到命令”。fedora25默认已安装。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> $ gdb -v</div><div class="line">GNU gdb (GDB) Fedora 7.12-24.fc25</div><div class="line">Copyright (C) 2016 Free Software Foundation, Inc.</div></pre></td></tr></table></figure>
-</li>
-<li><p>编写test.c程序，内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line"></div><div class="line">int sum(int n)</div><div class="line">&#123;</div><div class="line">    int sum=0;</div><div class="line">    for(int i=0; i&lt;=n; i++)</div><div class="line">    &#123;</div><div class="line">	sum += i;</div><div class="line">    &#125;</div><div class="line">    return sum;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main(int argv, char *args[])</div><div class="line">&#123;</div><div class="line">    int i;</div><div class="line">    long result=0;</div><div class="line">    for(i=1; i&lt;=10; i++)</div><div class="line">    &#123;</div><div class="line">        result += i;</div><div class="line">    &#125;</div><div class="line">    printf(&quot;result[1-10]=%d\n&quot;,result);</div><div class="line">    printf(&quot;result[1-100]=%d\n&quot;,sum(100));</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>编译debug版本的testd</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ gcc -o testd -g test.c</div></pre></td></tr></table></figure>
-</li>
-<li><p>gdb载入test，list或l查看源码，回车可继续浏览</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">  $ gdb testd</div><div class="line">  (gdb) list</div><div class="line">2</div><div class="line">3	int sum(int n)</div><div class="line">4	&#123;</div><div class="line">5	    int sum=0;</div><div class="line">6	    for(int i=0; i&lt;=n; i++)</div><div class="line">7	    &#123;</div><div class="line">8		sum += i;</div><div class="line">9	    &#125;</div><div class="line">10	    return sum;</div><div class="line">11	&#125;</div><div class="line">...</div></pre></td></tr></table></figure>
-</li>
-<li><p>设置断点，break 行号，break 函数名，info break 查看断点信息，break也可简写成b</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">  (gdb) break 19</div><div class="line">Breakpoint 1 at 0x400544: file test.c, line 19.</div><div class="line">(gdb) break sum</div><div class="line">Breakpoint 2 at 0x4004fd: file test.c, line 5.</div><div class="line">(gdb) info break</div><div class="line">Num     Type           Disp Enb Address            What</div><div class="line">1       breakpoint     keep y   0x0000000000400544 in main at test.c:19</div><div class="line">2       breakpoint     keep y   0x00000000004004fd in sum at test.c:5</div><div class="line">(gdb)</div></pre></td></tr></table></figure>
-</li>
-<li><p>清除断点，clear 行号，clear 函数名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">  (gdb) info b</div><div class="line">Num     Type           Disp Enb Address            What</div><div class="line">1       breakpoint     keep y   0x0000000000400544 in main at test.c:19</div><div class="line">	breakpoint already hit 10 times</div><div class="line">2       breakpoint     keep y   0x00000000004004fd in sum at test.c:5</div><div class="line">	breakpoint already hit 1 time</div><div class="line">  第二个断点被清除</div><div class="line">(gdb) clear 5</div><div class="line">Deleted breakpoint 2</div><div class="line">(gdb) info b</div><div class="line">Num     Type           Disp Enb Address            What</div><div class="line">1       breakpoint     keep y   0x0000000000400544 in main at test.c:19</div><div class="line">	breakpoint already hit 10 times</div></pre></td></tr></table></figure>
-</li>
-<li><p>开始调试，输入run或r，停在第一个断点</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">  (gdb) run</div><div class="line">Starting program: /home/highsung/dev/lesson_9/test</div><div class="line">Missing separate debuginfos, use: dnf debuginfo-install glibc-2.24-4.fc25.x86_64</div><div class="line"></div><div class="line">Breakpoint 1, main (argv=1, args=0x7fffffffe2b8) at test.c:19</div><div class="line">19	        result += i;</div><div class="line">(gdb)</div></pre></td></tr></table></figure>
-</li>
-<li><p>单步执行，输入next或n</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">  (gdb) next</div><div class="line">17	    for(i=1; i&lt;=10; i++)</div><div class="line">(gdb) n</div><div class="line"></div><div class="line">Breakpoint 1, main (argv=1, args=0x7fffffffe2b8) at test.c:19</div><div class="line">19	        result += i;</div><div class="line">(gdb) n</div><div class="line">17	    for(i=1; i&lt;=10; i++)</div><div class="line">(gdb) n</div></pre></td></tr></table></figure>
-</li>
-<li><p>查看变量值，输入print或p</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">  (gdb) print i</div><div class="line">$4 = 9</div><div class="line">(gdb) print result</div><div class="line">$5 = 45</div><div class="line">(gdb)</div><div class="line">$6 = 45</div><div class="line">(gdb) p i</div><div class="line">$7 = 9</div></pre></td></tr></table></figure>
-</li>
-<li><p>执行到下个断点，continue或c，没有断点程序结束</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">  (gdb) continue</div><div class="line">Continuing.</div><div class="line">result[1-100]=5050</div><div class="line">[Inferior 1 (process 3674) exited normally]</div></pre></td></tr></table></figure>
-</li>
-<li><p>查看程序调用栈信息，当前执行到sum函数中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">  (gdb) bt</div><div class="line">#0  sum (n=100) at test.c:6</div><div class="line">#1  0x0000000000400577 in main (argv=1, args=0x7fffffffe2b8) at test.c:22</div></pre></td></tr></table></figure>
-</li>
-<li><p>退出当前函数，finish</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">  (gdb) finish</div><div class="line">Run till exit from #0  sum (n=100) at test.c:6</div><div class="line">0x0000000000400577 in main (argv=1, args=0x7fffffffe2b8) at test.c:22</div><div class="line">22	    printf(&quot;result[1-100]=%d\n&quot;,sum(100));</div><div class="line">Value returned is $10 = 5050</div><div class="line">(gdb) n</div></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ul>
-<h4 id="gdb进阶"><a href="#gdb进阶" class="headerlink" title="gdb进阶"></a>gdb进阶</h4><p>一般来说，调试程序时需要编译器带-g参数，如果没有-g，将看不到程序的函数名，变量名，所替代将是运行时的内存地址。<br>启动gdb的方法有一下几种：</p>
-<ol>
-<li>gdb <program> 带调试信息的program程序。</program></li>
-<li>gdb <program> core core文件是program程序非法执行后生产的文件，可以用它还原程序崩溃现场。</program></li>
-<li>gdb <program> <pid> 调试一个正常运行的进程，gdb会自动attach上去并调试它。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ sudo gdb /usr/local/nginx/sbin/nginx 3832</div><div class="line">(gdb) quit</div><div class="line">A debugging session is active.</div><div class="line"></div><div class="line">	Inferior 1 [process 3832] will be detached.</div><div class="line"></div><div class="line">Quit anyway? (y or n) y</div><div class="line">Detaching from program: /usr/local/nginx/sbin/nginx, process 3832</div></pre></td></tr></table></figure>
-</pid></program></li>
-</ol>
-<p>在gdb准备执行run或r指令前，可以对一些环境参数进行设置：</p>
-<ol>
-<li><p>程序运行参数。<br>set args 指定运行时参数。如：set arg 1 2 3 4<br>show args 可以查看设置好的参数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">  (gdb) set args 1 2 3 4</div><div class="line">(gdb) show args</div><div class="line">Argument list to give program being debugged when it is started is &quot;1 2 3 4&quot;.</div></pre></td></tr></table></figure>
-</li>
-<li><p>程序工作路径<br>path <dir> 添加程序的工作路径<br>show paths<br>当前目录被添加到了工作路径</dir></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">  (gdb) path .</div><div class="line">Executable and object file path: /home/highsung/dev/lesson_9:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/highsung/.local/bin:/home/highsung/bin</div><div class="line">(gdb) show paths</div><div class="line">Executable and object file path: /home/highsung/dev/lesson_9:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/highsung/.local/bin:/home/highsung/bin</div></pre></td></tr></table></figure>
-</li>
-<li><p>添加环境变量<br>set environment varname=[value] 设置环境变量<br>show environment [varname] 查看环境变量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">  (gdb) set env XM1=111</div><div class="line">(gdb) show env XM1</div><div class="line">XM1 = 111</div><div class="line">(gdb) show env</div><div class="line">XDG_VTNR=1</div><div class="line">SSH_AGENT_PID=1183</div><div class="line">...</div><div class="line">LINES=24</div><div class="line">COLUMNS=80</div><div class="line">XM1=111</div></pre></td></tr></table></figure>
-</li>
-<li><p>程序的输入输出<br>info terminal 显示程序用到的终端模式，可以重定向到某个文件，如run &gt; outfile<br>也可用tty 命令指定输入输出的终端设备。如 tty /dev/ttyb</p>
-<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_9/20170323135654.png" alt="image"></p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/course/embeded/lesson_10/" data-id="cj0m02c2v000mi8ufzh8yrl6p" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-course/embeded/lesson_9" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/22/course/embeded/lesson_9/" class="article-date">
@@ -250,17 +141,17 @@
 </ul>
 <h4 id="gdb进阶-1"><a href="#gdb进阶-1" class="headerlink" title="gdb进阶"></a>gdb进阶</h4><p>一般来说，调试程序时需要编译器带-g参数，如果没有-g，将看不到程序的函数名，变量名，所替代将是运行时的内存地址。<br>启动gdb的方法有以下几种：</p>
 <ol>
-<li>gdb “&lt;”program”&gt;”  带调试信息的program程序。</li>
-<li>gdb <program> core core文件是program程序非法执行后生产的文件，可以用它还原程序崩溃现场。</program></li>
-<li>gdb <program> <pid> 调试一个正常运行的进程，gdb会自动attach上去并调试它。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ sudo gdb /usr/local/nginx/sbin/nginx 3832</div><div class="line">(gdb) quit</div><div class="line">A debugging session is active.</div><div class="line"></div><div class="line">	Inferior 1 [process 3832] will be detached.</div><div class="line"></div><div class="line">Quit anyway? (y or n) y</div><div class="line">Detaching from program: /usr/local/nginx/sbin/nginx, process 3832</div></pre></td></tr></table></figure>
-</pid></program></li>
+<li>gdb &lt;program&gt;  带调试信息的program程序。</li>
+<li>gdb &lt;program&gt; core core文件是program程序非法执行后生产的文件，可以用它还原程序崩溃现场。</li>
+<li>gdb &lt;program&gt; &lt;PID&gt; 调试一个正常运行的进程，gdb会自动attach上去并调试它。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ sudo gdb /usr/local/nginx/sbin/nginx 3832</div><div class="line">(gdb) quit</div><div class="line">A debugging session is active.</div><div class="line"></div><div class="line">	Inferior 1 [process 3832] will be detached.</div><div class="line"></div><div class="line">Quit anyway? (y or n) y</div><div class="line">Detaching from program: /usr/local/nginx/sbin/nginx, process 3832</div></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>在gdb准备执行run或r指令前，可以对一些环境参数进行设置：</p>
 <ol>
 <li><p>程序运行参数。<br>set args 指定运行时参数。如：set arg 1 2 3 4<br>show args 可以查看设置好的参数。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">  (gdb) set args 1 2 3 4</div><div class="line">(gdb) show args</div><div class="line">Argument list to give program being debugged when it is started is &quot;1 2 3 4&quot;.</div></pre></td></tr></table></figure>
 </li>
-<li><p>程序工作路径<br>path <dir> 添加程序的工作路径<br>show paths<br>当前目录被添加到了工作路径</dir></p>
+<li><p>程序工作路径<br>path &lt;dir&gt; 添加程序的工作路径<br>show paths<br>当前目录被添加到了工作路径</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">  (gdb) path .</div><div class="line">Executable and object file path: /home/highsung/dev/lesson_9:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/highsung/.local/bin:/home/highsung/bin</div><div class="line">(gdb) show paths</div><div class="line">Executable and object file path: /home/highsung/dev/lesson_9:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/highsung/.local/bin:/home/highsung/bin</div></pre></td></tr></table></figure>
 </li>
 <li><p>添加环境变量<br>set environment varname=[value] 设置环境变量<br>show environment [varname] 查看环境变量</p>
@@ -274,7 +165,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj0m02c37000vi8ufviaqxtac" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj0mfzj9o0013osufblggyf8i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -346,9 +237,9 @@
 <p>发现a1的大小比a大得多。因为a程序所依赖的程序指令全部打包到了a1中。<br>那么如何查看a所依赖的动态库？用ldd命令查看，如下。<br>显示a依赖3个动态库，动态库名字so.m.n结尾，so代表是动态库，m.n代表主次版本号。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"> $ ldd a</div><div class="line">linux-vdso.so.1 (0x00007ffc56d8e000)</div><div class="line">libc.so.6 =&gt; /lib64/libc.so.6 (0x00007f09b1516000)</div><div class="line">/lib64/ld-linux-x86-64.so.2 (0x000055fcc140f000)</div><div class="line"> 这里提示a1不是一个动态执行文件</div><div class="line"> $ ldd a1</div><div class="line">not a dynamic executable</div><div class="line"> 用file命令查看，a1是静态链接方式。</div><div class="line"> $ file a1</div><div class="line"> a1: ELF 64-bit LSB executable, x86-64, version 1 (GNU/Linux), statically linked, for GNU/Linux 2.6.32, BuildID[sha1]=686f47857cae85c959c39301843029ee1e98467e, not stripped</div></pre></td></tr></table></figure>
 <ul>
-<li><p>-Idir 指定编译时，搜索头文件路径。<br>用 #include <file.h>时，gcc会在-I指定的目录中查找file.h，查找不到时，到缺省目录/usr/include/中查找。<br>用 #include “file.h”时，gcc会在当前目录下查找file.h，查找不到时，再按上面的顺序查找。</file.h></p>
+<li><p>-Idir 指定编译时，搜索头文件路径。<br>用 #include &lt;file.h&gt;时，gcc会在-I指定的目录中查找file.h，查找不到时，到缺省目录/usr/include/中查找。<br>用 #include “file.h”时，gcc会在当前目录下查找file.h，查找不到时，再按上面的顺序查找。</p>
 </li>
-<li><p>-include file.h，功能相当于在代码中使用#include <file.h></file.h></p>
+<li><p>-include file.h，功能相当于在代码中使用#include &lt;file.h&gt;</p>
 </li>
 <li><p>-Ldir 指定链接时，搜索库的路径。默认库的路径在/usr/lib，/usr/lib64<br>例子如下，在当前目录下my/lib搜索库文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcc -L./my/lib hello.c</div></pre></td></tr></table></figure>
@@ -382,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj0m02c35000ti8ufg9fciog3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj0mfzj9p0015osufqfdlcr00" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -506,7 +397,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj0m02c2x000ni8ufw5halsgx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj0mfzj9n0012osufxt0ed8ru" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -727,7 +618,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj0m02c32000qi8ufja07nejw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj0mfzj9y001eosuf5ek4b2wh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1073,7 +964,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj0m02c30000pi8ufiy17eann" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj0mfzj9a000posufgpneainj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1144,7 +1035,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj0m02c3a000yi8uf7wqipc42" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj0mfzj9f000tosufh3kvh183" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1251,7 +1142,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj0m02c2q000ii8ufdfxebnag" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj0mfzj9d000rosufju3pxguw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1449,7 +1340,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0m02c2r000ji8uf17kndu5r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0mfzj97000losuft2m0nyca" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1520,10 +1411,49 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0m02c2t000li8ufsf3ssn8i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0mfzj98000nosufcofdicpf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-school/cdut/2017/shixun_0227_0310" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/14/school/cdut/2017/shixun_0227_0310/" class="article-date">
+  <time datetime="2017-03-14T08:34:00.000Z" itemprop="datePublished">2017-03-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/14/school/cdut/2017/shixun_0227_0310/">成都理工计科学院14级嵌入式实训</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>先来个全家福，对着镜头刚开始都有点害羞<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170309_113342.jpg" alt="image"><br>在陈老的招唤，花儿与绿叶齐齐放开了<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/heying.jpg" alt="image"><br>习主席的祝语，2017撸起袖子加油干<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170309_104357.jpg" alt="image"><br>两边的小伙子，心有灵犀一点笑<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170309_104830.jpg" alt="image"><br>组长貌似犯难了<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170309_104846.jpg" alt="image"><br>小目标有难，熊老亲自开组长大会，各种问题冤情统统上报，总结方法，分工合作，打气加油，向着今晚10点的deadline出发<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/meeting.JPG" alt="image"><br>小伙伴们满血复活<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170310_104544.jpg" alt="image"><br>答辩开始<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170310_134104.jpg" alt="image"><br>曾老点评<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170310_113250.jpg" alt="image"><br>成果展示<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170310_133039.jpg" alt="image"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj0mfzja4001hosufrsyfzg9r" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大学生实训/">大学生实训</a></li></ul>
 
     </footer>
   </div>
@@ -1580,10 +1510,6 @@
       <ul>
         
           <li>
-            <a href="/2017/03/23/course/embeded/lesson_10/">（9）Makefile</a>
-          </li>
-        
-          <li>
             <a href="/2017/03/22/course/embeded/lesson_9/">（9）gdb</a>
           </li>
         
@@ -1597,6 +1523,10 @@
         
           <li>
             <a href="/2017/03/20/course/embeded/lesson_6/">（6）Linux常用命令-进程和网络管理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/19/course/embeded/lesson_5/">（5）Linux常用命令-软件管理</a>
           </li>
         
       </ul>
