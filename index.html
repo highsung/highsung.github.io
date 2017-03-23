@@ -165,7 +165,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj0mfzj9o0013osufblggyf8i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj0mizkzi0012j0uf7yqd727p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -205,7 +205,8 @@
 <h5 id="gcc简介-1"><a href="#gcc简介-1" class="headerlink" title="gcc简介"></a>gcc简介</h5><h6 id="GCC-the-GNU-Compiler-Collection"><a href="#GCC-the-GNU-Compiler-Collection" class="headerlink" title="GCC, the GNU Compiler Collection"></a><a href="http://gcc.gnu.org/" target="_blank" rel="external">GCC</a>, the GNU Compiler Collection</h6><p>The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran, Ada, and Go, as well as libraries for these languages (libstdc++,…). GCC was originally written as the compiler for the GNU operating system. The GNU system was developed to be 100% free software, free in the sense that it respects the user’s freedom.</p>
 <p>GCC是GNU编译器集合。GNU编译器集合包括C，C ++，Objective-C，Fortran，Ada和Go的前端，以及这些语言的库（libstdc++，…）。 GCC最初是作为GNU操作系统的编译器编写的。 GNU系统被开发为100％免费的软件，它在尊重用户自由的意义上是免费的。</p>
 <ul>
-<li><p>gcc常用指令</p>
+<li>gcc常用指令</li>
+</ul>
 <ol>
 <li><p>检测gcc是否安装及版本号，若未安装gcc会提示“未找到命令”。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">gcc -v</div><div class="line">使用内建 specs。</div><div class="line">COLLECT_GCC=gcc</div><div class="line">COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/6.2.1/lto-wrapper</div><div class="line">目标：x86_64-redhat-linux</div><div class="line">配置为：../configure ...</div><div class="line">线程模型：posix</div><div class="line">gcc 版本 6.2.1 20160916 (Red Hat 6.2.1-2) (GCC)</div></pre></td></tr></table></figure>
@@ -213,7 +214,7 @@
 <li><p>编写hello.c程序，内容：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int main(int argv, char *arg[])</div><div class="line">&#123;</div><div class="line">  printf(&quot;%s&quot;,&quot;hello gcc!\n&quot;);</div><div class="line">  return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>编译hello.c，生成a.out文件，执行之输出“hello gcc!”。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ gcc hello.c</div><div class="line">$ ls</div><div class="line">a.out  hello.c</div><div class="line">$ ./a.out</div><div class="line">hello gcc!</div></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ gcc hello.c</div><div class="line">$ ls</div><div class="line">a.out  hello.c</div><div class="line">$ ./a.out</div><div class="line">hello gcc!</div></pre></td></tr></table></figure>
 </li>
 <li><p>gcc常用编译选项</p>
 </li>
@@ -222,7 +223,7 @@
 <li><p>-o 指定编译生成的可执行程序名</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ gcc hello.c -o hello.exe</div><div class="line">$ ls</div><div class="line">a.out  hello.c  hello.exe</div></pre></td></tr></table></figure>
 </li>
-<li><p>-g 告诉编译器生成调试信息，如下，包含调试信息的hello.exe比a.out大一些。<br>用gdb调试程序时，程序必须包含调试信息才行调试。</p>
+<li><p>-g 告诉编译器生成调试信息，如下，包含调试信息的hello.exe比a.out大一些。<br>用gdb调试程序时，程序必须包含调试信息才能调试。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ gcc hello.c -o hello.exe -g</div><div class="line">$ ls -al</div><div class="line">总用量 36</div><div class="line">-rwxrwxr-x. 1 highsung highsung  8528 3月  21 17:12 a.out</div><div class="line">-rw-rw-r--. 1 highsung highsung    97 3月  21 17:12 hello.c</div><div class="line">-rwxrwxr-x. 1 highsung highsung 11048 3月  21 17:29 hello.exe</div></pre></td></tr></table></figure>
 </li>
 <li><p>也可通过strip命令去除hello.exe中的调试信息，如下</p>
@@ -230,13 +231,11 @@
 </li>
 <li><p>-static 以静态链接方式生成可执行程序</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ gcc -static hello.c -o a1</div><div class="line">/bin/ld: 找不到 -lc</div></pre></td></tr></table></figure>
-</li>
-</ul>
 <p>缺少静态包glibc-static，安装glibc-static后编译运行。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ dnf install -y glibc-static</div><div class="line">$ gcc -static hello.c -o a1</div><div class="line">$ ls -al</div><div class="line">-rwxrwxr-x. 1 highsung highsung   8480 3月  21 19:24 a</div><div class="line">-rwxrwxr-x. 1 highsung highsung 917632 3月  21 19:21 a1</div></pre></td></tr></table></figure>
 <p>发现a1的大小比a大得多。因为a程序所依赖的程序指令全部打包到了a1中。<br>那么如何查看a所依赖的动态库？用ldd命令查看，如下。<br>显示a依赖3个动态库，动态库名字so.m.n结尾，so代表是动态库，m.n代表主次版本号。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"> $ ldd a</div><div class="line">linux-vdso.so.1 (0x00007ffc56d8e000)</div><div class="line">libc.so.6 =&gt; /lib64/libc.so.6 (0x00007f09b1516000)</div><div class="line">/lib64/ld-linux-x86-64.so.2 (0x000055fcc140f000)</div><div class="line"> 这里提示a1不是一个动态执行文件</div><div class="line"> $ ldd a1</div><div class="line">not a dynamic executable</div><div class="line"> 用file命令查看，a1是静态链接方式。</div><div class="line"> $ file a1</div><div class="line"> a1: ELF 64-bit LSB executable, x86-64, version 1 (GNU/Linux), statically linked, for GNU/Linux 2.6.32, BuildID[sha1]=686f47857cae85c959c39301843029ee1e98467e, not stripped</div></pre></td></tr></table></figure>
-<ul>
+</li>
 <li><p>-Idir 指定编译时，搜索头文件路径。<br>用 #include &lt;file.h&gt;时，gcc会在-I指定的目录中查找file.h，查找不到时，到缺省目录/usr/include/中查找。<br>用 #include “file.h”时，gcc会在当前目录下查找file.h，查找不到时，再按上面的顺序查找。</p>
 </li>
 <li><p>-include file.h，功能相当于在代码中使用#include &lt;file.h&gt;</p>
@@ -248,8 +247,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcc -lcurses hello.c</div></pre></td></tr></table></figure>
 </li>
 <li><p>-O0 -O1 -O2 -O3，编译器优化的4个级别，-O0没有优化，-O1缺省优化，-O3最高级别优化。</p>
-</li>
-</ul>
 </li>
 </ul>
 <h5 id="程序编译过程-1"><a href="#程序编译过程-1" class="headerlink" title="程序编译过程"></a>程序编译过程</h5><p>gcc和g++执行编译工作的时候，总共需要4步：</p>
@@ -273,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj0mfzj9p0015osufqfdlcr00" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj0mizkzg000zj0ufw02jn9zq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -397,7 +394,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj0mfzj9n0012osufxt0ed8ru" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj0mizkzh0010j0ufukx0ewnh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -618,7 +615,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj0mfzj9y001eosuf5ek4b2wh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj0mizkzl0016j0uf1bjshxpf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -964,7 +961,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj0mfzj9a000posufgpneainj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj0mizkzn0019j0ufoohr541x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1035,7 +1032,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj0mfzj9f000tosufh3kvh183" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj0mizkz5000qj0uf73et144u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1142,7 +1139,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj0mfzj9d000rosufju3pxguw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj0mizkz0000kj0uffsibivl5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1340,7 +1337,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0mfzj97000losuft2m0nyca" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0mizkz7000sj0ufh9ueb5lu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1411,7 +1408,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0mfzj98000nosufcofdicpf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0mizkz3000nj0uf3han6d0u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1450,7 +1447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj0mfzja4001hosufrsyfzg9r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj0mizkzt001hj0uf7y4kvxum" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大学生实训/">大学生实训</a></li></ul>
