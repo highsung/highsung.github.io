@@ -68,6 +68,132 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-course/embeded/tools" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/23/course/embeded/tools/" class="article-date">
+  <time datetime="2017-03-23T06:04:00.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/course/embeded/tools/">ARM Linux开发工具下载</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ARM Linux交叉工具链下载<br><a href="http://www.veryarm.com/arm-none-linux-gnueabi-gcc" target="_blank" rel="external">http://www.veryarm.com/arm-none-linux-gnueabi-gcc</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/23/course/embeded/tools/" data-id="cj0njv19400107cufr5ac99gg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-course/embeded/lesson_10" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/23/course/embeded/lesson_10/" class="article-date">
+  <time datetime="2017-03-23T06:04:00.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/course/embeded/lesson_10/">（10）Makefile</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="Makefile简介"><a href="#Makefile简介" class="headerlink" title="Makefile简介"></a>Makefile简介</h4><h4 id="Makefile内部规则"><a href="#Makefile内部规则" class="headerlink" title="Makefile内部规则"></a>Makefile内部规则</h4><h4 id="make命令"><a href="#make命令" class="headerlink" title="make命令"></a>make命令</h4><hr>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_10/link.png" alt="image"></p>
+<h5 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h5><p>前面我们聊过了gcc编译源码的一些常用指令，当源代码很多时，逐条逐条的输入编译是一件细思极恐的事情！有没更加简单、高效的方式呢？当然有，那就是Makfile。</p>
+<p>当一个工程中的源文件越来越多时，工程师通常会按类型、功能、模块分别放在若干个目录中，Makefile中定义一系列的规则来指定，那些文件先编译，那些后编译，那些文件修改后，依赖它的文件需要重新编译，甚至进行更复杂的功能操作，比如清除中间和目标文件，安装编译好的文件等。</p>
+<p>总之，Makefile是用来定义整个工程的编译规则的，一旦写好，只需要一个make命令，整个工程自动完成编译，极大的提高了软件开发效率。</p>
+<h5 id="Makefile内部规则-1"><a href="#Makefile内部规则-1" class="headerlink" title="Makefile内部规则"></a>Makefile内部规则</h5><p>下面是Makefile中最核心的结构：<br>target: prerequisites<br>  command<br>…<br>解释：<br>target 可以是一个目标文件，也可以是执行文件，还可以是一个标签。标签这种特性，在后面的“伪目标”介绍。</p>
+<p>prerequisite 是生成target所需要的文件或目标。</p>
+<p>command make需要执行命令，通过执行command来生成target。</p>
+<p>总结，target依赖于prerequisites中的条件（文件），生成target的规则定义在command中，由make执行。如果prerequisites中的文件比target目标要新，command所定义的命令就会被执行。</p>
+<h5 id="Makefile实例分析"><a href="#Makefile实例分析" class="headerlink" title="Makefile实例分析"></a>Makefile实例分析</h5><p>一个工程有3个头文件，8个C文件，为编译得到可执行程序。Makefile文件定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">edit: main.o kbd.o command.o display.o \</div><div class="line">insert.o search.o files.o utils.o</div><div class="line">  cc -o edit main.o kbd.o command.o display.o \</div><div class="line">insert.o search.o files.o utils.o</div><div class="line"></div><div class="line">main.o: main.c defs.h</div><div class="line">  cc -c main.c</div><div class="line">kbd.o: kbd.c defs.h command.h</div><div class="line">  cc -c kbd.c</div><div class="line">command.o: command.c defs.h command.h</div><div class="line">  cc -c command.c</div><div class="line">display.o: dispaly.c defs.h buffer.h</div><div class="line">  cc -c display.c</div><div class="line">insert.o: insert.c defs.h buffer.h</div><div class="line">  cc -c insert.c</div><div class="line">search.o: search.c defs.h buffer.h</div><div class="line">  cc -c search.c</div><div class="line">files.o:files.c defs.h buffer.h command.h</div><div class="line">  cc -c files.c</div><div class="line">utils.o:utils.c defs.h</div><div class="line">  cc -c utils.c</div><div class="line">clean:</div><div class="line">  rm edit main.o kbd.o command.o display.o \</div><div class="line">insert.o search.o files.o utils.o</div></pre></td></tr></table></figure></p>
+<p>说明：<br>edit目标依赖main.o kbd.o command.o display.o insert.o search.o files.o utils.o这些文件，通过执行命令cc -o edit main.o kbd.o command.o display.o insert.o search.o files.o utils.o，生成edit可执行文件。</p>
+<p>同理，main.o目标依赖main.c defs.h这些文件，通过执行命令cc -c main.c，生成main.o文件。</p>
+<p>clean目标，没有依赖文件，通过执行命令rm edit main.o kbd.o command.o display.o insert.o search.o files.o utils.o达到目的。</p>
+<p>Makefile中的反斜杠（\）是续行符的意思。在Linux终端切换到该目录下，执行“make”命令就可以生成可执行文件edit。如果要删除可执行文件和所有中间文件，执行“make clean”就可以了。</p>
+<h6 id="注意：命令行必须以Tab键开头，不然make会报错。"><a href="#注意：命令行必须以Tab键开头，不然make会报错。" class="headerlink" title="注意：命令行必须以Tab键开头，不然make会报错。"></a>注意：命令行必须以Tab键开头，不然make会报错。</h6><h5 id="make命令-1"><a href="#make命令-1" class="headerlink" title="make命令"></a>make命令</h5><ol>
+<li><p>make指令用法<br>makefile有点像Shell脚本一样，它是靠make命令解释执行的。make命令是GNU的工程化编译工具。<br>make命令语法：make [选项] 参数 Makefile名<br>-f：指定“makefile”文件；<br>-i：忽略命令执行返回的出错信息；<br>-s：沉默模式，在执行之前不输出相应的命令行信息；<br>-r：禁止使用build-in规则；<br>-n：非执行模式，输出所有执行命令，但并不执行；<br>-t：更新目标文件；<br>-q：make操作将根据目标文件是否已经更新返回”0”或非”0”的状态信息；<br>-p：输出所有宏定义和目标文件描述；<br>-d：Debug模式，输出有关文件和检测时间的详细信息。<br>-c dir：在读取 makefile 之前改变到指定的目录dir；<br>-I dir：当包含其他 makefile文件时，利用该选项指定搜索目录；<br>-h：help文挡，显示所有的make选项；<br>-w：在处理 makefile 之前和之后，都显示工作目录。</p>
+</li>
+<li><p>make如何工作方式</p>
+</li>
+</ol>
+<ul>
+<li>默认情况下，我们输入make命令，那么make会在当前目录下找名字为“Makefile”或“makefile”的文件。</li>
+<li>如果找到，它会找到文件中的第一个目标执行。在上面的例子中，第一个目标就是edit。<br>如果找不到makefile则提示“无目标”。</li>
+<li>如果edit不存在，或edit所依赖的.o文件修改时间比edit文件新，那么执行后面所定义的命令来生成edit文件。</li>
+<li>各个.o文件同样类推。</li>
+</ul>
+<h5 id="改进makefile"><a href="#改进makefile" class="headerlink" title="改进makefile"></a>改进makefile</h5><ul>
+<li>变量的使用<br>先看看第一个target<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">edit: main.o kbd.o command.o display.o \</div><div class="line">insert.o search.o files.o utils.o</div><div class="line">  cc -o edit main.o kbd.o command.o display.o \</div><div class="line">insert.o search.o files.o utils.o</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里有重复两次的main.o kbd.o command.o display.o insert.o search.o files.o utils.o。定义一个变量来代替它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">objects = main.o kbd.o command.o display.o insert.o search.o files.o utils.o</div><div class="line">edit: $objects</div><div class="line">cc -o edit $objects</div></pre></td></tr></table></figure></p>
+<p>是不是简洁一点了。</p>
+<ul>
+<li>使用make自动推到功能<br>GNU的make会自动推导文件以及依赖关系后面的命令。换句话说，make看到something.o时，会自动推导出cc -c something.c命令出来。所以上面的makefile可以写成：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">objects = main.o kbd.o command.o display.o insert.o search.o files.o utils.o</div><div class="line">edit: $objects</div><div class="line">  cc -o $objects</div><div class="line">main.o: defs.h</div><div class="line">kbd.o: defs.h command.h</div><div class="line">command.o: defs.h command.h</div><div class="line">display.o: defs.h buffer.h</div><div class="line">insert.o: defs.h buffer.h</div><div class="line">search.o: defs.h buffer.h</div><div class="line">files.o: defs.h buffer.h command.h</div><div class="line">utils.o: defs.h</div><div class="line">clean:</div><div class="line">  rm edit $objects</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>是不是更简洁了。</p>
+<ul>
+<li>使用make隐式规则进行到底<br>现在看到还有一堆的.h文件，再次收拢变成<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">objects = main.o kbd.o command.o display.o \</div><div class="line">insert.o search.o files.o utils.o</div><div class="line">edit: $objects</div><div class="line">  cc -o $objects</div><div class="line">$objects:defs.h kbd.o command.o files.o:command.h \</div><div class="line">dispaly.o insert.o search.o files.o:buffer.h</div><div class="line">.PHONY:clean</div><div class="line">clean:</div><div class="line">  -rm edit $objects</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>是不是简洁得有点懵了，过于简单不太好理解。</p>
+<ul>
+<li><p>伪目标<br>上面的PHONY为什么要加在clean的前面？<br>假如当前目录下存在一个名叫clean的文件，那么执行make clean时，make发现clean文件存在，就不会执行make clean指令，进而不会执行删除任何文件。<br>怎么解决这个问题？这时PHONY就登场了。<br>.PHONY: clean就是声明clean是一个“伪目标”，告诉make执行clean目标时不要去检查当前目录下的clean文件是否存在，始终执行clean目标，即-rm edit $objects。<br>rm命令前加一个减号的意思是，忽略删除过程的一些文件不存在等情况。</p>
+</li>
+<li><p>Makefile中引用其他Makefile<br>在上面的例子中没有演示，Makefile包含其他Makefile的情形，其实Makefile可以像C语言中include其他头文件一样。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/23/course/embeded/lesson_10/" data-id="cj0njv18j000j7cuflsivb1rx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-course/embeded/lesson_9" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/22/course/embeded/lesson_9/" class="article-date">
@@ -164,7 +290,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj0mk0xm500104cufyw3ft3qk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj0njv191000y7cufyabmfm1s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -281,7 +407,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj0mk0xm800124cuf79q010h8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj0njv18y000v7cufvhqvzxwj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -405,7 +531,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj0mk0xm2000w4cuf7yiyyf8v" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj0njv18s000p7cufwks9rggq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -626,7 +752,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj0mk0xm4000y4cuf21l6yek9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj0njv18x000t7cufpbwqi403" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -972,7 +1098,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj0mk0xm1000u4cuf7rx4khpb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj0njv18h000i7cuf85n1m88p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1043,7 +1169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj0mk0xls000n4cufkp8101dx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj0njv18u000q7cufiq5hybqp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1150,7 +1276,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj0mk0xlv000q4cuf54zrm50r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj0njv18p000n7cuf34nip3kf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1348,120 +1474,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0mk0xlx000s4cufap88244b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0njv18l000m7cufeqmyxmyx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-course/embeded/lesson_1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/16/course/embeded/lesson_1/" class="article-date">
-  <time datetime="2017-03-16T01:45:00.000Z" itemprop="datePublished">2017-03-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/16/course/embeded/lesson_1/">（1）课程介绍</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>目前移动互联网+、智能硬件/VR、人工智能技术等技术相互激动，人类的生活方式将激动人心，充满各种惊奇和变数。有人说，想象力将是未来最核心的个人竞争力。诚然，缺少想象力，个人和社会将拘囿不前。但脱离最基本物质认知，技术原理理解和实践运用，恐怕就是空想+妄想。</p>
-<p>基于此，结合目前高校专业开设状况，和本人多年工作经验。打算制作一套学习嵌入式开发的课程，分二部分，共18个章节。本套课程的特点有：</p>
-<ol>
-<li>内容全面：涵盖嵌入式开发的基础知识和关键技术，贯穿Linux内核配置编译到上层QT应用程序开发，对标企业主流技术需求。</li>
-<li>图文并茂；枯燥讲解转换成有条理的图片，易于读者理解和参与学习。</li>
-<li>学以致用；通过实验动手探索，团队项目开发，培养提出问题，分析解决问题意识和能力，逐步提升专业技能，强化团队合作精神。</li>
-</ol>
-<p>本课程主要面向电信，通行类专本科大二，三学生，以及对嵌入式，Linux，QT应用开发感兴趣的朋友们。</p>
-<p>章节目录：</p>
-<h4 id="第一部分："><a href="#第一部分：" class="headerlink" title="第一部分："></a>第一部分：</h4><ol>
-<li>虚拟机和Linux安装使用</li>
-<li>Linux常用命令</li>
-<li>Linux脚本编写</li>
-<li>gcc和gdb</li>
-<li>makefile结构</li>
-<li>模块和字符设备驱动</li>
-<li>交叉工具链</li>
-<li>Linux内核结构和编译</li>
-<li>uboot结构和编译</li>
-<li>制作busybox程序</li>
-<li>制作yaffs2文件系统</li>
-</ol>
-<h4 id="第二部分："><a href="#第二部分：" class="headerlink" title="第二部分："></a>第二部分：</h4><ol>
-<li>QT和qtcreator介绍</li>
-<li>Widgets程序开发</li>
-<li>Quick应用程序开发</li>
-<li>QT移植到OK6410</li>
-<li>V4L2和视频预览</li>
-<li>项目一：视频直播</li>
-<li>项目二：行车记录仪</li>
-</ol>
-<h4 id="所有章节我会持续更新，由于本人水平有限，如有错漏，请大家指正。"><a href="#所有章节我会持续更新，由于本人水平有限，如有错漏，请大家指正。" class="headerlink" title="所有章节我会持续更新，由于本人水平有限，如有错漏，请大家指正。"></a>所有章节我会持续更新，由于本人水平有限，如有错漏，请大家指正。</h4><hr>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0mk0xlt000o4cufe7bacpx7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-school/cdut/2017/shixun_0227_0310" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/14/school/cdut/2017/shixun_0227_0310/" class="article-date">
-  <time datetime="2017-03-14T08:34:00.000Z" itemprop="datePublished">2017-03-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/14/school/cdut/2017/shixun_0227_0310/">成都理工计科学院14级嵌入式实训</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>先来个全家福，对着镜头刚开始都有点害羞<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170309_113342.jpg" alt="image"><br>在陈老的招唤，花儿与绿叶齐齐放开了<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/heying.jpg" alt="image"><br>习主席的祝语，2017撸起袖子加油干<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170309_104357.jpg" alt="image"><br>两边的小伙子，心有灵犀一点笑<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170309_104830.jpg" alt="image"><br>组长貌似犯难了<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170309_104846.jpg" alt="image"><br>小目标有难，熊老亲自开组长大会，各种问题冤情统统上报，总结方法，分工合作，打气加油，向着今晚10点的deadline出发<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/meeting.JPG" alt="image"><br>小伙伴们满血复活<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170310_104544.jpg" alt="image"><br>答辩开始<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170310_134104.jpg" alt="image"><br>曾老点评<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170310_113250.jpg" alt="image"><br>成果展示<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170310_133039.jpg" alt="image"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj0mk0xmk001h4cufir5sbojz" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大学生实训/">大学生实训</a></li></ul>
 
     </footer>
   </div>
@@ -1518,6 +1534,14 @@
       <ul>
         
           <li>
+            <a href="/2017/03/23/course/embeded/tools/">ARM Linux开发工具下载</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/course/embeded/lesson_10/">（10）Makefile</a>
+          </li>
+        
+          <li>
             <a href="/2017/03/22/course/embeded/lesson_9/">（9）gdb</a>
           </li>
         
@@ -1527,14 +1551,6 @@
         
           <li>
             <a href="/2017/03/20/course/embeded/lesson_7/">（7）Linux Shell</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/20/course/embeded/lesson_6/">（6）Linux常用命令-进程和网络管理</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/19/course/embeded/lesson_5/">（5）Linux常用命令-软件管理</a>
           </li>
         
       </ul>
