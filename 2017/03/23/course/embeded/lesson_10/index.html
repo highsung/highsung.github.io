@@ -18,7 +18,7 @@ Makefile前面我们聊过了gcc编译源码的一些常用指令，当源代码
 Makefile前面我们聊过了gcc编译源码的一些常用指令，当源代码很多时，逐条逐条的输入编译是一件细思极恐的事情！有没更加简单、高效的方式呢？当然有，那就是Makfile。
 当一个工程中的源文件越来越多时，工程师通常会按类型、功能、模块分别放在若干个目录中，Makefile中定义一系列的规则来指定，那些文件先编译，那些后编译，那些">
 <meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_10/link.png">
-<meta property="og:updated_time" content="2017-03-24T08:11:20.273Z">
+<meta property="og:updated_time" content="2017-03-25T02:27:57.222Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（10）Makefile">
 <meta name="twitter:description" content="内容Makefile简介Makefile内部规则make命令
@@ -116,22 +116,22 @@ Makefile前面我们聊过了gcc编译源码的一些常用指令，当源代码
 <p>clean目标，没有依赖文件，通过执行命令rm edit main.o kbd.o command.o display.o insert.o search.o files.o utils.o达到目的。</p>
 <p>Makefile中的反斜杠（\）是续行符的意思。在Linux终端切换到该目录下，执行“make”命令就可以生成可执行文件edit。如果要删除可执行文件和所有中间文件，执行“make clean”就可以了。</p>
 <h6 id="注意：命令行必须以Tab键开头，不然make会报错。"><a href="#注意：命令行必须以Tab键开头，不然make会报错。" class="headerlink" title="注意：命令行必须以Tab键开头，不然make会报错。"></a>注意：命令行必须以Tab键开头，不然make会报错。</h6><h5 id="make命令-1"><a href="#make命令-1" class="headerlink" title="make命令"></a>make命令</h5><ol>
-<li><p>make指令用法<br>makefile有点像Shell脚本一样，它是靠make命令解释执行的。make命令是GNU的工程化编译工具。<br>make命令语法：make [选项] 参数 Makefile名<br>-f：指定“makefile”文件；<br>-i：忽略命令执行返回的出错信息；<br>-s：沉默模式，在执行之前不输出相应的命令行信息；<br>-r：禁止使用build-in规则；<br>-n：非执行模式，输出所有执行命令，但并不执行；<br>-t：更新目标文件；<br>-q：make操作将根据目标文件是否已经更新返回”0”或非”0”的状态信息；<br>-p：输出所有宏定义和目标文件描述；<br>-d：Debug模式，输出有关文件和检测时间的详细信息。<br>-c dir：在读取 makefile 之前改变到指定的目录dir；<br>-I dir：当包含其他 makefile文件时，利用该选项指定搜索目录；<br>-h：help文挡，显示所有的make选项；<br>-w：在处理 makefile 之前和之后，都显示工作目录。</p>
+<li><p>make命令用法<br>makefile有点像Shell脚本一样，它是靠make命令解释执行的。make命令是GNU的工程化编译工具。<br>make命令语法：make [选项] 参数 Makefile名<br>-f：指定“makefile”文件；<br>-i：忽略命令执行返回的出错信息；<br>-s：沉默模式，在执行之前不输出相应的命令行信息；<br>-r：禁止使用build-in规则；<br>-n：非执行模式，输出所有执行命令，但并不执行；<br>-t：更新目标文件；<br>-q：make操作将根据目标文件是否已经更新返回”0”或非”0”的状态信息；<br>-p：输出所有宏定义和目标文件描述；<br>-d：Debug模式，输出有关文件和检测时间的详细信息。<br>-c dir：在读取 makefile 之前改变到指定的目录dir；<br>-I dir：当包含其他 makefile文件时，利用该选项指定搜索目录；<br>-h：help文挡，显示所有的make选项；<br>-w：在处理 makefile 之前和之后，都显示工作目录。</p>
 </li>
-<li><p>make如何工作方式</p>
+<li><p>make如何工作</p>
 </li>
 </ol>
 <ul>
 <li>默认情况下，我们输入make命令，那么make会在当前目录下找名字为“Makefile”或“makefile”的文件。</li>
 <li>如果找到，它会找到文件中的第一个目标执行。在上面的例子中，第一个目标就是edit。<br>如果找不到makefile则提示“无目标”。</li>
 <li>如果edit不存在，或edit所依赖的.o文件修改时间比edit文件新，那么执行后面所定义的命令来生成edit文件。</li>
-<li>各个.o文件同样类推。</li>
+<li>各个.o文件同理类推。</li>
 </ul>
 <h5 id="改进makefile"><a href="#改进makefile" class="headerlink" title="改进makefile"></a>改进makefile</h5><ul>
 <li>变量的使用<br>先看看第一个target<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">edit: main.o kbd.o command.o display.o \</div><div class="line">insert.o search.o files.o utils.o</div><div class="line">  cc -o edit main.o kbd.o command.o display.o \</div><div class="line">insert.o search.o files.o utils.o</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>这里有重复两次的main.o kbd.o command.o display.o insert.o search.o files.o utils.o。定义一个变量来代替它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">objects = main.o kbd.o command.o display.o insert.o search.o files.o utils.o</div><div class="line">edit: $objects</div><div class="line">cc -o edit $objects</div></pre></td></tr></table></figure></p>
+<p>这里有重复两次的main.o kbd.o command.o display.o insert.o search.o files.o utils.o。<br>定义一个变量来代替它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">objects = main.o kbd.o command.o display.o \</div><div class="line">insert.o search.o files.o utils.o</div><div class="line">edit: $objects</div><div class="line">cc -o edit $objects</div></pre></td></tr></table></figure></p>
 <p>是不是简洁一点了。</p>
 <ul>
 <li>使用make自动推到功能<br>GNU的make会自动推导文件以及依赖关系后面的命令。换句话说，make看到something.o时，会自动推导出cc -c something.c命令出来。所以上面的makefile可以写成：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">objects = main.o kbd.o command.o display.o insert.o search.o files.o utils.o</div><div class="line">edit: $objects</div><div class="line">  cc -o $objects</div><div class="line">main.o: defs.h</div><div class="line">kbd.o: defs.h command.h</div><div class="line">command.o: defs.h command.h</div><div class="line">display.o: defs.h buffer.h</div><div class="line">insert.o: defs.h buffer.h</div><div class="line">search.o: defs.h buffer.h</div><div class="line">files.o: defs.h buffer.h command.h</div><div class="line">utils.o: defs.h</div><div class="line">clean:</div><div class="line">  rm edit $objects</div></pre></td></tr></table></figure>
@@ -153,7 +153,7 @@ Makefile前面我们聊过了gcc编译源码的一些常用指令，当源代码
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/course/embeded/lesson_10/" data-id="cj0njv18j000j7cuflsivb1rx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/23/course/embeded/lesson_10/" data-id="cj0pamnxp001huoufn5qo4lu3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -164,19 +164,19 @@ Makefile前面我们聊过了gcc编译源码的一些常用指令，当源代码
     
 <nav id="article-nav">
   
-    <a href="/2017/03/23/course/embeded/tools/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/03/24/course/embeded/lesson_11/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          ARM Linux开发工具下载
+          （11）Linux模块
         
       </div>
     </a>
   
   
-    <a href="/2017/03/22/course/embeded/lesson_9/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/03/23/course/embeded/tools/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">（9）gdb</div>
+      <div class="article-nav-title">ARM Linux开发工具下载</div>
     </a>
   
 </nav>
@@ -227,11 +227,15 @@ Makefile前面我们聊过了gcc编译源码的一些常用指令，当源代码
       <ul>
         
           <li>
-            <a href="/2017/03/23/course/embeded/tools/">ARM Linux开发工具下载</a>
+            <a href="/2017/03/24/course/embeded/lesson_11/">（11）Linux模块</a>
           </li>
         
           <li>
             <a href="/2017/03/23/course/embeded/lesson_10/">（10）Makefile</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/course/embeded/tools/">ARM Linux开发工具下载</a>
           </li>
         
           <li>
@@ -240,10 +244,6 @@ Makefile前面我们聊过了gcc编译源码的一些常用指令，当源代码
         
           <li>
             <a href="/2017/03/21/course/embeded/lesson_8/">（8）gcc</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/20/course/embeded/lesson_7/">（7）Linux Shell</a>
           </li>
         
       </ul>

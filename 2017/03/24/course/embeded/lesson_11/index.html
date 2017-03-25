@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>（11）Linux模块 | HighSung</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="内容Linux模块简介模块入门
+
+Linux模块简介Linux系统按照程序运行空间（或权限）分用户空间和内核空间，内核空间运行linux内核程序代码。Linux内核代码属于单内核（monolithic kernel），其优点是运行效率高。缺点是所有的内核代码都集成一体，代码的耦合度高，可扩展性和维护性差。LKM模块机制解决了linux内核的缺陷，其提供了内核可以动态装载和卸载一些程序代码，这类代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="（11）Linux模块">
+<meta property="og:url" content="http://yoursite.com/2017/03/24/course/embeded/lesson_11/index.html">
+<meta property="og:site_name" content="HighSung">
+<meta property="og:description" content="内容Linux模块简介模块入门
+
+Linux模块简介Linux系统按照程序运行空间（或权限）分用户空间和内核空间，内核空间运行linux内核程序代码。Linux内核代码属于单内核（monolithic kernel），其优点是运行效率高。缺点是所有的内核代码都集成一体，代码的耦合度高，可扩展性和维护性差。LKM模块机制解决了linux内核的缺陷，其提供了内核可以动态装载和卸载一些程序代码，这类代">
+<meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_10/link.png">
+<meta property="og:updated_time" content="2017-03-25T07:50:46.495Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="（11）Linux模块">
+<meta name="twitter:description" content="内容Linux模块简介模块入门
+
+Linux模块简介Linux系统按照程序运行空间（或权限）分用户空间和内核空间，内核空间运行linux内核程序代码。Linux内核代码属于单内核（monolithic kernel），其优点是运行效率高。缺点是所有的内核代码都集成一体，代码的耦合度高，可扩展性和维护性差。LKM模块机制解决了linux内核的缺陷，其提供了内核可以动态装载和卸载一些程序代码，这类代">
+<meta name="twitter:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_10/link.png">
+  
+    <link rel="alternate" href="/atom.xml" title="HighSung" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">HighSung</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Make progress bit by bit every day</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-course/embeded/lesson_11" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/24/course/embeded/lesson_11/" class="article-date">
+  <time datetime="2017-03-24T13:31:00.000Z" itemprop="datePublished">2017-03-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      （11）Linux模块
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="Linux模块简介"><a href="#Linux模块简介" class="headerlink" title="Linux模块简介"></a>Linux模块简介</h4><h4 id="模块入门"><a href="#模块入门" class="headerlink" title="模块入门"></a>模块入门</h4><hr>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_10/link.png" alt="image"></p>
+<h5 id="Linux模块简介-1"><a href="#Linux模块简介-1" class="headerlink" title="Linux模块简介"></a>Linux模块简介</h5><p>Linux系统按照程序运行空间（或权限）分用户空间和内核空间，内核空间运行linux内核程序代码。Linux内核代码属于单内核（monolithic kernel），其优点是运行效率高。缺点是所有的内核代码都集成一体，代码的耦合度高，可扩展性和维护性差。LKM模块机制解决了linux内核的缺陷，其提供了内核可以动态装载和卸载一些程序代码，这类代码称之为模块。</p>
+<p>模块是具有独立功能的程序，它可以被单独编译，但不能独立运行。它在需要运行时被动态链接到内核内存空间运行，这点和运行在用户空间的应用程序有很大不同。若一个模块程序用于管理某些硬件设备，如网卡，键盘、摄像头等，这种模块称为设备驱动模块。</p>
+<h5 id="内核如何管理模块"><a href="#内核如何管理模块" class="headerlink" title="内核如何管理模块"></a>内核如何管理模块</h5><p>1、为了使内核模块访问所有内核资源，内核必须维护符号表，并在装入和卸载模块时修改这些符号表；<br>2、有些模块要求利用其他模块的功能，因此，内核要维护模块之间的依赖性。<br>3、内核必须能够在卸载模块时通知模块，并且要释放分配给模块的内存和中断等资源； 　　<br>4、内核版本和模块版本的不兼容，也可能导致系统崩溃，因此，严格的版本检查是必需的。</p>
+<h5 id="模块入门-1"><a href="#模块入门-1" class="headerlink" title="模块入门"></a>模块入门</h5><ol>
+<li><p>来一个hello world模块程序，hello_module.c文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#include &lt;linux/init.h&gt;</div><div class="line">#include &lt;linux/module.h&gt;</div><div class="line"></div><div class="line">// 声明模块支持协议</div><div class="line">MODULE_LICENSE(&quot;GPL&quot;);</div><div class="line"></div><div class="line">// 模块安装入口，被insmod命令调用</div><div class="line">int __init init_hello_module(void)</div><div class="line">&#123;</div><div class="line">    //用dmesg命令可以查看该信息</div><div class="line">    printk(&quot;Hello kernel, I am a module.\n&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//模块卸载出口，被rmmod命令调用</div><div class="line">void __exit cleanup_hello_module(void)</div><div class="line">&#123;</div><div class="line">    printk(&quot;Good bye kernel, from a module!\n&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//绑定装载和卸载函数</div><div class="line">module_init(init_hello_module);</div><div class="line">module_exit(cleanup_hello_module);</div></pre></td></tr></table></figure>
+</li>
+<li><p>再写一个Makefile，编译module。内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">obj-m := modules.o               #要生成的模块名     </div><div class="line">modules-objs:= hello_module.o     #生成这个模块名所需要的目标文件</div><div class="line"></div><div class="line">KDIR := /lib/modules/`uname -r`/build</div><div class="line">PWD := $(shell pwd)</div><div class="line"></div><div class="line">default:</div><div class="line">  make -C $(KDIR) M=$(PWD) modules</div><div class="line"></div><div class="line">clean:</div><div class="line">  rm -rf *.o .* .cmd *.ko *.mod.c .tmp_versions</div></pre></td></tr></table></figure>
+<p>说明：<br>obj-m  : 指定要声称的模块名字。格式为obj-m := &lt;模块名&gt;.o<br>modules-objs：声称模块modules需要的目标文件。格式为&lt;模块名&gt;-objs := &lt;目标文件&gt;<br>切记：模块名字不能与目标文件名字相同。如在这里模块名不能取成hello_module；<br>KDIR   ：指定操作系统内核编译目录。若目录不存在通过sudo dnf install kernel-devel<br>M=     ：指定源文件的位置。<br>PWD    ：当前工作路径，通过make执行shell命令$(shell pwd)得到。</p>
+</li>
+<li><p>编译、安装、卸载module</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$ make</div><div class="line">$ ls</div><div class="line">hello_module.c  Makefile    modules.mod.c  modules.o      Module.symvers</div><div class="line">hello_module.o  modules.ko  modules.mod.o  modules.order</div><div class="line">$ sudo insmod modules.ko</div><div class="line">$ sudo rmmod  modules</div><div class="line">$ demsg</div><div class="line">...</div><div class="line">[ 1186.777496] Hello kernel,I am a module.</div><div class="line">[ 1580.009145] Good bye kernel, from a module!</div></pre></td></tr></table></figure>
+</li>
+<li><p>安装模块后，查看其信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$ cat /proc/modules</div><div class="line">modules 16384 0 - Live 0xffffffffc078f000 (OE)</div><div class="line">nls_utf8 16384 1 - Live 0xffffffffc0785000</div><div class="line">isofs 40960 1 - Live 0xffffffffc0776000</div><div class="line">...</div><div class="line">$ modinfo modules.ko</div><div class="line">filename:       /home/highsung/dev/lesson_11/modules.ko</div><div class="line">license:        GPL</div><div class="line">depends:        </div><div class="line">vermagic:       4.8.6-300.fc25.x86_64 SMP mod_unload</div></pre></td></tr></table></figure>
+</li>
+<li><p>给模块添加更多信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 作者</div><div class="line">MODULE_AUTHOR(&quot;Highsung tech,&lt;1307814956@qq.com&gt;&quot;);</div><div class="line">// 版本</div><div class="line">MODULE_VERSION(&quot;0.1&quot;);</div><div class="line">// 描述模块作用</div><div class="line">MODULE_DESCRIPTION(&quot;Just for test&quot;);</div><div class="line">// 模块别名</div><div class="line">MODULE_ALIAS(&quot;Simple module&quot;);</div><div class="line">// 模块源hash值</div><div class="line">MODULE_INFO(srcversion,&quot;123zxcv&quot;);</div><div class="line">MODULE_INFO(intree,&quot;Y&quot;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>重新编译模块并装载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">$ modinfo modules.ko</div><div class="line">filename:       /home/highsung/dev/lesson_11/modules.ko</div><div class="line">intree:         Y</div><div class="line">srcversion:     123zxcv</div><div class="line">alias:          Simple module</div><div class="line">description:    Just for test</div><div class="line">version:        0.1</div><div class="line">author:         Highsung tech,&lt;1307814956@qq.com&gt;</div><div class="line">license:        GPL</div><div class="line">srcversion:     CA56BD7A1BEE0427483B64A</div><div class="line">depends:        </div><div class="line">vermagic:       4.8.6-300.fc25.x86_64 SMP mod_unload</div></pre></td></tr></table></figure></p>
+<h5 id="模块传参"><a href="#模块传参" class="headerlink" title="模块传参"></a>模块传参</h5><p>在用户态的C语言中，函数的传参使用main(int argc, char* argv)，内核的传参使用了另外一种方法：<br>步骤一、在内核函数中用module_param指定模块参数。<br>步骤二、加载内核时传递参数给模块。</p>
+<p>module_param函数使用方法：<br>module_param(name, type, perm)<br>name：内核参数的名称，自定义；<br>type：内核参数的类型，常见的类型byte、short、int、long、ulong、bool 、charp(字符指针);<br>perm：内核参数的权限S_IRUGO(对模块参数具有读权限)。其实权限和文件的权限差不多，具体可以查看”/usr/include/linux/stat.h”。</p>
+<p>  再编写一个param_module.c模块源文件：<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">#include &lt;linux/init.h&gt;</div><div class="line">#include &lt;linux/module.h&gt;</div><div class="line"></div><div class="line">// 声明模块支持协议</div><div class="line">MODULE_LICENSE(&quot;GPL&quot;);</div><div class="line">MODULE_AUTHOR(&quot;Highsung tech,&lt;1307814956@qq.com&gt;&quot;);</div><div class="line">MODULE_VERSION(&quot;0.1&quot;);</div><div class="line"></div><div class="line">// 定义整数和字符串</div><div class="line">int testNum = 10;</div><div class="line">char *testStr = &quot;param module&quot;;</div><div class="line"></div><div class="line">// 模块安装入口，被inmod命令调用</div><div class="line">int __init init_hello_module(void)</div><div class="line">&#123;</div><div class="line">	printk(&quot;Hello kernel,I am a module.\n&quot;);</div><div class="line">	printk(&quot;test num=%d, str=%s\n&quot;,testNum, testStr);</div><div class="line">	return 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 模块卸载出口，被rmmod命令调用</div><div class="line">void __exit cleanup_hello_module(void)</div><div class="line">&#123;</div><div class="line">	printk(&quot;Good bye kernel, from a module!\n&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 绑定装卸和卸载函数</div><div class="line">module_init(init_hello_module);</div><div class="line">module_exit(cleanup_hello_module);</div><div class="line">// 绑定整数和字符串</div><div class="line">module_param(testNum, int, 0644);</div><div class="line">module_param(testStr, charp, 0644);</div></pre></td></tr></table></figure></p>
+<p>  卸载先前的模块，再次装载之。正确打印传入的整数和字符串。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ sudo insmod modules.ko testNum=123 testStr=&apos;abc&apos;</div><div class="line">$ dmesg</div><div class="line">...</div><div class="line">[10389.957834] Hello kernel,I am a module.</div><div class="line">[10389.957836] test num=123, str=abc</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/24/course/embeded/lesson_11/" data-id="cj0pamnwz000zuoufhckidydg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/23/course/embeded/lesson_10/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">（10）Makefile</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-git/">hexo git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大学生实训/">大学生实训</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/校园采风/">校园采风</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/hexo-git/" style="font-size: 10px;">hexo git</a> <a href="/tags/大学生实训/" style="font-size: 10px;">大学生实训</a> <a href="/tags/嵌入式开发/" style="font-size: 20px;">嵌入式开发</a> <a href="/tags/校园采风/" style="font-size: 10px;">校园采风</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/24/course/embeded/lesson_11/">（11）Linux模块</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/course/embeded/lesson_10/">（10）Makefile</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/course/embeded/tools/">ARM Linux开发工具下载</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/22/course/embeded/lesson_9/">（9）gdb</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/21/course/embeded/lesson_8/">（8）gcc</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 HighSung<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

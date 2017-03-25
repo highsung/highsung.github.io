@@ -68,6 +68,204 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-course/embeded/lesson_2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/16/course/embeded/lesson_2/" class="article-date">
+  <time datetime="2017-03-16T02:45:00.000Z" itemprop="datePublished">2017-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/16/course/embeded/lesson_2/">（2）虚拟机和Linux安装使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="安装虚拟机和Linux（Fedora25）系统"><a href="#安装虚拟机和Linux（Fedora25）系统" class="headerlink" title="安装虚拟机和Linux（Fedora25）系统"></a>安装虚拟机和Linux（Fedora25）系统</h4><h4 id="掌握Fedora基本使用"><a href="#掌握Fedora基本使用" class="headerlink" title="掌握Fedora基本使用"></a>掌握Fedora基本使用</h4><h4 id="了解Linux目录结构意义"><a href="#了解Linux目录结构意义" class="headerlink" title="了解Linux目录结构意义"></a>了解Linux目录结构意义</h4><hr>
+<h5 id="分二步进行，先装虚拟机，再装Linux操作系统。这里拿VMware和Fedora25（目前是最新版本）。"><a href="#分二步进行，先装虚拟机，再装Linux操作系统。这里拿VMware和Fedora25（目前是最新版本）。" class="headerlink" title="分二步进行，先装虚拟机，再装Linux操作系统。这里拿VMware和Fedora25（目前是最新版本）。"></a>分二步进行，先装虚拟机，再装Linux操作系统。这里拿VMware和Fedora25（目前是最新版本）。</h5><ul>
+<li><p>安装VMware10，<a href="https://pan.baidu.com/s/1slbHmKd" target="_blank" rel="external">点击</a>下载安装。不建议使用VirtualBox，因为VBox和Linux安装好后，主机和虚拟机之间拖动文件，粘贴拷贝功能无法使用。需要另外下载程序镜像安装，且有时报各种错误。</p>
+</li>
+<li><p>安装Fedora-LXDE-25(32/64位，根据当前电脑配置)，<a href="https://pan.baidu.com/s/1slbHmKd" target="_blank" rel="external">点击</a>下载。相对来说，Fedora比Ubuntu要素点，没Ubuntu那么炫。正因为如此，如果笔记本配置弱一点，强烈建议安装Fedora。它小，快，稳定是你的不二选择。</p>
+</li>
+</ul>
+<h5 id="新建一个虚拟机"><a href="#新建一个虚拟机" class="headerlink" title="新建一个虚拟机"></a>新建一个虚拟机</h5><p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316105745.png" alt="image"></p>
+<h5 id="选择典型配置"><a href="#选择典型配置" class="headerlink" title="选择典型配置"></a>选择典型配置</h5><p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316171838.png" alt="image"></p>
+<h5 id="选择镜像ios文件"><a href="#选择镜像ios文件" class="headerlink" title="选择镜像ios文件"></a>选择镜像ios文件</h5><p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316171946.png" alt="image"></p>
+<h5 id="命名虚拟机名和存放位置"><a href="#命名虚拟机名和存放位置" class="headerlink" title="命名虚拟机名和存放位置"></a>命名虚拟机名和存放位置</h5><p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316172159.png" alt="image"></p>
+<h5 id="指定虚拟机磁盘大小，推荐60G。它不会马上占用60G的硬盘空间。"><a href="#指定虚拟机磁盘大小，推荐60G。它不会马上占用60G的硬盘空间。" class="headerlink" title="指定虚拟机磁盘大小，推荐60G。它不会马上占用60G的硬盘空间。"></a>指定虚拟机磁盘大小，推荐60G。它不会马上占用60G的硬盘空间。</h5><p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316172300.png" alt="image"><br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316172323.png" alt="image"></p>
+<h5 id="开始安装，直接回车"><a href="#开始安装，直接回车" class="headerlink" title="开始安装，直接回车"></a>开始安装，直接回车</h5><p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316172608.png" alt="image"><br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316172832.png" alt="image"><br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316173030.png" alt="image"><br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316173059.png" alt="image"></p>
+<h5 id="指定root账号密码和创建一个管理员账号"><a href="#指定root账号密码和创建一个管理员账号" class="headerlink" title="指定root账号密码和创建一个管理员账号"></a>指定root账号密码和创建一个管理员账号</h5><p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316173149.png" alt="image"></p>
+<h5 id="勾住“将此用户设为管理员”"><a href="#勾住“将此用户设为管理员”" class="headerlink" title="勾住“将此用户设为管理员”"></a>勾住“将此用户设为管理员”</h5><p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316173312.png" alt="image"></p>
+<h5 id="自动安装，可以先休息一会了"><a href="#自动安装，可以先休息一会了" class="headerlink" title="自动安装，可以先休息一会了"></a>自动安装，可以先休息一会了</h5><p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316173837.png" alt="image"></p>
+<h5 id="重启进入"><a href="#重启进入" class="headerlink" title="重启进入"></a>重启进入</h5><p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316173920.png" alt="image"></p>
+<h5 id="登录系统"><a href="#登录系统" class="headerlink" title="登录系统"></a>登录系统</h5><p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316174104.png" alt="image"></p>
+<h5 id="打开终端"><a href="#打开终端" class="headerlink" title="打开终端"></a>打开终端</h5><p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_2/20170316174308.png" alt="image"></p>
+<p>下图是根目录文件结构。请记住，Linux下一切对象皆文件，包括软硬件设备，都是用文件来描述的。</p>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_3/20170317104329.png" alt="image"></p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/bin</td>
+<td>bin是binary的简称，里面都是二进制的可执行程序，如ls,cd</td>
+</tr>
+<tr>
+<td>/boot</td>
+<td>启动Linux的配置文件和程序</td>
+</tr>
+<tr>
+<td>/dev</td>
+<td>设备文件</td>
+</tr>
+<tr>
+<td>/etc</td>
+<td>配置文件</td>
+</tr>
+<tr>
+<td>/home</td>
+<td>用户主目录</td>
+</tr>
+<tr>
+<td>/lib</td>
+<td>系统动态库</td>
+</tr>
+<tr>
+<td>/lib64</td>
+<td>64位系统的动态库</td>
+</tr>
+<tr>
+<td>/host+found</td>
+<td>存放系统非正常关机“无家可归”的文件</td>
+</tr>
+<tr>
+<td>/media</td>
+<td>即插即用型设备的挂载目录，如U盘</td>
+</tr>
+<tr>
+<td>/mnt</td>
+<td>用来临时挂载其他文件系统的目录</td>
+</tr>
+<tr>
+<td>/opt</td>
+<td>opt是optional的简称，可选的软件安装包目录</td>
+</tr>
+<tr>
+<td>/proc</td>
+<td>内存文件系统，查看和修改Linux系统运行时的内核数据结构和内核参数</td>
+</tr>
+<tr>
+<td>/root</td>
+<td>Linux超级权限用户的主目录</td>
+</tr>
+<tr>
+<td>/run</td>
+<td>系统运行时需要的，不能随便删除，系统运行时重新生成。如进程id，文件锁等</td>
+</tr>
+<tr>
+<td>/sbin</td>
+<td>root权限才能执行的命令目录</td>
+</tr>
+<tr>
+<td>/srv</td>
+<td>存放服务器需要访问的数据，如web网页，ftp资源</td>
+</tr>
+<tr>
+<td>/sys</td>
+<td>可以说是改进后的/opt，还有管理Linux统一设备模型</td>
+</tr>
+<tr>
+<td>/tmp</td>
+<td>存放程序运行产生，可以随时清理的缓存或临时文件</td>
+</tr>
+<tr>
+<td>/usr</td>
+<td>存放用户安装的第三方程序</td>
+</tr>
+<tr>
+<td>/var</td>
+<td>存放系统程序生成的不可自动销毁的缓存文件、日志记录。如email，数据库等</td>
+</tr>
+</tbody>
+</table>
+<p>下图是在根目录下通过ls -al命令输出的结果：<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_3/20170317104653.png" alt="image"></p>
+<table>
+<thead>
+<tr>
+<th>文件类型与权限</th>
+<th>链接占用的节点(i-node)</th>
+<th>文件拥有者</th>
+<th>文件拥有者的用户组</th>
+<th>文件大小</th>
+<th>修改时间</th>
+<th>名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lrwxrwxrwx.</td>
+<td>1</td>
+<td>root</td>
+<td>root</td>
+<td>7</td>
+<td>2月 17 10:35</td>
+<td>bin -&gt; usr/bin</td>
+</tr>
+<tr>
+<td>dr-xr-xr-x.</td>
+<td>6</td>
+<td>root</td>
+<td>root</td>
+<td>4096</td>
+<td>3月 17 01:36</td>
+<td>boot</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>d，l代表文件类型，3组rwx分别代表文件拥有者，所在组，其他用户的权限。</li>
+<li>r（read）代表读权限，w（write）代表写权限，x（execute）代表执行权限。</li>
+<li>常见的文件类型有：<ul>
+<li>-： 普通文件</li>
+<li>d： 目录</li>
+<li>b： 块文件</li>
+<li>c： 字符文件</li>
+<li>l： 符号链接文件</li>
+<li>p： 命名管道文件FIFO</li>
+<li>s： 套接字文件</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj0pamnxc0013uoufs1sf1j6s" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-course/embeded/lesson_1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/16/course/embeded/lesson_1/" class="article-date">
@@ -127,7 +325,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0njv18k000l7cufaxasd88k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj0pamnwt000uuouf0b9nzxyh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -166,7 +364,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj0njv19t001q7cufsydq604b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj0pamnyc001xuoufqyk6vqye" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大学生实训/">大学生实训</a></li></ul>
@@ -210,7 +408,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/cdut/" data-id="cj0njv19l001n7cuf6gsg0wpf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/14/school/cdut/cdut/" data-id="cj0pamnxm001fuoufk350nruj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/校园采风/">校园采风</a></li></ul>
@@ -261,7 +459,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/13/hexo/hexo部署博文到github/" data-id="cj0njv18a000f7cufyulj2udi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/13/hexo/hexo部署博文到github/" data-id="cj0pamnwm000ruouf8kawyvx3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo-git/">hexo git</a></li></ul>
@@ -321,11 +519,15 @@
       <ul>
         
           <li>
-            <a href="/2017/03/23/course/embeded/tools/">ARM Linux开发工具下载</a>
+            <a href="/2017/03/24/course/embeded/lesson_11/">（11）Linux模块</a>
           </li>
         
           <li>
             <a href="/2017/03/23/course/embeded/lesson_10/">（10）Makefile</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/course/embeded/tools/">ARM Linux开发工具下载</a>
           </li>
         
           <li>
@@ -334,10 +536,6 @@
         
           <li>
             <a href="/2017/03/21/course/embeded/lesson_8/">（8）gcc</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/20/course/embeded/lesson_7/">（7）Linux Shell</a>
           </li>
         
       </ul>
