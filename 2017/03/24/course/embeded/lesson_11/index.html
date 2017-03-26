@@ -15,14 +15,14 @@ Linux模块简介Linux系统按照程序运行空间（或权限）分用户空�
 <meta property="og:description" content="内容Linux模块简介模块入门
 
 Linux模块简介Linux系统按照程序运行空间（或权限）分用户空间和内核空间，内核空间运行linux内核程序代码。Linux内核代码属于单内核（monolithic kernel），其优点是运行效率高。缺点是所有的内核代码都集成一体，代码的耦合度高，可扩展性和维护性差。LKM模块机制解决了linux内核的缺陷，其提供了内核可以动态装载和卸载一些程序代码，这类代">
-<meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_10/link.png">
-<meta property="og:updated_time" content="2017-03-25T07:50:46.495Z">
+<meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_11/link.jpg">
+<meta property="og:updated_time" content="2017-03-26T13:37:21.834Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（11）Linux模块">
 <meta name="twitter:description" content="内容Linux模块简介模块入门
 
 Linux模块简介Linux系统按照程序运行空间（或权限）分用户空间和内核空间，内核空间运行linux内核程序代码。Linux内核代码属于单内核（monolithic kernel），其优点是运行效率高。缺点是所有的内核代码都集成一体，代码的耦合度高，可扩展性和维护性差。LKM模块机制解决了linux内核的缺陷，其提供了内核可以动态装载和卸载一些程序代码，这类代">
-<meta name="twitter:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_10/link.png">
+<meta name="twitter:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_11/link.jpg">
   
     <link rel="alternate" href="/atom.xml" title="HighSung" type="application/atom+xml">
   
@@ -99,7 +99,7 @@ Linux模块简介Linux系统按照程序运行空间（或权限）分用户空�
       
         <hr>
 <h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="Linux模块简介"><a href="#Linux模块简介" class="headerlink" title="Linux模块简介"></a>Linux模块简介</h4><h4 id="模块入门"><a href="#模块入门" class="headerlink" title="模块入门"></a>模块入门</h4><hr>
-<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_10/link.png" alt="image"></p>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_11/link.jpg" alt="image"></p>
 <h5 id="Linux模块简介-1"><a href="#Linux模块简介-1" class="headerlink" title="Linux模块简介"></a>Linux模块简介</h5><p>Linux系统按照程序运行空间（或权限）分用户空间和内核空间，内核空间运行linux内核程序代码。Linux内核代码属于单内核（monolithic kernel），其优点是运行效率高。缺点是所有的内核代码都集成一体，代码的耦合度高，可扩展性和维护性差。LKM模块机制解决了linux内核的缺陷，其提供了内核可以动态装载和卸载一些程序代码，这类代码称之为模块。</p>
 <p>模块是具有独立功能的程序，它可以被单独编译，但不能独立运行。它在需要运行时被动态链接到内核内存空间运行，这点和运行在用户空间的应用程序有很大不同。若一个模块程序用于管理某些硬件设备，如网卡，键盘、摄像头等，这种模块称为设备驱动模块。</p>
 <h5 id="内核如何管理模块"><a href="#内核如何管理模块" class="headerlink" title="内核如何管理模块"></a>内核如何管理模块</h5><p>1、为了使内核模块访问所有内核资源，内核必须维护符号表，并在装入和卸载模块时修改这些符号表；<br>2、有些模块要求利用其他模块的功能，因此，内核要维护模块之间的依赖性。<br>3、内核必须能够在卸载模块时通知模块，并且要释放分配给模块的内存和中断等资源； 　　<br>4、内核版本和模块版本的不兼容，也可能导致系统崩溃，因此，严格的版本检查是必需的。</p>
@@ -130,7 +130,7 @@ Linux模块简介Linux系统按照程序运行空间（或权限）分用户空�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/24/course/embeded/lesson_11/" data-id="cj0pamnwz000zuoufhckidydg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/24/course/embeded/lesson_11/" data-id="cj0qqcgyf000occuf9u8silzy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
