@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>（13）Linux内核编译 | HighSung</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="内容准备源码和工具内核配置选项和编译内核编译过程
+准备源码和工具Linux内核源码下载，选择需要的版本。这里使用OK6410自带的源码包和交叉工具链。清单如下：
+
+linux-3.0.1-2012-09-23.tar.gz
+arm-linux-gcc-4.3.2.tgz
+
+内核配置选项和编译
+arm-linux-gcc解压和配置
+
+解压arm-linux-gcc到根目录下，它会自动把文件解压到/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="（13）Linux内核编译">
+<meta property="og:url" content="http://yoursite.com/2017/03/26/course/embeded/lesson_13/index.html">
+<meta property="og:site_name" content="HighSung">
+<meta property="og:description" content="内容准备源码和工具内核配置选项和编译内核编译过程
+准备源码和工具Linux内核源码下载，选择需要的版本。这里使用OK6410自带的源码包和交叉工具链。清单如下：
+
+linux-3.0.1-2012-09-23.tar.gz
+arm-linux-gcc-4.3.2.tgz
+
+内核配置选项和编译
+arm-linux-gcc解压和配置
+
+解压arm-linux-gcc到根目录下，它会自动把文件解压到/">
+<meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328164923.png">
+<meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328165541.png">
+<meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328170632.png">
+<meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328172142.png">
+<meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328203911.png">
+<meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328211948.png">
+<meta property="og:updated_time" content="2017-03-28T13:34:20.415Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="（13）Linux内核编译">
+<meta name="twitter:description" content="内容准备源码和工具内核配置选项和编译内核编译过程
+准备源码和工具Linux内核源码下载，选择需要的版本。这里使用OK6410自带的源码包和交叉工具链。清单如下：
+
+linux-3.0.1-2012-09-23.tar.gz
+arm-linux-gcc-4.3.2.tgz
+
+内核配置选项和编译
+arm-linux-gcc解压和配置
+
+解压arm-linux-gcc到根目录下，它会自动把文件解压到/">
+<meta name="twitter:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328164923.png">
+  
+    <link rel="alternate" href="/atom.xml" title="HighSung" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">HighSung</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Make progress bit by bit every day</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-course/embeded/lesson_13" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/26/course/embeded/lesson_13/" class="article-date">
+  <time datetime="2017-03-26T08:51:00.000Z" itemprop="datePublished">2017-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      （13）Linux内核编译
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="准备源码和工具"><a href="#准备源码和工具" class="headerlink" title="准备源码和工具"></a>准备源码和工具</h4><h4 id="内核配置选项和编译"><a href="#内核配置选项和编译" class="headerlink" title="内核配置选项和编译"></a>内核配置选项和编译</h4><h4 id="内核编译过程"><a href="#内核编译过程" class="headerlink" title="内核编译过程"></a>内核编译过程</h4><hr>
+<h5 id="准备源码和工具-1"><a href="#准备源码和工具-1" class="headerlink" title="准备源码和工具"></a>准备源码和工具</h5><p>Linux内核源码<a href="https://www.kernel.org/" target="_blank" rel="external">下载</a>，选择需要的版本。<br>这里使用OK6410自带的源码包和交叉工具链。清单如下：</p>
+<ol>
+<li>linux-3.0.1-2012-09-23.tar.gz</li>
+<li>arm-linux-gcc-4.3.2.tgz</li>
+</ol>
+<h5 id="内核配置选项和编译-1"><a href="#内核配置选项和编译-1" class="headerlink" title="内核配置选项和编译"></a>内核配置选项和编译</h5><ul>
+<li><p>arm-linux-gcc解压和配置</p>
+<ol>
+<li><p>解压arm-linux-gcc到根目录下，它会自动把文件解压到/usr/local目录下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$tar zxvf arm-linux-gcc-4.3.2.tgz -C /</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加arm-linux-gcc的命令到当前shell环境变量<br>在/etc/profile文件，最后一行添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=/usr/local/arm/4.3.2/bin:$PATH</div></pre></td></tr></table></figure>
+<p>可用echo输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ echo export PATH=/usr/local/arm/4.3.2/bin:$PATH &gt;&gt; /etc/profile</div></pre></td></tr></table></figure>
+<p>使环境变量生效：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ . /etc/profile</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>解压和配置Linux内核</p>
+<ul>
+<li><p>解压源码到当前目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar zxvf linux-3.0.1-2012-09-23.tar.gz</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置内核</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ make menuconfig</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里可能会报错，提示需要ncurses-devel库，则安装之</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo dnf install ncurses-devel</div></pre></td></tr></table></figure>
+<p>再次make后会出现一个界面框（ncurses库提供支持），可进行功能项的配置。<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328164923.png" alt="image"><br>配置交叉工具链<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328165541.png" alt="image"></p>
+<ul>
+<li>配置完，开始编译。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 告诉编译器启动8个编译任务，提高编译速度。根据自己CPU内核个数而定。</div><div class="line">$ make -j8</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里可能会报错，提示/lib/ld-linux.so.2:bad ELF intpreter.原因在64位系统调用了32位程序。<br>所以，安装32位的c语言程序包。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo dnf install glibc.i686</div></pre></td></tr></table></figure>
+<p>提示：error while loading shared libraries: libz.so.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo dnf install zlib.i686</div></pre></td></tr></table></figure>
+<p>继续。。。<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328170632.png" alt="image"><br>中间可以还会报错，提示<br>Can’t use ‘defined(@array)’ (Maybe you should just omit the defined()?) at kernel/timeconst.pl<br>修改方法：<br>将if (!defined(@val))<br>改为if (!@val)</p>
+<ul>
+<li>编译成功！<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328172142.png" alt="image"></li>
+</ul>
+</li>
+</ul>
+<h5 id="内核编译过程-1"><a href="#内核编译过程-1" class="headerlink" title="内核编译过程"></a>内核编译过程</h5><p>当执行$ make menuconfig时会出现内核的配置界面，所有配置工具都是通过读取”arch/$(ARCH)Kconfig”文件来生成配置界面，这个文件就是所有配置的总入口，它会包含其他目录的Kconfig。<br>Kconfig的作用：Kconfig用来配置内核，它就是各种配置界面的源文件，内核的配置工具读取各个Kconfig文件，生成配置界面供开发人员配置内核，最后生成配置文件.config。Kconfig的语法可以参考“Documentation/kbuild/kconfig-language.txt”</p>
+<p>Kconfig文件的基本要素：<br>config条目(entry)<br>  config TMPFS_POSIX_ACL<br>    bool “Tmpfs POSIX Access Control Lists”<br>    depends on TMPFS<br>    select GENERIC_ACL<br>    help<br>      POSIX Access Control Lists (ACLs) support permissions for users and<br>      groups beyond the owner/group/world scheme.<br>      To learn more about Access Control Lists, visit the POSIX ACLs for<br>      If you don’t know what Access Control Lists are, say N.</p>
+<p>解析：<br>   config是关键字，表示一个配置选项的开始；紧跟着的TMPFS_POSIX<em>ACL是配置选项的名称，省略了前缀”CONFIG</em>“<br>   bool表示变量类型，即”CONFIG_ TMPFS_POSIX_ACL “的类型，有5种类型：bool、tristate、string、hex和int。</p>
+<ul>
+<li>bool变量的值：    y和n</li>
+<li>tristate变量的值：y、n和m</li>
+<li>string变量的值：  字符串</li>
+<li>bool之后的字符串“Tmpfs POSIX Access Control Lists”是提示信息，在配置界面中上下移动光标选中它时，就可以通过按空格或回车键来设置CONFIG_ TMPFS_POSIX_ACL的值</li>
+<li>depends on：表示依赖于XXX，“depends on TMPFS”表示只有当TMPFS配置选项被选中时，当前配置选项的提示信息才会出现，才能设置当前配置选项</li>
+</ul>
+<p>在内核中添加自己驱动模块：</p>
+<ul>
+<li>添加配置选项：在linux/drivers/char/Kconfig的endmenu前面一个菜单项，并勾选此项：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">config MY_HELLO</div><div class="line">	tristate &quot;Hello for test&quot;</div><div class="line">	depends on CPU_S3C6410</div><div class="line">	help</div><div class="line">		Hi, just a test.</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328203911.png" alt="image"></p>
+<ul>
+<li><p>新建驱动文件：linux/drivers/char/my-hello.c</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#include &lt;linux/init.h&gt;</div><div class="line">#include &lt;linux/module.h&gt;</div><div class="line">MODULE_LICENSE(&quot;Dual BSD/GPL&quot;);</div><div class="line">static int hello_init(void)</div><div class="line">&#123;</div><div class="line">	printk(KERN_ALERT &quot;Hello, world\n&quot;);</div><div class="line">	return 0;</div><div class="line">&#125;</div><div class="line">static void hello_exit(void)</div><div class="line">&#123;</div><div class="line">	printk(KERN_ALERT &quot;Goodbye, cruel world\n&quot;);</div><div class="line">&#125;</div><div class="line">module_init(hello_init);</div><div class="line">module_exit(hello_exit);</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改Makefile：linux/drivers/char/Makefile，在文件末尾添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">obj-$(CONFIG_MY_HELLO)			+= my-hello.o</div></pre></td></tr></table></figure>
+</li>
+<li><p>再次make<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328211948.png" alt="image"></p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/26/course/embeded/lesson_13/" data-id="cj0ta343s000gpsufqeaze4yn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/25/course/embeded/lesson_12/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">（12）Linux字符驱动</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-git/">hexo git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大学生实训/">大学生实训</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/校园采风/">校园采风</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/hexo-git/" style="font-size: 10px;">hexo git</a> <a href="/tags/大学生实训/" style="font-size: 10px;">大学生实训</a> <a href="/tags/嵌入式开发/" style="font-size: 20px;">嵌入式开发</a> <a href="/tags/校园采风/" style="font-size: 10px;">校园采风</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/26/course/embeded/lesson_13/">（13）Linux内核编译</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/25/course/embeded/lesson_12/">（12）Linux字符驱动</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/24/course/embeded/lesson_11/">（11）Linux模块</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/course/embeded/tools/">ARM Linux开发工具下载</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/course/embeded/lesson_10/">（10）Makefile</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 HighSung<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

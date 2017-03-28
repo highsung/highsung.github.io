@@ -18,7 +18,7 @@ Linux设备驱动开发Linux中一切皆文件。驱动程序作用">
 Linux系统的设备Linux系统中的设备分为三大类：字符设备，块设备，网络设备。字符设备就是以字节流形式通讯的I/O设备，常见的字符设备有键盘，鼠标，串口等。块设备则是以传输固定大小来访问设备。比如硬盘，U盘等等。网络设备跟块设备类似，但它能异步的接收来自外部的数据。
 Linux设备驱动开发Linux中一切皆文件。驱动程序作用">
 <meta property="og:image" content="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_12/link.png">
-<meta property="og:updated_time" content="2017-03-27T14:46:03.148Z">
+<meta property="og:updated_time" content="2017-03-28T09:41:27.594Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="（12）Linux字符驱动">
 <meta name="twitter:description" content="内容Linux系统的设备Linux设备驱动开发Linux字符驱动
@@ -104,7 +104,7 @@ Linux设备驱动开发Linux中一切皆文件。驱动程序作用">
 <h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="Linux系统的设备"><a href="#Linux系统的设备" class="headerlink" title="Linux系统的设备"></a>Linux系统的设备</h4><h4 id="Linux设备驱动开发"><a href="#Linux设备驱动开发" class="headerlink" title="Linux设备驱动开发"></a>Linux设备驱动开发</h4><h4 id="Linux字符驱动"><a href="#Linux字符驱动" class="headerlink" title="Linux字符驱动"></a>Linux字符驱动</h4><hr>
 <p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_12/link.png" alt="image"></p>
 <h5 id="Linux系统的设备-1"><a href="#Linux系统的设备-1" class="headerlink" title="Linux系统的设备"></a>Linux系统的设备</h5><p>Linux系统中的设备分为三大类：字符设备，块设备，网络设备。字符设备就是以字节流形式通讯的I/O设备，常见的字符设备有键盘，鼠标，串口等。块设备则是以传输固定大小来访问设备。比如硬盘，U盘等等。网络设备跟块设备类似，但它能异步的接收来自外部的数据。</p>
-<h5 id="Linux设备驱动开发-1"><a href="#Linux设备驱动开发-1" class="headerlink" title="Linux设备驱动开发"></a>Linux设备驱动开发</h5><p>Linux中一切皆文件。驱动程序作用就是提供上层应用访问底层硬件的桥梁作用。<br>从上层应用程序访问硬件设备的角度，Linux驱动模型必须提供一组对设备访问的操作集供上层调用之。这里主要涉及到Linux内核封装好的struct file_operations，驱动程序的编写，主要工作就是实现struct file_operations里面的方法。另外，Linux内核要提供如何管理设备名字和编号的方法。比如如何申请设备编号，名字，设备内核数据结构等等。</p>
+<h5 id="Linux设备驱动开发-1"><a href="#Linux设备驱动开发-1" class="headerlink" title="Linux设备驱动开发"></a>Linux设备驱动开发</h5><p>Linux中一切皆文件。驱动程序作用就是提供上层应用访问底层硬件的桥梁作用。<br>从上层应用程序访问硬件设备的角度，Linux驱动模型必须提供一组对设备访问的操作集供上层调用之。这里主要涉及到Linux内核封装好的struct file_operations，驱动程序的编写，主要工作就是实现struct file_operations里面的方法。另外，Linux内核要提供如何管理设备的方法。比如如何申请设备编号，名字，内核数据结构，cdev数据结构。</p>
 <p>先来看看操作集, struct file_operations<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">struct file_operations &#123;</div><div class="line">    struct module *owner;   //THIS_MODULE</div><div class="line">    // 读数据</div><div class="line">    ssize_t (*read) (struct file *, char __user *, size_t, loff_t *);</div><div class="line">    // 写数据</div><div class="line">    ssize_t (*write) (struct file *, const char __user *, size_t, loff_t *);</div><div class="line">    // 映射内核空间到用户空间</div><div class="line">    int (*mmap) (struct file *, struct vm_area_struct *);</div><div class="line">    // 读写设备参数、读设备状态、控制设备</div><div class="line">    long (*unlocked_ioctl) (struct file *, unsigned int, unsigned long);</div><div class="line"></div><div class="line">    // 打开设备</div><div class="line">    int (*open) (struct inode *, struct file *);</div><div class="line">    // 关闭设备</div><div class="line">    int (*release) (struct inode *, struct file *);</div><div class="line">    // 刷新设备</div><div class="line">    int (*flush) (struct file *, fl_owner_t id);</div><div class="line">    // 文件定位</div><div class="line">    loff_t (*llseek) (struct file *, loff_t, int);</div><div class="line"></div><div class="line">    // 异步通知</div><div class="line">    int (*fasync) (int, struct file *, int);</div><div class="line">    // POLL机制</div><div class="line">    unsigned int (*poll) (struct file *, struct poll_table_struct *);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
 <p>读和写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 读数据</div><div class="line">ssize_t (*read) (struct file *, char __user *, size_t, loff_t *);</div><div class="line">// 写数据</div><div class="line">ssize_t (*write) (struct file *, const char __user *, size_t, loff_t *);</div></pre></td></tr></table></figure></p>
 <p>read和write的buff参数是用户空间指针。因此，内核提供了专门的函数用于访问用户空间的指针，用于数据的来回“穿越”。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 把数据从用户空间搬运到内核空间</div><div class="line">int copy_from_user(void *to,const void_user *from,int n)</div><div class="line">// 把数据从内核空间搬运到用户空间</div><div class="line">int copy_to_user(void_user *to,const void *from,int n)</div></pre></td></tr></table></figure></p>
@@ -157,7 +157,7 @@ Linux设备驱动开发Linux中一切皆文件。驱动程序作用">
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/25/course/embeded/lesson_12/" data-id="cj0s890ib000nccufhj74cub9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/25/course/embeded/lesson_12/" data-id="cj0ta343y000lpsufdir76dy2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -167,6 +167,15 @@ Linux设备驱动开发Linux中一切皆文件。驱动程序作用">
   
     
 <nav id="article-nav">
+  
+    <a href="/2017/03/26/course/embeded/lesson_13/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          （13）Linux内核编译
+        
+      </div>
+    </a>
   
   
     <a href="/2017/03/24/course/embeded/lesson_11/" id="article-nav-older" class="article-nav-link-wrap">
@@ -222,6 +231,10 @@ Linux设备驱动开发Linux中一切皆文件。驱动程序作用">
       <ul>
         
           <li>
+            <a href="/2017/03/26/course/embeded/lesson_13/">（13）Linux内核编译</a>
+          </li>
+        
+          <li>
             <a href="/2017/03/25/course/embeded/lesson_12/">（12）Linux字符驱动</a>
           </li>
         
@@ -235,10 +248,6 @@ Linux设备驱动开发Linux中一切皆文件。驱动程序作用">
         
           <li>
             <a href="/2017/03/23/course/embeded/lesson_10/">（10）Makefile</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/22/course/embeded/lesson_9/">（9）gdb</a>
           </li>
         
       </ul>
