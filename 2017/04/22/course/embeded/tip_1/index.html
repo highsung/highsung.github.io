@@ -3,24 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>apt-get install 加速 | HighSung</title>
+  <title>ubuntu apt-get install 加速 | HighSung</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#####
+  <meta name="description" content="原理是把apt-get安装源切换成国内的，这里选择国内网易的镜像站点。
 
-备份/etc/apt/source.list文件$ sudo cp /etc/apt/source.list /etc/apt/source.list.olddeb http://mirrors.163.com/ubuntu/ precise main restricteddeb-src http://mirrors.163.com/ubuntu/ precise main rest">
+备份/etc/apt/source.list文件$ sudo cp /etc/apt/source.list /etc/apt/source.list.old
+修改/etc/apt/source.list的内容$ sudo gedit /etc/apt/source.list把/etc/apt/source.list的内容替">
 <meta property="og:type" content="article">
-<meta property="og:title" content="apt-get install 加速">
+<meta property="og:title" content="ubuntu apt-get install 加速">
 <meta property="og:url" content="http://yoursite.com/2017/04/22/course/embeded/tip_1/index.html">
 <meta property="og:site_name" content="HighSung">
-<meta property="og:description" content="#####
+<meta property="og:description" content="原理是把apt-get安装源切换成国内的，这里选择国内网易的镜像站点。
 
-备份/etc/apt/source.list文件$ sudo cp /etc/apt/source.list /etc/apt/source.list.olddeb http://mirrors.163.com/ubuntu/ precise main restricteddeb-src http://mirrors.163.com/ubuntu/ precise main rest">
-<meta property="og:updated_time" content="2017-04-22T11:41:00.205Z">
+备份/etc/apt/source.list文件$ sudo cp /etc/apt/source.list /etc/apt/source.list.old
+修改/etc/apt/source.list的内容$ sudo gedit /etc/apt/source.list把/etc/apt/source.list的内容替">
+<meta property="og:updated_time" content="2017-04-22T11:53:41.155Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="apt-get install 加速">
-<meta name="twitter:description" content="#####
+<meta name="twitter:title" content="ubuntu apt-get install 加速">
+<meta name="twitter:description" content="原理是把apt-get安装源切换成国内的，这里选择国内网易的镜像站点。
 
-备份/etc/apt/source.list文件$ sudo cp /etc/apt/source.list /etc/apt/source.list.olddeb http://mirrors.163.com/ubuntu/ precise main restricteddeb-src http://mirrors.163.com/ubuntu/ precise main rest">
+备份/etc/apt/source.list文件$ sudo cp /etc/apt/source.list /etc/apt/source.list.old
+修改/etc/apt/source.list的内容$ sudo gedit /etc/apt/source.list把/etc/apt/source.list的内容替">
   
     <link rel="alternate" href="/atom.xml" title="HighSung" type="application/atom+xml">
   
@@ -87,7 +90,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      apt-get install 加速
+      ubuntu apt-get install 加速
     </h1>
   
 
@@ -95,15 +98,38 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#####</p>
+        <p>原理是把apt-get安装源切换成国内的，这里选择国内网易的镜像站点。</p>
 <ul>
-<li>备份/etc/apt/source.list文件<br><code>$ sudo cp /etc/apt/source.list /etc/apt/source.list.old</code><br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise main restricted<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise main restricted<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-updates main restricted<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-updates main restricted<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise universe<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise universe<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-updates universe<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-updates universe<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise multiverse<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-updates multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-updates multiverse<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-backports main restricted universe multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-backports main restricted universe multiverse<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-security main restricted<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-security main restricted<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-security universe<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-security universe<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-security multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-security multiverse<br>deb <a href="http://extras.ubuntu.com/ubuntu" target="_blank" rel="external">http://extras.ubuntu.com/ubuntu</a> precise main<br>deb-src <a href="http://extras.ubuntu.com/ubuntu" target="_blank" rel="external">http://extras.ubuntu.com/ubuntu</a> precise main</li>
+<li>备份/etc/apt/source.list文件<br><code>$ sudo cp /etc/apt/source.list /etc/apt/source.list.old</code></li>
+<li>修改/etc/apt/source.list的内容<br><code>$ sudo gedit /etc/apt/source.list</code><br>把/etc/apt/source.list的内容替换成如下：<br><code>deb http://mirrors.163.com/ubuntu/ precise main restricted
+deb-src http://mirrors.163.com/ubuntu/ precise main restricted
+deb http://mirrors.163.com/ubuntu/ precise-updates main restricted
+deb-src http://mirrors.163.com/ubuntu/ precise-updates main restricted
+deb http://mirrors.163.com/ubuntu/ precise universe
+deb-src http://mirrors.163.com/ubuntu/ precise universe
+deb http://mirrors.163.com/ubuntu/ precise-updates universe
+deb-src http://mirrors.163.com/ubuntu/ precise-updates universe
+deb http://mirrors.163.com/ubuntu/ precise multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise multiverse
+deb http://mirrors.163.com/ubuntu/ precise-updates multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise-updates multiverse
+deb http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ precise-security main restricted
+deb-src http://mirrors.163.com/ubuntu/ precise-security main restricted
+deb http://mirrors.163.com/ubuntu/ precise-security universe
+deb-src http://mirrors.163.com/ubuntu/ precise-security universe
+deb http://mirrors.163.com/ubuntu/ precise-security multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise-security multiverse
+deb http://extras.ubuntu.com/ubuntu precise main
+deb-src http://extras.ubuntu.com/ubuntu precise main</code></li>
+<li>安装源生效<br><code>$ sudo apt-get update</code></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/22/course/embeded/tip_1/" data-id="cj1t72b690014k0ufjhlwk9ys" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/22/course/embeded/tip_1/" data-id="cj1t7ijg7001f8guflz5goeb7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -168,7 +194,7 @@
       <ul>
         
           <li>
-            <a href="/2017/04/22/course/embeded/tip_1/">apt-get install 加速</a>
+            <a href="/2017/04/22/course/embeded/tip_1/">ubuntu apt-get install 加速</a>
           </li>
         
           <li>

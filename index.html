@@ -82,7 +82,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/22/course/embeded/tip_1/">apt-get install 加速</a>
+      <a class="article-title" href="/2017/04/22/course/embeded/tip_1/">ubuntu apt-get install 加速</a>
     </h1>
   
 
@@ -90,15 +90,38 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#####</p>
+        <p>原理是把apt-get安装源切换成国内的，这里选择国内网易的镜像站点。</p>
 <ul>
-<li>备份/etc/apt/source.list文件<br><code>$ sudo cp /etc/apt/source.list /etc/apt/source.list.old</code><br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise main restricted<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise main restricted<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-updates main restricted<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-updates main restricted<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise universe<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise universe<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-updates universe<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-updates universe<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise multiverse<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-updates multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-updates multiverse<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-backports main restricted universe multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-backports main restricted universe multiverse<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-security main restricted<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-security main restricted<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-security universe<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-security universe<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-security multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="external">http://mirrors.163.com/ubuntu/</a> precise-security multiverse<br>deb <a href="http://extras.ubuntu.com/ubuntu" target="_blank" rel="external">http://extras.ubuntu.com/ubuntu</a> precise main<br>deb-src <a href="http://extras.ubuntu.com/ubuntu" target="_blank" rel="external">http://extras.ubuntu.com/ubuntu</a> precise main</li>
+<li>备份/etc/apt/source.list文件<br><code>$ sudo cp /etc/apt/source.list /etc/apt/source.list.old</code></li>
+<li>修改/etc/apt/source.list的内容<br><code>$ sudo gedit /etc/apt/source.list</code><br>把/etc/apt/source.list的内容替换成如下：<br><code>deb http://mirrors.163.com/ubuntu/ precise main restricted
+deb-src http://mirrors.163.com/ubuntu/ precise main restricted
+deb http://mirrors.163.com/ubuntu/ precise-updates main restricted
+deb-src http://mirrors.163.com/ubuntu/ precise-updates main restricted
+deb http://mirrors.163.com/ubuntu/ precise universe
+deb-src http://mirrors.163.com/ubuntu/ precise universe
+deb http://mirrors.163.com/ubuntu/ precise-updates universe
+deb-src http://mirrors.163.com/ubuntu/ precise-updates universe
+deb http://mirrors.163.com/ubuntu/ precise multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise multiverse
+deb http://mirrors.163.com/ubuntu/ precise-updates multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise-updates multiverse
+deb http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ precise-security main restricted
+deb-src http://mirrors.163.com/ubuntu/ precise-security main restricted
+deb http://mirrors.163.com/ubuntu/ precise-security universe
+deb-src http://mirrors.163.com/ubuntu/ precise-security universe
+deb http://mirrors.163.com/ubuntu/ precise-security multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise-security multiverse
+deb http://extras.ubuntu.com/ubuntu precise main
+deb-src http://extras.ubuntu.com/ubuntu precise main</code></li>
+<li>安装源生效<br><code>$ sudo apt-get update</code></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/22/course/embeded/tip_1/" data-id="cj1t72b690014k0ufjhlwk9ys" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/22/course/embeded/tip_1/" data-id="cj1t7ijg7001f8guflz5goeb7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -210,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/26/course/embeded/lesson_13/" data-id="cj1t72b5r000ok0ufij9jgwue" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/26/course/embeded/lesson_13/" data-id="cj1t7ijfm000s8gufghf62fn8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -301,7 +324,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/25/course/embeded/lesson_12/" data-id="cj1t72b5p000mk0uf4hjrlz9i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/25/course/embeded/lesson_12/" data-id="cj1t7ijfq000x8guftkw1o5bk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -368,7 +391,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/24/course/embeded/lesson_11/" data-id="cj1t72b5v000sk0ufwjyh3258" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/24/course/embeded/lesson_11/" data-id="cj1t7ijff000l8gufl5sossbs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -455,7 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/course/embeded/lesson_10/" data-id="cj1t72b61000wk0ufkhoacacc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/23/course/embeded/lesson_10/" data-id="cj1t7ijfi000o8guf4yyrq9js" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -495,7 +518,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/course/embeded/tools/" data-id="cj1t72b6b0016k0ufvzo9g8ci" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/23/course/embeded/tools/" data-id="cj1t7ijg4001b8gufjf9un0ts" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -603,7 +626,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj1t72b6v001rk0ufp6p7ax6x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj1t7ijg200198guftmq5qyb1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -720,7 +743,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj1t72b6u001qk0ufx63tsi1z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj1t7ijfw00138guftobogqxw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -844,7 +867,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj1t72b670012k0ufsmz74wgr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj1t7ijg6001d8guf2pnz4kst" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1065,7 +1088,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj1t72b71001vk0ufcyqhpadc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj1t7ijfy00158gufm08jwwt7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1125,7 +1148,7 @@
       <ul>
         
           <li>
-            <a href="/2017/04/22/course/embeded/tip_1/">apt-get install 加速</a>
+            <a href="/2017/04/22/course/embeded/tip_1/">ubuntu apt-get install 加速</a>
           </li>
         
           <li>
