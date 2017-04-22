@@ -29,7 +29,7 @@
 
 
 把/etc/apt/source.">
-<meta property="og:updated_time" content="2017-04-22T12:56:29.170Z">
+<meta property="og:updated_time" content="2017-04-22T12:57:37.455Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu apt-get install 加速">
 <meta name="twitter:description" content="原理是把apt-get安装源切换成国内的，这里选择国内网易的镜像站点。
@@ -125,28 +125,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo gedit /etc/apt/source.list</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>把/etc/apt/source.list的内容替换成如下：<br><code>deb http://mirrors.163.com/ubuntu/ precise main restricted
-  deb-src http://mirrors.163.com/ubuntu/ precise main restricted
-  deb http://mirrors.163.com/ubuntu/ precise-updates main restricted
-deb-src http://mirrors.163.com/ubuntu/ precise-updates main restricted
-deb http://mirrors.163.com/ubuntu/ precise universe
-deb-src http://mirrors.163.com/ubuntu/ precise universe
-deb http://mirrors.163.com/ubuntu/ precise-updates universe
-deb-src http://mirrors.163.com/ubuntu/ precise-updates universe
-deb http://mirrors.163.com/ubuntu/ precise multiverse
-deb-src http://mirrors.163.com/ubuntu/ precise multiverse
-deb http://mirrors.163.com/ubuntu/ precise-updates multiverse
-deb-src http://mirrors.163.com/ubuntu/ precise-updates multiverse
-deb http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
-deb-src http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
-deb http://mirrors.163.com/ubuntu/ precise-security main restricted
-deb-src http://mirrors.163.com/ubuntu/ precise-security main restricted
-deb http://mirrors.163.com/ubuntu/ precise-security universe
-deb-src http://mirrors.163.com/ubuntu/ precise-security universe
-deb http://mirrors.163.com/ubuntu/ precise-security multiverse
-deb-src http://mirrors.163.com/ubuntu/ precise-security multiverse
-deb http://extras.ubuntu.com/ubuntu precise main
-deb-src http://extras.ubuntu.com/ubuntu precise main</code></p>
+<p>把/etc/apt/source.list的内容替换成如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">deb http://mirrors.163.com/ubuntu/ precise main restricted</div><div class="line">deb-src http://mirrors.163.com/ubuntu/ precise main restricted</div><div class="line">deb http://mirrors.163.com/ubuntu/ precise-updates main restricted</div><div class="line">deb-src http://mirrors.163.com/ubuntu/ precise-updates main restricted</div><div class="line">deb http://mirrors.163.com/ubuntu/ precise universe</div><div class="line">deb-src http://mirrors.163.com/ubuntu/ precise universe</div><div class="line">deb http://mirrors.163.com/ubuntu/ precise-updates universe</div><div class="line">deb-src http://mirrors.163.com/ubuntu/ precise-updates universe</div><div class="line">deb http://mirrors.163.com/ubuntu/ precise multiverse</div><div class="line">deb-src http://mirrors.163.com/ubuntu/ precise multiverse</div><div class="line">deb http://mirrors.163.com/ubuntu/ precise-updates multiverse</div><div class="line">deb-src http://mirrors.163.com/ubuntu/ precise-updates multiverse</div><div class="line">deb http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse</div><div class="line">deb-src http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse</div><div class="line">deb http://mirrors.163.com/ubuntu/ precise-security main restricted</div><div class="line">deb-src http://mirrors.163.com/ubuntu/ precise-security main restricted</div><div class="line">deb http://mirrors.163.com/ubuntu/ precise-security universe</div><div class="line">deb-src http://mirrors.163.com/ubuntu/ precise-security universe</div><div class="line">deb http://mirrors.163.com/ubuntu/ precise-security multiverse</div><div class="line">deb-src http://mirrors.163.com/ubuntu/ precise-security multiverse</div><div class="line">deb http://extras.ubuntu.com/ubuntu precise main</div><div class="line">deb-src http://extras.ubuntu.com/ubuntu precise main</div></pre></td></tr></table></figure></p>
 <ul>
 <li>安装源生效<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get update</div></pre></td></tr></table></figure>
 </li>
@@ -155,7 +134,7 @@ deb-src http://extras.ubuntu.com/ubuntu precise main</code></p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/22/course/embeded/tip_1/" data-id="cj1t9rolx0012y4ufimbb6soe" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/22/course/embeded/tip_1/" data-id="cj1t9sgad001ckwufqflamieh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -236,7 +215,7 @@ deb-src http://extras.ubuntu.com/ubuntu precise main</code></p>
           </li>
         
           <li>
-            <a href="/2017/03/23/course/embeded/lesson_10/">（10）Makefile</a>
+            <a href="/2017/03/23/course/embeded/tools/">ARM Linux开发工具下载</a>
           </li>
         
       </ul>
