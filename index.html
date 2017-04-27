@@ -68,10 +68,114 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-course/embeded/lesson_15" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/27/course/embeded/lesson_15/" class="article-date">
+  <time datetime="2017-04-27T08:51:00.000Z" itemprop="datePublished">2017-04-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/27/course/embeded/lesson_15/">（14）Uboot实验</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="Uboot启动源码分布"><a href="#Uboot启动源码分布" class="headerlink" title="Uboot启动源码分布"></a>Uboot启动源码分布</h5><p>启动顺序定义：uboot1.1.6\board\samsung\smdk6410\u-boot.lds</p>
+<ol>
+<li>复位启动开始的地方<br>uboot1.1.6/cpu/s3c64xx/Start.S<br>|——-&gt; reset:<pre><code>|--------&gt; start_armboot
+</code></pre></li>
+</ol>
+<ol>
+<li>配置板卡的各种硬件信息。<br>board.c<br>|——-&gt; start_armboot<pre><code>|-----------&gt; init_fnc_t **init_fnc_ptr;----|---&gt; cpu_init
+|-----------&gt; main_loop                     |---&gt; board_init
+                                            |---&gt; interrupt_init
+                                            |---&gt; env_init
+                                            |---&gt; init_baudrate
+                                            |---&gt; serial_init
+                                            |---&gt; console_init_f
+                                            |---&gt; display_banner
+                                            |---&gt; print_cpuinfo
+                                            |---&gt; checkboard
+                                            |---&gt; dram_init
+                                            |---&gt; display_dram_config
+</code></pre></li>
+</ol>
+<h5 id="Uboot实验"><a href="#Uboot实验" class="headerlink" title="Uboot实验"></a>Uboot实验</h5><p>实验一：修改Uboot启动时的打印Logo</p>
+<hr>
+<p><strong>    u-boot 1.1.6                       </strong></p>
+<p><strong>    Updated for OK6410  TE6410 Board   </strong></p>
+<p><strong>    Version (2012-09-23)               </strong></p>
+<p><strong>    Builder: Lao Embedded              </strong></p>
+<p><strong>    Web: <a href="http://www.hwadee.com" target="_blank" rel="external">http://www.hwadee.com</a>         </strong></p>
+<hr>
+<p>实验二：添加自定义命令：</p>
+<ol>
+<li><p>在对应的开发板配置文件中，添加相应命令的宏定义<br>比如在uboot/include/configs/smdk6410.h<br>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p>
+<ul>
+<li>Command definition<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/<br>#define CONFIG_COMMANDS \<pre><code>(CONFIG_CMD_DFL    | \
+CFG_CMD_CACHE    | \
+CFG_CMD_USB    | \
+CFG_CMD_REGINFO    | \
+CFG_CMD_LOADS    | \
+CFG_CMD_LOADB    | \
+CFG_CMD_ENV    | \
+CFG_CMD_MYTEST
+</code></pre></li>
+</ul>
+</li>
+<li><p>在uboot/common/目录下，建立相应的命令执行文件，如cmd_mytest.c，注意命名的规范，必须是cmd_mytest.c才行。<br>#include <common.h><br>#include <command.h><br>#ifdef CFG_CMD_MYTEST</command.h></common.h></p>
+</li>
+</ol>
+<p>int do_mytest()<br>{<br>    printf(“this is my test command. it is a new command.\n”);<br>    return 0;<br>}</p>
+<p>U_BOOT_CMD(mytest, 1, 0, do_mytest, “mytest  - just a demo that add new command\n”, “usage: mytest\n”);</p>
+<p>#endif</p>
+<ol>
+<li><p>在uboot/comman/Makefile文件中，加入生成相应的cmd_mytest.o文件才可以</p>
+</li>
+<li><p>编译烧写uboot，验证修改成果<br>敲入help，显示的结果</p>
+</li>
+</ol>
+<p>#help<br>mytest  - just a demo that add new command</p>
+<p>SMDK6410 # mytest</p>
+<p>this is my test command. it is a new command.</p>
+<p>实验三：修改环境参数<br>// 启动参数</p>
+<p>#define CONFIG_BOOTARGS     “root=/dev/mtdblock2 rootfstype=yaffs2 init=/linuxrc console=ttySAC0,115200”<br>// 网卡MAC地址</p>
+<p>#define CONFIG_ETHADDR        00:40:5c:26:0a:5b<br>// 网卡IP，掩码，网关，nfs服务器IP</p>
+<p>#define CONFIG_IPADDR        10.10.141.234</p>
+<p>#define CONFIG_NETMASK      255.255.255.0</p>
+<p>#define CONFIG_GATEWAYIP    10.10.141.2</p>
+<p>#define CONFIG_SERVERIP        10.10.141.117<br>// 启动参数: 从nandflash的0x200000位置读取0x500000（5M空间）到0xc00080000，然后从0xc0008000开始执行</p>
+<p>#define CONFIG_BOOTCOMMAND    “nand read 0xc0008000 0x200000 0x500000;bootm 0xc0008000”</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/27/course/embeded/lesson_15/" data-id="cj1zsjy97000wwoufplhqffsu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-course/embeded/lesson_14" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/04/27/course/embeded/lesson_14/" class="article-date">
-  <time datetime="2017-04-27T08:51:00.000Z" itemprop="datePublished">2017-04-27</time>
+  <time datetime="2017-04-27T02:20:00.000Z" itemprop="datePublished">2017-04-27</time>
 </a>
     
   </div>
@@ -196,7 +300,7 @@ gd-&gt;bd-&gt;bi_ip_addr = getenv_IPaddr (&quot;ipaddr&quot;);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/27/course/embeded/lesson_14/" data-id="cj1zsd6n8000rtgufg90kwrpr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/27/course/embeded/lesson_14/" data-id="cj1zsjy94000uwoufppt6e3vt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -248,7 +352,7 @@ gd-&gt;bd-&gt;bi_ip_addr = getenv_IPaddr (&quot;ipaddr&quot;);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/22/course/embeded/tip_1/" data-id="cj1zsd6o5001etgufkdznxc0d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/22/course/embeded/tip_1/" data-id="cj1zsjy9z001ewoufc6fqyrja" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -360,7 +464,7 @@ gd-&gt;bd-&gt;bi_ip_addr = getenv_IPaddr (&quot;ipaddr&quot;);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/26/course/embeded/lesson_13/" data-id="cj1zsd6nh000ytguf6qukigk0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/26/course/embeded/lesson_13/" data-id="cj1zsjy8x000owoufzj0jw69g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -451,7 +555,7 @@ gd-&gt;bd-&gt;bi_ip_addr = getenv_IPaddr (&quot;ipaddr&quot;);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/25/course/embeded/lesson_12/" data-id="cj1zsd6n6000otgufvnnk1lx0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/25/course/embeded/lesson_12/" data-id="cj1zsjy92000swoufcx34qlow" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -518,7 +622,7 @@ gd-&gt;bd-&gt;bi_ip_addr = getenv_IPaddr (&quot;ipaddr&quot;);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/24/course/embeded/lesson_11/" data-id="cj1zsd6nb000ttgufcpbuuu14" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/24/course/embeded/lesson_11/" data-id="cj1zsjy8u000mwoufg5vuzp76" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -605,7 +709,7 @@ gd-&gt;bd-&gt;bi_ip_addr = getenv_IPaddr (&quot;ipaddr&quot;);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/course/embeded/lesson_10/" data-id="cj1zsd6nd000vtgufbc4i352i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/23/course/embeded/lesson_10/" data-id="cj1zsjy90000qwoufk0j11h98" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -645,7 +749,7 @@ gd-&gt;bd-&gt;bi_ip_addr = getenv_IPaddr (&quot;ipaddr&quot;);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/course/embeded/tools/" data-id="cj1zsd6o8001gtgufalxz02y4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/23/course/embeded/tools/" data-id="cj1zsjya1001gwoufsagt2ofg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -753,7 +857,7 @@ gd-&gt;bd-&gt;bi_ip_addr = getenv_IPaddr (&quot;ipaddr&quot;);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj1zsd6od001itgufab0lfv7a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj1zsjy9p0018woufmzhuucye" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -870,131 +974,7 @@ gd-&gt;bd-&gt;bi_ip_addr = getenv_IPaddr (&quot;ipaddr&quot;);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj1zsd6o1001atgufhtznoi12" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-course/embeded/lesson_7" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/20/course/embeded/lesson_7/" class="article-date">
-  <time datetime="2017-03-20T05:37:00.000Z" itemprop="datePublished">2017-03-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/20/course/embeded/lesson_7/">（7）Linux Shell</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="Shell简介"><a href="#Shell简介" class="headerlink" title="Shell简介"></a>Shell简介</h4><h4 id="Shell配置和操作"><a href="#Shell配置和操作" class="headerlink" title="Shell配置和操作"></a>Shell配置和操作</h4><h4 id="Shell脚本"><a href="#Shell脚本" class="headerlink" title="Shell脚本"></a>Shell脚本</h4><hr>
-<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_7/link.jpg" alt="image"></p>
-<p>Shell 是操作系统的外壳，是用户使用操作系统的命令接口；接受用户以命令行方式输入的命令(包括系统提供的内部命令、独立存在于某个目录下的程序），同时也能解释执行由Shell命令编写的Shell程序。</p>
-<p>Shell、用户和内核的关系见下图：<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_7/shell.png" alt="image"></p>
-<p>从上图中可以看出，Shell是用户和Linux系统之间交互的桥梁。黑客，有个性的程序员或工程师习惯在Shell中输入各种命令和配置指令。界面的各种炫，对他们来说都是out之物。</p>
-<h6 id="1-Shell大概工作流程："><a href="#1-Shell大概工作流程：" class="headerlink" title="1. Shell大概工作流程："></a>1. Shell大概工作流程：</h6><ul>
-<li>接受来自键盘的命令</li>
-<li>检查命令的正确性</li>
-<li>命令错误则给出报错信息</li>
-<li>命令正确则使用相应的系统调用执行命令(产生进程)</li>
-<li>命令执行完毕，给出命令执行的结果</li>
-</ul>
-<hr>
-<p>执行过程：分为前台执行和后台执行<br>前台：Shell 要等待命令（进程）结束，才恢复自身的运行，即回到终端提示符。<br>后台：Shell 不必等待命令（进程）结束，就恢复自身的运行，即回到终端提示符。在执行时命令后&amp;，例：$ gcc m.c&amp;</p>
-<h6 id="2-Shell分类："><a href="#2-Shell分类：" class="headerlink" title="2. Shell分类："></a>2. Shell分类：</h6><p>目前主要有下列版本的Shell：</p>
-<ul>
-<li>Bourne Shell：贝尔实验室开发</li>
-<li>Bash：GNU的Bourne Again Shell，是GNU操作系统上的默认Shell。</li>
-<li>Korn Shell：是对Bourne Shell扩展，大部分通它一样。</li>
-<li>C Shell：SUN公司Shell的BSD版本。<br>查看当前Linux账号Shell版本，采用的GNU bash。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/passwd</div><div class="line">highsung:x:1000:1000:highsung:/home/highsung:/bin/bash</div><div class="line">user2:x:1002:1001::/home/user2:/bin/bash</div><div class="line">user11:x:1001:1002::/home/user1:/bin/bash</div><div class="line">$ bash --version</div><div class="line">GNU bash，版本 4.3.43(1)-release (x86_64-redhat-linux-gnu)</div><div class="line">Copyright (C) 2013 Free Software Foundation, Inc.</div><div class="line">许可证 GPLv3+: GNU GPL 许可证第三版或者更新版本 &lt;http://gnu.org/licenses/gpl.html&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h6 id="3-Shell相关配置"><a href="#3-Shell相关配置" class="headerlink" title="3. Shell相关配置"></a>3. Shell相关配置</h6><ul>
-<li><p>Linux中每个用户都可指定他的Shell。<br>示例：useradd -s选项指定，无指定则用系统默认Shell程序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">useradd -s /bin/bash</div></pre></td></tr></table></figure>
-<p>highsung、user2、user11都是系统默认Shell程序：/bin/bash。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/passwd</div><div class="line">highsung:x:1000:1000:highsung:/home/highsung:/bin/bash</div><div class="line">user2:x:1002:1001::/home/user2:/bin/bash</div><div class="line">user11:x:1001:1002::/home/user1:/bin/bash</div></pre></td></tr></table></figure>
-</li>
-<li><p>Shell的配置，Linux系统中每个用户都有各自的Shell工作环境，这样会导致命令提示，环境变量等的不一致。</p>
-<ul>
-<li>这些环境配置，集中在主目录下的.bash_profile，.bashrc，.bash_history文件。</li>
-<li>.bashrc读取全局的/etc/bashrc的配置，.bahs_profile又读取.bashrc中的配置。</li>
-<li>从上面的逻辑可以看出，可以把个性化的配置保存在.bahs_profile，全局配置保存在/etc/bashrc。</li>
-<li>命令历史是Bash提供的一种功能，它保存了最近执行过的1000条命令，保存在.bash_history文件中。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$HISTFILESIZE 定义.bash_history存放历史记录的个数</div><div class="line">$ echo $HISTFILESIZE</div><div class="line">1000</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h6 id="5-Shell基本操作"><a href="#5-Shell基本操作" class="headerlink" title="5. Shell基本操作:"></a>5. Shell基本操作:</h6><ul>
-<li><p>Shell的启动和退出<br>用户在成功登录进入系统后，系统提供产生一个特定的Shell的拷贝(这是用户的第一个进程)负责解释执行用户的命令或Shell脚本。在系统提示符后用户键入的命令或Shell脚本名，来执行特定的命令或Shell脚本，用户希望中止命令或脚本的执行，可以用【ctrl+c】。<br>用户结束工作希望退出系统，可以按下面的键或命令:<br>【ctrl+d】<br>exit  命令<br>logout 命令</p>
-</li>
-<li><p>查看历史命令<br>历史命令就是上次在Shell中输入的命令。前面已经提到，历史命令保存在主目录下.bash_history。</p>
-<ul>
-<li><p>通过history命令查看</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ history</div><div class="line">  1  ls</div><div class="line">  2  rm /1</div><div class="line">  3  sudo rm /1</div><div class="line">  4  clear</div><div class="line">  5  ls</div><div class="line">  6  ls /</div><div class="line">  7  ls</div><div class="line">  8  ls / -al</div><div class="line">  9  clear</div><div class="line"> 10  ls / -al</div></pre></td></tr></table></figure>
-</li>
-<li><p>执行历史命令<br>!n:  执行编号为n的命令历史.<br>!-n: 执行命令历史中倒数第n个命令.<br>!!:  执行上一个历史命令.（在历史记录中不加入）<br>!字符串:  执行以“字符串”开头的历史命令.<br>!?字符串?: 执行包含“字符串”的历史命令.</p>
-</li>
-<li><p>命令历史的配置<br>给环境变量HISTFILE赋值，给出与.bash_history 不同的文件保存命令历史,例如： HISTFILE=newfile。<br>给环境变量HISTFILESIZE赋值，给出命令历史文件保存历史事件的个数,例如： HISTFILESIZE=1000。</p>
-</li>
-<li><p>别名，在Bash中可以使用alias命令为命令取一个别名，其中别名的内容可以是命令名、选项和参数。别名可以使用户键入命令时变得方便、简单。可以使用unalias命令来取消别名。</p>
-<ul>
-<li>定义别名格式：alias  [别名=“原命令”]<ul>
-<li>原命令中包含命令名、选项和参数。</li>
-<li>原命令中如有空格或特殊字符，应将其用单引号括起来。</li>
-<li>等号=边不能有空格</li>
-<li>不带任何参数的 alias  命令则显示已经定义的别名及其对应的命令。</li>
-<li>本次登录建立的别名仅在本次登录有效，如果希望在每次登录都有效，应把alias 命令写入初始化脚本文件~/.bash_profile。</li>
-</ul>
-</li>
-<li>例子：<br>$ alias  .. =’cd ..’<br>$ alias  cp =’cp -i’<br>$ alias  ll =’ls -l’</li>
-<li>取消别名格式：unalias  别名<br>例：$unalias ll<br>$alias ll<br>ll:alias not found</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Shell特殊字符<ul>
-<li>通配符<br>?:  表示任意的单个字符<br>*:  表示任意长的任意的字符串<br>[ ]:  表示匹配放在 [ ] 中的字符集中的单个字符</li>
-<li>例子：<br>*   表示当前目录下的所有文件<br>f<em>  表示当前目录下以f 开头的文件<br>\</em>.txt  表示当前目录下以.txt结尾的文件<br>*sh*   表示当前目录下所有名字包含sh 的文件<br>x[ml]   表示当前目录下以xm 或xl 开头的所有文件</li>
-</ul>
-</li>
-</ul>
-<h6 id="6-Shell脚本"><a href="#6-Shell脚本" class="headerlink" title="6. Shell脚本:"></a>6. Shell脚本:</h6><p>用户可以将Linux的命令（文件，用户，网络等命令）以编程的方式组合起来提交给Shell，Shell负责解释执行这种程序设计语言。Linux把由这种程序设计语言构成的文件称为Shell Script，或Shell脚本。</p>
-<ul>
-<li><p>新建sh1.sh文件，内容“#!/bin/bash echo “hello bash””，增加可运行权限，再执行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ vi sh1.sh</div><div class="line">#!/bin/bash</div><div class="line">echo &quot;hello bash&quot;</div><div class="line">$ chmod +x sh1.sh</div><div class="line">$ ./sh1.sh</div><div class="line">hello bash</div></pre></td></tr></table></figure>
-<ul>
-<li>第一行的#!后指定Shell类型</li>
-<li>文中#代表注释符</li>
-<li>Shell脚本文件需+x权限才可执行</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj1zsd6nq0014tguf0np8eu1z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj1zsjy9v001cwoufl35royzu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1009,7 +989,7 @@ gd-&gt;bd-&gt;bi_ip_addr = getenv_IPaddr (&quot;ipaddr&quot;);
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -1054,6 +1034,10 @@ gd-&gt;bd-&gt;bi_ip_addr = getenv_IPaddr (&quot;ipaddr&quot;);
       <ul>
         
           <li>
+            <a href="/2017/04/27/course/embeded/lesson_15/">（14）Uboot实验</a>
+          </li>
+        
+          <li>
             <a href="/2017/04/27/course/embeded/lesson_14/">（14）Uboot</a>
           </li>
         
@@ -1067,10 +1051,6 @@ gd-&gt;bd-&gt;bi_ip_addr = getenv_IPaddr (&quot;ipaddr&quot;);
         
           <li>
             <a href="/2017/03/25/course/embeded/lesson_12/">（12）Linux字符驱动</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/24/course/embeded/lesson_11/">（11）Linux模块</a>
           </li>
         
       </ul>

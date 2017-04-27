@@ -68,6 +68,130 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-course/embeded/lesson_7" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/20/course/embeded/lesson_7/" class="article-date">
+  <time datetime="2017-03-20T05:37:00.000Z" itemprop="datePublished">2017-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/20/course/embeded/lesson_7/">（7）Linux Shell</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="Shell简介"><a href="#Shell简介" class="headerlink" title="Shell简介"></a>Shell简介</h4><h4 id="Shell配置和操作"><a href="#Shell配置和操作" class="headerlink" title="Shell配置和操作"></a>Shell配置和操作</h4><h4 id="Shell脚本"><a href="#Shell脚本" class="headerlink" title="Shell脚本"></a>Shell脚本</h4><hr>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_7/link.jpg" alt="image"></p>
+<p>Shell 是操作系统的外壳，是用户使用操作系统的命令接口；接受用户以命令行方式输入的命令(包括系统提供的内部命令、独立存在于某个目录下的程序），同时也能解释执行由Shell命令编写的Shell程序。</p>
+<p>Shell、用户和内核的关系见下图：<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_7/shell.png" alt="image"></p>
+<p>从上图中可以看出，Shell是用户和Linux系统之间交互的桥梁。黑客，有个性的程序员或工程师习惯在Shell中输入各种命令和配置指令。界面的各种炫，对他们来说都是out之物。</p>
+<h6 id="1-Shell大概工作流程："><a href="#1-Shell大概工作流程：" class="headerlink" title="1. Shell大概工作流程："></a>1. Shell大概工作流程：</h6><ul>
+<li>接受来自键盘的命令</li>
+<li>检查命令的正确性</li>
+<li>命令错误则给出报错信息</li>
+<li>命令正确则使用相应的系统调用执行命令(产生进程)</li>
+<li>命令执行完毕，给出命令执行的结果</li>
+</ul>
+<hr>
+<p>执行过程：分为前台执行和后台执行<br>前台：Shell 要等待命令（进程）结束，才恢复自身的运行，即回到终端提示符。<br>后台：Shell 不必等待命令（进程）结束，就恢复自身的运行，即回到终端提示符。在执行时命令后&amp;，例：$ gcc m.c&amp;</p>
+<h6 id="2-Shell分类："><a href="#2-Shell分类：" class="headerlink" title="2. Shell分类："></a>2. Shell分类：</h6><p>目前主要有下列版本的Shell：</p>
+<ul>
+<li>Bourne Shell：贝尔实验室开发</li>
+<li>Bash：GNU的Bourne Again Shell，是GNU操作系统上的默认Shell。</li>
+<li>Korn Shell：是对Bourne Shell扩展，大部分通它一样。</li>
+<li>C Shell：SUN公司Shell的BSD版本。<br>查看当前Linux账号Shell版本，采用的GNU bash。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/passwd</div><div class="line">highsung:x:1000:1000:highsung:/home/highsung:/bin/bash</div><div class="line">user2:x:1002:1001::/home/user2:/bin/bash</div><div class="line">user11:x:1001:1002::/home/user1:/bin/bash</div><div class="line">$ bash --version</div><div class="line">GNU bash，版本 4.3.43(1)-release (x86_64-redhat-linux-gnu)</div><div class="line">Copyright (C) 2013 Free Software Foundation, Inc.</div><div class="line">许可证 GPLv3+: GNU GPL 许可证第三版或者更新版本 &lt;http://gnu.org/licenses/gpl.html&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h6 id="3-Shell相关配置"><a href="#3-Shell相关配置" class="headerlink" title="3. Shell相关配置"></a>3. Shell相关配置</h6><ul>
+<li><p>Linux中每个用户都可指定他的Shell。<br>示例：useradd -s选项指定，无指定则用系统默认Shell程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">useradd -s /bin/bash</div></pre></td></tr></table></figure>
+<p>highsung、user2、user11都是系统默认Shell程序：/bin/bash。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/passwd</div><div class="line">highsung:x:1000:1000:highsung:/home/highsung:/bin/bash</div><div class="line">user2:x:1002:1001::/home/user2:/bin/bash</div><div class="line">user11:x:1001:1002::/home/user1:/bin/bash</div></pre></td></tr></table></figure>
+</li>
+<li><p>Shell的配置，Linux系统中每个用户都有各自的Shell工作环境，这样会导致命令提示，环境变量等的不一致。</p>
+<ul>
+<li>这些环境配置，集中在主目录下的.bash_profile，.bashrc，.bash_history文件。</li>
+<li>.bashrc读取全局的/etc/bashrc的配置，.bahs_profile又读取.bashrc中的配置。</li>
+<li>从上面的逻辑可以看出，可以把个性化的配置保存在.bahs_profile，全局配置保存在/etc/bashrc。</li>
+<li>命令历史是Bash提供的一种功能，它保存了最近执行过的1000条命令，保存在.bash_history文件中。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$HISTFILESIZE 定义.bash_history存放历史记录的个数</div><div class="line">$ echo $HISTFILESIZE</div><div class="line">1000</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h6 id="5-Shell基本操作"><a href="#5-Shell基本操作" class="headerlink" title="5. Shell基本操作:"></a>5. Shell基本操作:</h6><ul>
+<li><p>Shell的启动和退出<br>用户在成功登录进入系统后，系统提供产生一个特定的Shell的拷贝(这是用户的第一个进程)负责解释执行用户的命令或Shell脚本。在系统提示符后用户键入的命令或Shell脚本名，来执行特定的命令或Shell脚本，用户希望中止命令或脚本的执行，可以用【ctrl+c】。<br>用户结束工作希望退出系统，可以按下面的键或命令:<br>【ctrl+d】<br>exit  命令<br>logout 命令</p>
+</li>
+<li><p>查看历史命令<br>历史命令就是上次在Shell中输入的命令。前面已经提到，历史命令保存在主目录下.bash_history。</p>
+<ul>
+<li><p>通过history命令查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ history</div><div class="line">  1  ls</div><div class="line">  2  rm /1</div><div class="line">  3  sudo rm /1</div><div class="line">  4  clear</div><div class="line">  5  ls</div><div class="line">  6  ls /</div><div class="line">  7  ls</div><div class="line">  8  ls / -al</div><div class="line">  9  clear</div><div class="line"> 10  ls / -al</div></pre></td></tr></table></figure>
+</li>
+<li><p>执行历史命令<br>!n:  执行编号为n的命令历史.<br>!-n: 执行命令历史中倒数第n个命令.<br>!!:  执行上一个历史命令.（在历史记录中不加入）<br>!字符串:  执行以“字符串”开头的历史命令.<br>!?字符串?: 执行包含“字符串”的历史命令.</p>
+</li>
+<li><p>命令历史的配置<br>给环境变量HISTFILE赋值，给出与.bash_history 不同的文件保存命令历史,例如： HISTFILE=newfile。<br>给环境变量HISTFILESIZE赋值，给出命令历史文件保存历史事件的个数,例如： HISTFILESIZE=1000。</p>
+</li>
+<li><p>别名，在Bash中可以使用alias命令为命令取一个别名，其中别名的内容可以是命令名、选项和参数。别名可以使用户键入命令时变得方便、简单。可以使用unalias命令来取消别名。</p>
+<ul>
+<li>定义别名格式：alias  [别名=“原命令”]<ul>
+<li>原命令中包含命令名、选项和参数。</li>
+<li>原命令中如有空格或特殊字符，应将其用单引号括起来。</li>
+<li>等号=边不能有空格</li>
+<li>不带任何参数的 alias  命令则显示已经定义的别名及其对应的命令。</li>
+<li>本次登录建立的别名仅在本次登录有效，如果希望在每次登录都有效，应把alias 命令写入初始化脚本文件~/.bash_profile。</li>
+</ul>
+</li>
+<li>例子：<br>$ alias  .. =’cd ..’<br>$ alias  cp =’cp -i’<br>$ alias  ll =’ls -l’</li>
+<li>取消别名格式：unalias  别名<br>例：$unalias ll<br>$alias ll<br>ll:alias not found</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Shell特殊字符<ul>
+<li>通配符<br>?:  表示任意的单个字符<br>*:  表示任意长的任意的字符串<br>[ ]:  表示匹配放在 [ ] 中的字符集中的单个字符</li>
+<li>例子：<br>*   表示当前目录下的所有文件<br>f<em>  表示当前目录下以f 开头的文件<br>\</em>.txt  表示当前目录下以.txt结尾的文件<br>*sh*   表示当前目录下所有名字包含sh 的文件<br>x[ml]   表示当前目录下以xm 或xl 开头的所有文件</li>
+</ul>
+</li>
+</ul>
+<h6 id="6-Shell脚本"><a href="#6-Shell脚本" class="headerlink" title="6. Shell脚本:"></a>6. Shell脚本:</h6><p>用户可以将Linux的命令（文件，用户，网络等命令）以编程的方式组合起来提交给Shell，Shell负责解释执行这种程序设计语言。Linux把由这种程序设计语言构成的文件称为Shell Script，或Shell脚本。</p>
+<ul>
+<li><p>新建sh1.sh文件，内容“#!/bin/bash echo “hello bash””，增加可运行权限，再执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ vi sh1.sh</div><div class="line">#!/bin/bash</div><div class="line">echo &quot;hello bash&quot;</div><div class="line">$ chmod +x sh1.sh</div><div class="line">$ ./sh1.sh</div><div class="line">hello bash</div></pre></td></tr></table></figure>
+<ul>
+<li>第一行的#!后指定Shell类型</li>
+<li>文中#代表注释符</li>
+<li>Shell脚本文件需+x权限才可执行</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj1zsjy9j0016woufn1230kot" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-course/embeded/lesson_6" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/20/course/embeded/lesson_6/" class="article-date">
@@ -277,7 +401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj1zsd6nv0018tgufaflf3gzl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj1zsjy9t001awouf9g5wuj20" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -623,7 +747,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj1zsd6o3001ctguf4xscuv2s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj1zsjy9h0014woufmnced366" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -694,7 +818,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj1zsd6nn0012tgufe2zj6h3a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj1zsjy9f0012wouf7v6jx0vm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -801,7 +925,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj1zsd6nk0010tgufvc5j08ly" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj1zsjy9c0010woufg60tschi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -999,10 +1123,60 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj1zsd6ns0016tgufqql83puo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj1zsjy9a000ywoufq9zt0skf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-course/html/lesson_1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/16/course/html/lesson_1/" class="article-date">
+  <time datetime="2017-03-16T01:45:00.000Z" itemprop="datePublished">2017-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/16/course/html/lesson_1/">（1）课程介绍</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>HTML，CSS，JavaScript</p>
+<h4 id="第一部分："><a href="#第一部分：" class="headerlink" title="第一部分："></a>第一部分：</h4><ol>
+<li>HTML由来</li>
+<li>HTML文档结构</li>
+<li>HTML元素背后</li>
+<li>HTML常用标签</li>
+<li>块级标签</li>
+<li>行内标签</li>
+<li></li>
+</ol>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/16/course/html/lesson_1/" data-id="cj1zsjya4001iwoufwldkv329" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/">html</a></li></ul>
 
     </footer>
   </div>
@@ -1070,60 +1244,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj1zsd6n2000ltguffips1prx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj1zsjy8s000lwoufgpnu7zai" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-course/html/lesson_1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/16/course/html/lesson_1/" class="article-date">
-  <time datetime="2017-03-16T01:45:00.000Z" itemprop="datePublished">2017-03-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/16/course/html/lesson_1/">（1）课程介绍</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>HTML，CSS，JavaScript</p>
-<h4 id="第一部分："><a href="#第一部分：" class="headerlink" title="第一部分："></a>第一部分：</h4><ol>
-<li>HTML由来</li>
-<li>HTML文档结构</li>
-<li>HTML元素背后</li>
-<li>HTML常用标签</li>
-<li>块级标签</li>
-<li>行内标签</li>
-<li></li>
-</ol>
-<hr>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/html/lesson_1/" data-id="cj1zsd6n3000mtgufe7ogq8o9" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/">html</a></li></ul>
 
     </footer>
   </div>
@@ -1159,7 +1283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj1zsd6p10025tgufvzb0g9wh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj1zsjyaw0028woufs68lbnnb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大学生实训/">大学生实训</a></li></ul>
@@ -1203,7 +1327,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/cdut/" data-id="cj1zsd6of001ktgufw83ix20v" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/14/school/cdut/cdut/" data-id="cj1zsjya9001kwoufghg1rkh2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/校园采风/">校园采风</a></li></ul>
@@ -1215,61 +1339,10 @@
 
 
   
-    <article id="post-hexo/hexo部署博文到github" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/13/hexo/hexo部署博文到github/" class="article-date">
-  <time datetime="2017-03-13T06:14:00.000Z" itemprop="datePublished">2017-03-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/13/hexo/hexo部署博文到github/">hexo部署博文到github</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h6 id="最近需要整理一些资料，打算以博客的形式先归档。在网上搜了一圈，nodejs环境下hexo很受欢迎。比较看重的优点有：轻量化，快速生成静态网页，不需要数据库。结合github-page来部署博文，非常合适。点击这里初步体验。如果你觉得还不错，可按以下步骤操作，所有操作基于windows平台完成。"><a href="#最近需要整理一些资料，打算以博客的形式先归档。在网上搜了一圈，nodejs环境下hexo很受欢迎。比较看重的优点有：轻量化，快速生成静态网页，不需要数据库。结合github-page来部署博文，非常合适。点击这里初步体验。如果你觉得还不错，可按以下步骤操作，所有操作基于windows平台完成。" class="headerlink" title="最近需要整理一些资料，打算以博客的形式先归档。在网上搜了一圈，nodejs环境下hexo很受欢迎。比较看重的优点有：轻量化，快速生成静态网页，不需要数据库。结合github page来部署博文，非常合适。点击这里初步体验。如果你觉得还不错，可按以下步骤操作，所有操作基于windows平台完成。"></a>最近需要整理一些资料，打算以博客的形式先归档。在网上搜了一圈，nodejs环境下hexo很受欢迎。比较看重的优点有：轻量化，快速生成静态网页，不需要数据库。结合github page来部署博文，非常合适。<a href="https://highsung.github.io" target="_blank" rel="external">点击这里</a>初步体验。如果你觉得还不错，可按以下步骤操作，所有操作基于windows平台完成。</h6><hr>
-<h3 id="1-安装node和hexo"><a href="#1-安装node和hexo" class="headerlink" title="1 安装node和hexo"></a>1 安装node和<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">hexo</a></h3><h4 id="1-1-安装node-js。点击进入下载页面，下载最新版本。"><a href="#1-1-安装node-js。点击进入下载页面，下载最新版本。" class="headerlink" title="1.1 安装node.js。点击进入下载页面，下载最新版本。"></a>1.1 安装node.js。<a href="https://nodejs.org/en/download/" target="_blank" rel="external">点击</a>进入下载页面，下载最新版本。</h4><h4 id="1-2-安装hexo。在终端中输入如下命令："><a href="#1-2-安装hexo。在终端中输入如下命令：" class="headerlink" title="1.2 安装hexo。在终端中输入如下命令："></a>1.2 安装hexo。在终端中输入如下命令：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// 安装hexo脚手架</div><div class="line">&gt; npm install hexo-cli -g</div><div class="line">// 安装git部署工具，后面会用</div><div class="line">&gt; npm install hexo-deployer-git --save</div><div class="line">// 创建一个blog</div><div class="line">&gt; hexo init blog</div><div class="line">// 切换到blog目录下</div><div class="line">&gt; cd blog</div><div class="line">&gt; npm install</div><div class="line">&gt; hexo server</div><div class="line">INFO  Start processing</div><div class="line">INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</div></pre></td></tr></table></figure>
-<h3 id="2-安装git工具和创建github仓库"><a href="#2-安装git工具和创建github仓库" class="headerlink" title="2 安装git工具和创建github仓库"></a>2 安装git工具和创建github仓库</h3><h4 id="2-1-安装git工具。点击进入下载页面，下载最新版本。"><a href="#2-1-安装git工具。点击进入下载页面，下载最新版本。" class="headerlink" title="2.1 安装git工具。点击进入下载页面，下载最新版本。"></a>2.1 安装git工具。<a href="https://git-scm.com/download/win" target="_blank" rel="external">点击</a>进入下载页面，下载最新版本。</h4><h4 id="2-2-创建github仓库"><a href="#2-2-创建github仓库" class="headerlink" title="2.2 创建github仓库"></a>2.2 创建github仓库</h4><ul>
-<li>登入git账号。进入<a href="https://github.com/" target="_blank" rel="external">github</a>登入或注册。</li>
-<li>创建一个新仓库，如下图。将Repository name替换成 <code>owner.github.io</code>，owner是你的账号名。<br><img src="http://omn7bkwg7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170313195230.png" alt="image"></li>
-</ul>
-<h3 id="3-将blog所有文章导入到github"><a href="#3-将blog所有文章导入到github" class="headerlink" title="3 将blog所有文章导入到github"></a>3 将blog所有文章导入到github</h3><h4 id="3-1-配置-config-yml"><a href="#3-1-配置-config-yml" class="headerlink" title="3.1 配置_config.yml"></a>3.1 配置_config.yml</h4><p>修改blog目录下的_config.yml中deploy节点，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># Deployment</div><div class="line">## Docs: https://hexo.io/docs/deployment.html</div><div class="line">deploy:</div><div class="line">  type: git</div><div class="line">  repo: https://github.com/owner/owner.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure></p>
-<p>注意上面的<code>owner</code>替换成自己的名字</p>
-<h4 id="3-2-执行部署"><a href="#3-2-执行部署" class="headerlink" title="3.2 执行部署"></a>3.2 执行部署</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 生成所有的静态博文</div><div class="line">&gt; hexo g</div><div class="line">// 博文部署到github</div><div class="line">&gt; hexo d</div></pre></td></tr></table></figure>
-<h4 id="3-3-结果"><a href="#3-3-结果" class="headerlink" title="3.3 结果"></a>3.3 结果</h4><p>若部署成功，则有类似提示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Branch master set up to track remote branch master from https://github.com/highsung/highsung.github.io.git.</div><div class="line">To https://github.com/highsung/highsung.github.io.git</div><div class="line">   4975be1..df37446  HEAD -&gt; master</div><div class="line">INFO  Deploy done: git</div></pre></td></tr></table></figure></p>
-<p>在浏览器中访问 <a href="https://owner.github.io/" target="_blank" rel="external">https://owner.github.io/</a></p>
-<h3 id="总结错误："><a href="#总结错误：" class="headerlink" title="总结错误："></a>总结错误：</h3><p>git可能会报找不到邮箱和用户名的错误，可执行添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; git config --global user.email &quot;owner@qq.com&quot;</div><div class="line">&gt; git config --global user.name &quot;owner&quot;</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/13/hexo/hexo部署博文到github/" data-id="cj1zsd6mm000itguf5j2mfhg8" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo-git/">hexo git</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -1314,6 +1387,10 @@
       <ul>
         
           <li>
+            <a href="/2017/04/27/course/embeded/lesson_15/">（14）Uboot实验</a>
+          </li>
+        
+          <li>
             <a href="/2017/04/27/course/embeded/lesson_14/">（14）Uboot</a>
           </li>
         
@@ -1327,10 +1404,6 @@
         
           <li>
             <a href="/2017/03/25/course/embeded/lesson_12/">（12）Linux字符驱动</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/24/course/embeded/lesson_11/">（11）Linux模块</a>
           </li>
         
       </ul>
