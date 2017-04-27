@@ -108,7 +108,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/22/course/embeded/tip_1/" data-id="cj1t9t0ni001aasufbc7iq7nw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/22/course/embeded/tip_1/" data-id="cj1zs933a001gjwuf4qer0g9i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -220,7 +220,149 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/26/course/embeded/lesson_13/" data-id="cj1t9t0n1000vasufb18w4cyg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/26/course/embeded/lesson_13/" data-id="cj1zs933v0020jwuf0fh79oys" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-course/embeded/lesson_14" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/26/course/embeded/lesson_14/" class="article-date">
+  <time datetime="2017-03-26T08:51:00.000Z" itemprop="datePublished">2017-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/26/course/embeded/lesson_14/">（13）Linux内核编译</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="准备源码和工具"><a href="#准备源码和工具" class="headerlink" title="准备源码和工具"></a>准备源码和工具</h4><h4 id="内核配置选项和编译"><a href="#内核配置选项和编译" class="headerlink" title="内核配置选项和编译"></a>内核配置选项和编译</h4><h4 id="内核编译过程"><a href="#内核编译过程" class="headerlink" title="内核编译过程"></a>内核编译过程</h4><hr>
+<h5 id="Uboot介绍"><a href="#Uboot介绍" class="headerlink" title="Uboot介绍"></a>Uboot介绍</h5><p>Uboot是德国DENX小组的开发用于多种嵌入式CPU的bootloader程序, UBoot不仅仅支持嵌入式Linux系统的引导，当前，它还支持NetBSD, VxWorks, QNX, RTEMS, ARTOS, LynxOS嵌入式操作系统。UBoot除了支持PowerPC系列的处理器外，还能支持MIPS、 x86、ARM、NIOS、XScale等诸多常用系列的处理器。</p>
+<h5 id="uboot的体系结构"><a href="#uboot的体系结构" class="headerlink" title="uboot的体系结构"></a>uboot的体系结构</h5><p>目录树</p>
+<p> |–board<br> |–common<br> |–cpu<br> |–disk<br> |–doc<br> |–drivers<br> |–dtt<br> |–examples<br> |–fs<br> |–include<br> |–lib_arm<br> |–lib_generic<br> |–net<br> |–post<br> |–rtc<br> |–tools</p>
+<ol>
+<li>board：和一些已有开发板有关的文件. 每一个开发板都以一个子目录出现在当前目录中，比如说: uboot1.1.6\board\samsung\smdk6410子目录中存放与我们开发板相关的配置文件。</li>
+<li>common：实现uboot命令行下支持的命令，每一条命令都对应一个文件。例如bootm命令对应就是cmd_bootm.c。</li>
+<li>cpu：与特定CPU架构相关目录，每一款Uboot下支持的CPU在该目录下对应一个子目录，比如有子目录uboot1.1.6\cpu\s3c64xx就是我们开发板上使用的cpu架构目录。</li>
+<li>disk：对磁盘的支持。</li>
+<li>doc：文档目录。Uboot有非常完善的文档，推荐大家参考阅读。</li>
+<li>drivers：Uboot支持的设备驱动程序都放在该目录，比如各种网卡、支持CFI的Flash、串口和USB等。</li>
+<li>fs: 支持的文件系统，Uboot现在支持cramfs、fat、fdos、jffs2和registerfs。</li>
+<li>include：Uboot使用的头文件，还有对各种硬件平台支持的汇编文件，系统的配置文件和对文件系统支持的文件。该目录下configs目录有与开 发板相关的配置头文件，如leopard2a.h。该目录下的asm目录有与CPU体系结构相关的头文件，asm对应的是asmarm.</li>
+<li>lib_xxxx: 与体系结构相关的库文件。如与ARM相关的库放在lib_arm中。</li>
+<li>net：与网络协议栈相关的代码，BOOTP协议、TFTP协议、RARP协议和NFS文件系统的实现。</li>
+<li>tools：生成Uboot的工具，如：mkimage, crc等等。</li>
+</ol>
+<h5 id="uboot的运行过程分析"><a href="#uboot的运行过程分析" class="headerlink" title="uboot的运行过程分析"></a>uboot的运行过程分析</h5><p>大多数bootloader都分为阶段1(stage1)和阶段2(stage2)两大部分，uboot也不例外。依赖于CPU体系结构的代码（如CPU初 始化代码等）通常都放在阶段1中且通常用汇编语言实现，而阶段2则通常用C语言来实现，这样可以实现复杂的功能，而且有更好的可读性和移植性。</p>
+<p> U - Boot 编译后的代码定义一般不超过100kB ,并且这100 kB 又分成两个阶段来执行. 第一阶段的代码在start.s 中定义,大小不超过10kB ,它包括从系统上电后在0x00000000 地址开始执行的部分. 这部分代码运行在Flash 中,它包括对arm9的一些寄存器的初始化和将U - Boot 的第二阶段代码从Flash 拷贝到SDRAM 中. 除去第一阶段的代码,剩下的部分都是第二阶段的代码. 第二阶段的起始地址是在第一阶段代码中指定的,被复制到SDRAM后,就从第一阶段跳到这个入口地址开始执行剩余部分代码. 第二阶段主要是进行一些BSS 段设置,堆栈的初始化等工作,最后会跳转到main -loop 函数中,接受命令并进行命令处理. 图1 给出了U - Boot 的详细的运行过程包括对内核的设置、装载及调用过程。系统复位进入u-boot stage l的入口点。</p>
+<p>硬件设备的初始化<br>为加载uboot stage 2准备ram空间<br>设置好堆栈<br>跳转到stage 2的C入口点<br>初始化本阶段要用到的设备<br>检查内存映射<br>将kernel映像和文件映像从flash中读到ram中<br>为内核设定启动参数<br>调用内核</p>
+<p>运行代码分析</p>
+<p>stage 1<br>uboot的stage1代码通常放在start.s文件中，它用汇编语言写成，其主要代码包括定义入口，设置异常向量，设置cpu的模式和频率，配置内 存区控制寄存器，安装uboot的栈空间，关闭看门狗等。由于本人对ram的汇编不太熟悉，所以这一部分不作具体分析。</p>
+<p>stage 2<br>lib_arm/board.c中的start armboot是C语言开始的函数，也是整个启动代码中C语言的主函数，同时还是整个uboot(armboot）的主函数，该函数主要完成如下操作：<br>  调用一系列初始化函数</p>
+<ol>
+<li><p>指定初始函数表：<br>init_fnc_t <em>init_sequence[] = {<br>cpu_init, /</em> cpu的基本设置 <em>/<br>board_init, /</em> 开发板的基本初始化 <em>/<br>interrupt_init, /</em> 初始化中断 <em>/<br>env_init, /</em> 初始化环境变量 <em>/<br>init_baudrate, /</em> 初始化波特率 <em>/<br>serial_init, /</em> 串口通讯初始化 <em>/<br>console_init_f, /</em> 控制台初始化第一阶段 <em>/<br>display_banner, /</em> 通知代码已经运行到该处 <em>/<br>dram_init, /</em> 配制可用的内存区 */<br>display_dram_config,<br>#if defined(CONFIG_VCMA9) || defined (CONFIG_CMC_PU2)<br>checkboard,<br>#endif<br>NULL,<br>};</p>
+<p>执行初始化函数的代码如下：<br>for (init_fnc_ptr = init_sequence; *init_fnc_ptr; ++init_fnc_ptr) {</p>
+<pre><code>if ((*init_fnc_ptr)() != 0) {
+  hang ();
+}
+</code></pre><p>}</p>
+</li>
+<li><p>配置可用的Flash区<br>flash_init ()</p>
+</li>
+<li><p>初始化内存分配函数<br>mem_malloc_init()</p>
+</li>
+<li><p>nand flash初始化<br>#if (CONFIG_COMMANDS &amp; CFG_CMD_NAND)<br>puts (“NAND:”);<br>nand_init();        /<em> go init the NAND </em>/<br>#endif</p>
+</li>
+<li><p>初始化环境变量<br>env_relocate ();</p>
+</li>
+<li><p>外围设备初始化<br>devices_init()</p>
+</li>
+<li><p>I2C总线初始化<br>i2c_init();</p>
+</li>
+<li><p>LCD初始化<br>drv_lcd_init();</p>
+</li>
+<li><p>VIDEO初始化<br>drv_video_init();</p>
+</li>
+<li><p>键盘初始化<br>drv_keyboard_init();</p>
+</li>
+<li><p>系统初始化<br>drv_system_init();</p>
+</li>
+</ol>
+<p>   初始化网络设备</p>
+<pre><code>初始化相关网络设备，填写IP、MAC地址等。
+
+1. 设置IP地址
+gd-&gt;bd-&gt;bi_ip_addr = getenv_IPaddr (&quot;ipaddr&quot;);
+
+2. 设置mac地址
+{
+       int i;
+       ulong reg;
+       char *s, *e;
+       uchar tmp[64];
+
+       i = getenv_r ((uchar*)(&quot;ethaddr&quot;), tmp, sizeof (tmp));
+       s = (i &gt; 0) ? (char*)tmp : NULL;
+
+       for (reg = 0; reg &lt; 6; ++reg) {
+         gd-&gt;bd-&gt;bi_enetaddr[reg] = s ? simple_strtoul (s, &amp;e, 16) : 0;
+         if (s)
+            s = (*e) ? e + 1 : e;
+       }
+}
+
+
+进入主UBOOT 命令行
+
+ 进入命令循环（即整个boot的工作循环），接受用户从串口输入的命令，然后进行相应的工作。
+ for (;;) {
+        main_loop ();
+ }}
+
+3、uboot的移植和测试
+
+ 3.1 移植的过程
+
+ ① 在宿主机上建立交叉编译开发环境
+ ② 修改cpu／arm926ejst目录中的文件内容，
+ 主要包含cpu．C，start．S，interrupts．C以及seria1．C，speed．C等文件
+ ③ 在board目录下创建自己的目标板(开发板)目录leopard2a
+ 在目录下创建leopard2a．C，flash．C，memsetup．S
+ 以及Makefile，u-bot．1ds，config．mk文件
+ ④ 在include／configs目录下创建leopard2a．h
+ ⑤ 打开u-bot目录下Makefile文件，加入如下两行：
+ leopard2a_config :    unconfig
+ @./mkconfig $(@:_config=) arm arm926ejs leopard2a
+ ⑥ 编译。运行命令：
+ 1. make leopard2a_config
+ 2. make
+ 编译成功．生成基本的u—b00t．
+ ⑦ 烧写．把编译成的u-bot．bin
+ 至此移植u-bot过程结束．
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/26/course/embeded/lesson_14/" data-id="cj1zs932b000qjwufi9hfniq4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -311,7 +453,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/25/course/embeded/lesson_12/" data-id="cj1t9t0ms000masuf7hhk6ilf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/25/course/embeded/lesson_12/" data-id="cj1zs9325000mjwufrug7pj7i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -378,7 +520,47 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/24/course/embeded/lesson_11/" data-id="cj1t9t0my000tasuf6z3e7o7s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/24/course/embeded/lesson_11/" data-id="cj1zs932l000xjwuf5k9vzsg3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-course/embeded/tools" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/23/course/embeded/tools/" class="article-date">
+  <time datetime="2017-03-23T06:04:00.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/course/embeded/tools/">ARM Linux开发工具下载</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ARM Linux交叉工具链下载<br><a href="http://www.veryarm.com/arm-none-linux-gnueabi-gcc" target="_blank" rel="external">http://www.veryarm.com/arm-none-linux-gnueabi-gcc</a></p>
+<p>笔记<br>udev详解<br><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-udev/" target="_blank" rel="external">https://www.ibm.com/developerworks/cn/linux/l-cn-udev/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/23/course/embeded/tools/" data-id="cj1zs9334001cjwufm8r0iimk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -465,47 +647,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/course/embeded/lesson_10/" data-id="cj1t9t0mw000qasufq2puo7gz" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-course/embeded/tools" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/23/course/embeded/tools/" class="article-date">
-  <time datetime="2017-03-23T06:04:00.000Z" itemprop="datePublished">2017-03-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/course/embeded/tools/">ARM Linux开发工具下载</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>ARM Linux交叉工具链下载<br><a href="http://www.veryarm.com/arm-none-linux-gnueabi-gcc" target="_blank" rel="external">http://www.veryarm.com/arm-none-linux-gnueabi-gcc</a></p>
-<p>笔记<br>udev详解<br><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-udev/" target="_blank" rel="external">https://www.ibm.com/developerworks/cn/linux/l-cn-udev/</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/course/embeded/tools/" data-id="cj1t9t0nl001easufwkn1xfx6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/23/course/embeded/lesson_10/" data-id="cj1zs9323000ljwufyq4wewl3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -613,7 +755,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj1t9t0nf0018asufv42n7cts" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj1zs9330001ajwufonqjkms1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -730,7 +872,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj1t9t0nj001casuftcsha2f6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj1zs9337001ejwufdbjaj35a" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -854,228 +996,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj1t9t0ne0016asuf0sc7zcfv" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-course/embeded/lesson_6" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/20/course/embeded/lesson_6/" class="article-date">
-  <time datetime="2017-03-20T02:24:00.000Z" itemprop="datePublished">2017-03-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/20/course/embeded/lesson_6/">（6）Linux常用命令-进程和网络管理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h4><h4 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h4><hr>
-<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_5/install_soft.jpg" alt="image"></p>
-<h5 id="进程管理主要涉及查看，查找当前运行进程ID，名称，CPU，内存等占用情况，杀死某些进程。"><a href="#进程管理主要涉及查看，查找当前运行进程ID，名称，CPU，内存等占用情况，杀死某些进程。" class="headerlink" title="进程管理主要涉及查看，查找当前运行进程ID，名称，CPU，内存等占用情况，杀死某些进程。"></a>进程管理主要涉及查看，查找当前运行进程ID，名称，CPU，内存等占用情况，杀死某些进程。</h5><h5 id="网络管理方面，查看系统网络适配器状态，启动，关闭网络适配器。ping某个IP是否被占用，修改主机IP地址和netmask。"><a href="#网络管理方面，查看系统网络适配器状态，启动，关闭网络适配器。ping某个IP是否被占用，修改主机IP地址和netmask。" class="headerlink" title="网络管理方面，查看系统网络适配器状态，启动，关闭网络适配器。ping某个IP是否被占用，修改主机IP地址和netmask。"></a>网络管理方面，查看系统网络适配器状态，启动，关闭网络适配器。ping某个IP是否被占用，修改主机IP地址和netmask。</h5><h4 id="1-进程管理"><a href="#1-进程管理" class="headerlink" title="1. 进程管理"></a>1. 进程管理</h4><ul>
-<li>查看当前系统进程运行情况，类似于Windows任务管理器<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">$ top</div><div class="line">top - 11:02:20 up  3:04,  0 users,  load average: 0.00, 0.02, 0.03</div><div class="line">Tasks: 147 total,   2 running, 145 sleeping,   0 stopped,   0 zombie</div><div class="line">%Cpu(s):  2.0 us,  0.7 sy,  0.0 ni, 96.6 id,  0.0 wa,  0.7 hi,  0.0 si,  0.0 st</div><div class="line">KiB Mem :   997172 total,   316164 free,   245008 used,   436000 buff/cache</div><div class="line">KiB Swap:  2256892 total,  2221596 free,    35296 used.   540444 avail Mem</div><div class="line"></div><div class="line">   PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND     </div><div class="line">   890 root      20   0  365924  42104  10380 S  1.0  4.2   0:30.62 Xorg        </div><div class="line">  1653 highsung  20   0  640080  23676  17356 S  1.0  2.4   0:11.89 lxterminal  </div><div class="line">  1518 highsung  20   0  388036  16792  12372 S  0.3  1.7   0:14.86 vmtoolsd    </div><div class="line">  1632 highsung  20   0  474348  19304  14828 S  0.3  1.9   0:17.55 clipit      </div><div class="line"> 22461 highsung  20   0  156640   3952   3476 R  0.3  0.4   0:00.03 top         </div><div class="line">     1 root      20   0  149252   7864   6348 S  0.0  0.8   0:02.01 systemd     </div><div class="line">     2 root      20   0       0      0      0 S  0.0  0.0   0:00.03 kthreadd    </div><div class="line">     3 root      20   0       0      0      0 S  0.0  0.0   0:04.10 ksoftirqd/0</div><div class="line">     5 root       0 -20       0      0      0 S  0.0  0.0   0:00.00 kworker/0:+</div><div class="line">     7 root      20   0       0      0      0 S  0.0  0.0   0:00.82 rcu_sched   </div><div class="line">     8 root      20   0       0      0      0 S  0.0  0.0   0:00.00 rcu_bh      </div><div class="line">     9 root      20   0       0      0      0 R  0.0  0.0   0:01.06 rcuos/0     </div><div class="line">    10 root      20   0       0      0      0 S  0.0  0.0   0:00.00 rcuob/0</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>top - 11:02:20</td>
-<td>当前系统时间</td>
-</tr>
-<tr>
-<td>up  3:04</td>
-<td>系统开机时长，格式：小时:分钟</td>
-</tr>
-<tr>
-<td>0 users</td>
-<td>0个登录用户</td>
-</tr>
-<tr>
-<td>load average: 0.00, 0.02, 0.03</td>
-<td>系统负载，即任务队列的平均长度。三个数值分别为 1分钟、5分钟、15分钟前到现在的平均值。</td>
-</tr>
-<tr>
-<td>Tasks: 147 total</td>
-<td>进程总数</td>
-</tr>
-<tr>
-<td>2 running</td>
-<td>正在运行的进程数2个</td>
-</tr>
-<tr>
-<td>145 sleeping</td>
-<td>睡眠的进程数145个</td>
-</tr>
-<tr>
-<td>0 stopped</td>
-<td>停止的进程数0个</td>
-</tr>
-<tr>
-<td>0 zombie</td>
-<td>僵尸进程数0个</td>
-</tr>
-<tr>
-<td>%Cpu(s):  2.0 us</td>
-<td>用户空间占用CPU百分比</td>
-</tr>
-<tr>
-<td>0.7 sy</td>
-<td>内核空间占用CPU百分比</td>
-</tr>
-<tr>
-<td>0.0 ni</td>
-<td>用户进程空间内改变过优先级的进程占用CPU百分比</td>
-</tr>
-<tr>
-<td>96.6 id</td>
-<td>空闲CPU百分比</td>
-</tr>
-<tr>
-<td>0.0 wa</td>
-<td>等待输入输出的CPU时间百分比</td>
-</tr>
-<tr>
-<td>KiB Mem :   997172 total</td>
-<td>物理内存总量</td>
-</tr>
-<tr>
-<td>316164 free</td>
-<td>空闲内存总量</td>
-</tr>
-<tr>
-<td>245008 used</td>
-<td>使用的物理内存总量</td>
-</tr>
-<tr>
-<td>436000 buff/cache</td>
-<td>用作内核缓存的内存量</td>
-</tr>
-<tr>
-<td>KiB Swap:  2256892 total</td>
-<td>交换区总量</td>
-</tr>
-<tr>
-<td>2221596 free</td>
-<td>空闲交换区总量</td>
-</tr>
-<tr>
-<td>35296 used</td>
-<td>使用的交换区总量</td>
-</tr>
-<tr>
-<td>540444 avail Mem</td>
-<td>可用缓冲的交换区总量</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>查找某个进程是否运行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">查找firefox是否启动，结果没有</div><div class="line">$ ps aux | grep firefox</div><div class="line">highsung  22559  0.0  0.0 119392   908 pts/0    S+   11:31   0:00 grep --color=auto firefox</div><div class="line">查找nginx是否运行，发现2个进程，1个master，1个worker</div><div class="line">$ ps aux | grep nginx</div><div class="line">root      21802  0.0  0.0  15932   360 ?        Ss   09:50   0:00 nginx: master process /usr/local/nginx/sbin/nginx</div><div class="line">nobody    21803  0.0  0.2  18444  2516 ?        S    09:50   0:00 nginx: worker process</div><div class="line">highsung  22561  0.0  0.0 119392   916 pts/0    S+   11:31   0:00 grep --color=auto nginx</div></pre></td></tr></table></figure>
-</li>
-<li><p>强制杀死某个进程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">杀死nignx进程，9是kill信号，21802和21803是进程号</div><div class="line">$ sudo  kill -9 21802</div><div class="line">[sudo] highsung 的密码：</div><div class="line">$ sudo  kill -9 21803</div><div class="line">$ ps aux | grep nginx</div><div class="line">highsung  22603  0.0  0.0 119392   952 pts/0    S+   11:48   0:00 grep --color=auto nginx</div><div class="line">$</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="2-网络管理"><a href="#2-网络管理" class="headerlink" title="2. 网络管理"></a>2. 网络管理</h4><ul>
-<li>查看网络适配器，发现有2个：ens33和lo。lo是环回地址，适合本机测试访问。外网访问通过ens33通信。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">$ ifconfig</div><div class="line">ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</div><div class="line">        inet 192.168.124.139  netmask 255.255.255.0  broadcast 192.168.124.255</div><div class="line">        inet6 fe80::17b9:bbb6:331d:db1e  prefixlen 64  scopeid 0x20&lt;link&gt;</div><div class="line">        ether 00:0c:29:8e:58:5c  txqueuelen 1000  (Ethernet)</div><div class="line">        RX packets 277372  bytes 331067727 (315.7 MiB)</div><div class="line">        RX errors 0  dropped 0  overruns 0  frame 0</div><div class="line">        TX packets 82261  bytes 5244773 (5.0 MiB)</div><div class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</div><div class="line"></div><div class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</div><div class="line">        inet 127.0.0.1  netmask 255.0.0.0</div><div class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</div><div class="line">        loop  txqueuelen 1  (Local Loopback)</div><div class="line">        RX packets 1227  bytes 317260 (309.8 KiB)</div><div class="line">        RX errors 0  dropped 0  overruns 0  frame 0</div><div class="line">        TX packets 1227  bytes 317260 (309.8 KiB)</div><div class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>flags=4163<up,broadcast,running,multicast></up,broadcast,running,multicast></td>
-<td>UP（网卡开启状态）RUNNING（网卡的网线被接上）MULTICAST（支持组播）</td>
-</tr>
-<tr>
-<td>mtu 1500</td>
-<td>最大物理传输单元字节数</td>
-</tr>
-<tr>
-<td>inet 192.168.124.139</td>
-<td>IP地址</td>
-</tr>
-<tr>
-<td>netmask 255.255.255.0</td>
-<td>子网掩码</td>
-</tr>
-<tr>
-<td>broadcast 192.168.124.255</td>
-<td>广播地址</td>
-</tr>
-<tr>
-<td>ether 00:0c:29:8e:58:5c</td>
-<td>Mac地址</td>
-</tr>
-<tr>
-<td>RX packets 277372  bytes 331067727 (315.7 MiB)</td>
-<td>接收数据包字节数</td>
-</tr>
-<tr>
-<td>RX errors 0  dropped 0  overruns 0  frame 0</td>
-<td>接收错误包，丢包</td>
-</tr>
-<tr>
-<td>TX packets 82261  bytes 5244773 (5.0 MiB)</td>
-<td>发送数据包字节数</td>
-</tr>
-<tr>
-<td>TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</td>
-<td>发送错误包，丢包</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>dropped，表示这个数据包已经进入到网卡的接收缓存fifo队列，并且开始被系统中断处理准备进行数据包拷贝（从网卡缓存fifo队列拷贝到系统内存），但由于此时的系统原因（比如内存不够等）导致这个数据包被丢掉，即这个数据包被Linux系统丢掉。</li>
-<li>overruns，表示这个数据包还没有被进入到网卡的接收缓存fifo队列就被丢掉，因此此时网卡的fifo是满的。为什么fifo会是满的？因为系统繁忙，来不及响应网卡中断，导致网卡里的数据包没有及时的拷贝到系统内存，fifo是满的就导致后面的数据包进不来，即这个数据包被网卡硬件丢掉。所以，个人觉得遇到overruns非0，需要检测cpu负载与cpu中断情况。</li>
-</ul>
-<p>开关网络适配器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">关闭ens33</div><div class="line">$ sudo ifconfig ens33 down</div><div class="line">开启ens33</div><div class="line">$ sudo ifconfig ens33 up</div></pre></td></tr></table></figure></p>
-<p>测试与其他主机是否可通信：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ping通一个外网域名，意味本机可以上网，听歌，下载文件等</div><div class="line">$ ping hao123.com</div><div class="line">PING hao123.com (180.149.132.19) 56(84) bytes of data.</div><div class="line">64 bytes from 180.149.132.19 (180.149.132.19): icmp_seq=1 ttl=128 time=75.7 ms</div><div class="line">64 bytes from 180.149.132.19 (180.149.132.19): icmp_seq=2 ttl=128 time=76.1 ms</div><div class="line">64 bytes from 180.149.132.19 (180.149.132.19): icmp_seq=3 ttl=128 time=76.6 ms</div><div class="line">ping通一个局域网地址，意味本机网络软硬件配置正常</div><div class="line">$ ping 192.168.1.1</div><div class="line">PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.</div><div class="line">64 bytes from 192.168.1.1: icmp_seq=1 ttl=128 time=2.00 ms</div><div class="line">64 bytes from 192.168.1.1: icmp_seq=2 ttl=128 time=3.14 ms</div><div class="line">ping不通局域网地址，意味另一台主机未开机，IP有误，防火墙开启等</div><div class="line">$ ping 192.168.1.111</div><div class="line">PING 192.168.1.111 (192.168.1.111) 56(84) bytes of data.</div><div class="line">From 192.168.1.104 icmp_seq=3 Destination Host Unreachable</div></pre></td></tr></table></figure></p>
-<p>设置本机IP，子网掩码，广播IP，MTU，Mac:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ifconfig ens33 192.168.124.239 netmask 255.255.255.0 broadcast 192.168.124.255</div><div class="line">ifconfig ens33 mtu 1400</div><div class="line">ifconfig ens33 hw ether 22:AA:BB:CC:DD:EE</div></pre></td></tr></table></figure></p>
-<p>最后说下虚拟机访问网络的问题：</p>
-<ol>
-<li>当虚拟机需要访问外网，比如通过apt-get，dnf安装软件时：需要在虚拟机软件中把Linux网络适配器修改成“NAT模式”，系统自动获取IP即可。</li>
-</ol>
-<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_6/20170320124721.png" alt="image"></p>
-<ol>
-<li>当虚拟机需要局域网通信，比如访问开发板，挂载nfs系统时：需要在虚拟机软件中把Linux网络适配器修改成“桥接模式”，手动设置系统的局域网IP，设置前可以先ping下准备设置的IP是否已被占用。</li>
-</ol>
-<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_6/20170320124826.png" alt="image"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj1t9t0no001gasufvy988o0e" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj1zs932u0016jwufqf2wi365" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1143,15 +1064,15 @@
           </li>
         
           <li>
+            <a href="/2017/03/26/course/embeded/lesson_14/">（13）Linux内核编译</a>
+          </li>
+        
+          <li>
             <a href="/2017/03/25/course/embeded/lesson_12/">（12）Linux字符驱动</a>
           </li>
         
           <li>
             <a href="/2017/03/24/course/embeded/lesson_11/">（11）Linux模块</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/23/course/embeded/lesson_10/">（10）Makefile</a>
           </li>
         
       </ul>

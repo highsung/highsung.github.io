@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>（13）Linux内核编译 | HighSung</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="内容准备源码和工具内核配置选项和编译内核编译过程
+Uboot介绍Uboot是德国DENX小组的开发用于多种嵌入式CPU的bootloader程序, UBoot不仅仅支持嵌入式Linux系统的引导，当前，它还支持NetBSD, VxWorks, QNX, RTEMS, ARTOS, LynxOS嵌入式操作系统。UBoot除了支持PowerPC系列的处理器外，还能支持MIPS、 x86、ARM、NI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="（13）Linux内核编译">
+<meta property="og:url" content="http://yoursite.com/2017/03/26/course/embeded/lesson_14/index.html">
+<meta property="og:site_name" content="HighSung">
+<meta property="og:description" content="内容准备源码和工具内核配置选项和编译内核编译过程
+Uboot介绍Uboot是德国DENX小组的开发用于多种嵌入式CPU的bootloader程序, UBoot不仅仅支持嵌入式Linux系统的引导，当前，它还支持NetBSD, VxWorks, QNX, RTEMS, ARTOS, LynxOS嵌入式操作系统。UBoot除了支持PowerPC系列的处理器外，还能支持MIPS、 x86、ARM、NI">
+<meta property="og:updated_time" content="2017-04-27T02:19:55.585Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="（13）Linux内核编译">
+<meta name="twitter:description" content="内容准备源码和工具内核配置选项和编译内核编译过程
+Uboot介绍Uboot是德国DENX小组的开发用于多种嵌入式CPU的bootloader程序, UBoot不仅仅支持嵌入式Linux系统的引导，当前，它还支持NetBSD, VxWorks, QNX, RTEMS, ARTOS, LynxOS嵌入式操作系统。UBoot除了支持PowerPC系列的处理器外，还能支持MIPS、 x86、ARM、NI">
+  
+    <link rel="alternate" href="/atom.xml" title="HighSung" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">HighSung</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Make progress bit by bit every day</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-course/embeded/lesson_14" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/26/course/embeded/lesson_14/" class="article-date">
+  <time datetime="2017-03-26T08:51:00.000Z" itemprop="datePublished">2017-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      （13）Linux内核编译
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="准备源码和工具"><a href="#准备源码和工具" class="headerlink" title="准备源码和工具"></a>准备源码和工具</h4><h4 id="内核配置选项和编译"><a href="#内核配置选项和编译" class="headerlink" title="内核配置选项和编译"></a>内核配置选项和编译</h4><h4 id="内核编译过程"><a href="#内核编译过程" class="headerlink" title="内核编译过程"></a>内核编译过程</h4><hr>
+<h5 id="Uboot介绍"><a href="#Uboot介绍" class="headerlink" title="Uboot介绍"></a>Uboot介绍</h5><p>Uboot是德国DENX小组的开发用于多种嵌入式CPU的bootloader程序, UBoot不仅仅支持嵌入式Linux系统的引导，当前，它还支持NetBSD, VxWorks, QNX, RTEMS, ARTOS, LynxOS嵌入式操作系统。UBoot除了支持PowerPC系列的处理器外，还能支持MIPS、 x86、ARM、NIOS、XScale等诸多常用系列的处理器。</p>
+<h5 id="uboot的体系结构"><a href="#uboot的体系结构" class="headerlink" title="uboot的体系结构"></a>uboot的体系结构</h5><p>目录树</p>
+<p> |–board<br> |–common<br> |–cpu<br> |–disk<br> |–doc<br> |–drivers<br> |–dtt<br> |–examples<br> |–fs<br> |–include<br> |–lib_arm<br> |–lib_generic<br> |–net<br> |–post<br> |–rtc<br> |–tools</p>
+<ol>
+<li>board：和一些已有开发板有关的文件. 每一个开发板都以一个子目录出现在当前目录中，比如说: uboot1.1.6\board\samsung\smdk6410子目录中存放与我们开发板相关的配置文件。</li>
+<li>common：实现uboot命令行下支持的命令，每一条命令都对应一个文件。例如bootm命令对应就是cmd_bootm.c。</li>
+<li>cpu：与特定CPU架构相关目录，每一款Uboot下支持的CPU在该目录下对应一个子目录，比如有子目录uboot1.1.6\cpu\s3c64xx就是我们开发板上使用的cpu架构目录。</li>
+<li>disk：对磁盘的支持。</li>
+<li>doc：文档目录。Uboot有非常完善的文档，推荐大家参考阅读。</li>
+<li>drivers：Uboot支持的设备驱动程序都放在该目录，比如各种网卡、支持CFI的Flash、串口和USB等。</li>
+<li>fs: 支持的文件系统，Uboot现在支持cramfs、fat、fdos、jffs2和registerfs。</li>
+<li>include：Uboot使用的头文件，还有对各种硬件平台支持的汇编文件，系统的配置文件和对文件系统支持的文件。该目录下configs目录有与开 发板相关的配置头文件，如leopard2a.h。该目录下的asm目录有与CPU体系结构相关的头文件，asm对应的是asmarm.</li>
+<li>lib_xxxx: 与体系结构相关的库文件。如与ARM相关的库放在lib_arm中。</li>
+<li>net：与网络协议栈相关的代码，BOOTP协议、TFTP协议、RARP协议和NFS文件系统的实现。</li>
+<li>tools：生成Uboot的工具，如：mkimage, crc等等。</li>
+</ol>
+<h5 id="uboot的运行过程分析"><a href="#uboot的运行过程分析" class="headerlink" title="uboot的运行过程分析"></a>uboot的运行过程分析</h5><p>大多数bootloader都分为阶段1(stage1)和阶段2(stage2)两大部分，uboot也不例外。依赖于CPU体系结构的代码（如CPU初 始化代码等）通常都放在阶段1中且通常用汇编语言实现，而阶段2则通常用C语言来实现，这样可以实现复杂的功能，而且有更好的可读性和移植性。</p>
+<p> U - Boot 编译后的代码定义一般不超过100kB ,并且这100 kB 又分成两个阶段来执行. 第一阶段的代码在start.s 中定义,大小不超过10kB ,它包括从系统上电后在0x00000000 地址开始执行的部分. 这部分代码运行在Flash 中,它包括对arm9的一些寄存器的初始化和将U - Boot 的第二阶段代码从Flash 拷贝到SDRAM 中. 除去第一阶段的代码,剩下的部分都是第二阶段的代码. 第二阶段的起始地址是在第一阶段代码中指定的,被复制到SDRAM后,就从第一阶段跳到这个入口地址开始执行剩余部分代码. 第二阶段主要是进行一些BSS 段设置,堆栈的初始化等工作,最后会跳转到main -loop 函数中,接受命令并进行命令处理. 图1 给出了U - Boot 的详细的运行过程包括对内核的设置、装载及调用过程。系统复位进入u-boot stage l的入口点。</p>
+<p>硬件设备的初始化<br>为加载uboot stage 2准备ram空间<br>设置好堆栈<br>跳转到stage 2的C入口点<br>初始化本阶段要用到的设备<br>检查内存映射<br>将kernel映像和文件映像从flash中读到ram中<br>为内核设定启动参数<br>调用内核</p>
+<p>运行代码分析</p>
+<p>stage 1<br>uboot的stage1代码通常放在start.s文件中，它用汇编语言写成，其主要代码包括定义入口，设置异常向量，设置cpu的模式和频率，配置内 存区控制寄存器，安装uboot的栈空间，关闭看门狗等。由于本人对ram的汇编不太熟悉，所以这一部分不作具体分析。</p>
+<p>stage 2<br>lib_arm/board.c中的start armboot是C语言开始的函数，也是整个启动代码中C语言的主函数，同时还是整个uboot(armboot）的主函数，该函数主要完成如下操作：<br>  调用一系列初始化函数</p>
+<ol>
+<li><p>指定初始函数表：<br>init_fnc_t <em>init_sequence[] = {<br>cpu_init, /</em> cpu的基本设置 <em>/<br>board_init, /</em> 开发板的基本初始化 <em>/<br>interrupt_init, /</em> 初始化中断 <em>/<br>env_init, /</em> 初始化环境变量 <em>/<br>init_baudrate, /</em> 初始化波特率 <em>/<br>serial_init, /</em> 串口通讯初始化 <em>/<br>console_init_f, /</em> 控制台初始化第一阶段 <em>/<br>display_banner, /</em> 通知代码已经运行到该处 <em>/<br>dram_init, /</em> 配制可用的内存区 */<br>display_dram_config,<br>#if defined(CONFIG_VCMA9) || defined (CONFIG_CMC_PU2)<br>checkboard,<br>#endif<br>NULL,<br>};</p>
+<p>执行初始化函数的代码如下：<br>for (init_fnc_ptr = init_sequence; *init_fnc_ptr; ++init_fnc_ptr) {</p>
+<pre><code>if ((*init_fnc_ptr)() != 0) {
+  hang ();
+}
+</code></pre><p>}</p>
+</li>
+<li><p>配置可用的Flash区<br>flash_init ()</p>
+</li>
+<li><p>初始化内存分配函数<br>mem_malloc_init()</p>
+</li>
+<li><p>nand flash初始化<br>#if (CONFIG_COMMANDS &amp; CFG_CMD_NAND)<br>puts (“NAND:”);<br>nand_init();        /<em> go init the NAND </em>/<br>#endif</p>
+</li>
+<li><p>初始化环境变量<br>env_relocate ();</p>
+</li>
+<li><p>外围设备初始化<br>devices_init()</p>
+</li>
+<li><p>I2C总线初始化<br>i2c_init();</p>
+</li>
+<li><p>LCD初始化<br>drv_lcd_init();</p>
+</li>
+<li><p>VIDEO初始化<br>drv_video_init();</p>
+</li>
+<li><p>键盘初始化<br>drv_keyboard_init();</p>
+</li>
+<li><p>系统初始化<br>drv_system_init();</p>
+</li>
+</ol>
+<p>   初始化网络设备</p>
+<pre><code>初始化相关网络设备，填写IP、MAC地址等。
+
+1. 设置IP地址
+gd-&gt;bd-&gt;bi_ip_addr = getenv_IPaddr (&quot;ipaddr&quot;);
+
+2. 设置mac地址
+{
+       int i;
+       ulong reg;
+       char *s, *e;
+       uchar tmp[64];
+
+       i = getenv_r ((uchar*)(&quot;ethaddr&quot;), tmp, sizeof (tmp));
+       s = (i &gt; 0) ? (char*)tmp : NULL;
+
+       for (reg = 0; reg &lt; 6; ++reg) {
+         gd-&gt;bd-&gt;bi_enetaddr[reg] = s ? simple_strtoul (s, &amp;e, 16) : 0;
+         if (s)
+            s = (*e) ? e + 1 : e;
+       }
+}
+
+
+进入主UBOOT 命令行
+
+ 进入命令循环（即整个boot的工作循环），接受用户从串口输入的命令，然后进行相应的工作。
+ for (;;) {
+        main_loop ();
+ }}
+
+3、uboot的移植和测试
+
+ 3.1 移植的过程
+
+ ① 在宿主机上建立交叉编译开发环境
+ ② 修改cpu／arm926ejst目录中的文件内容，
+ 主要包含cpu．C，start．S，interrupts．C以及seria1．C，speed．C等文件
+ ③ 在board目录下创建自己的目标板(开发板)目录leopard2a
+ 在目录下创建leopard2a．C，flash．C，memsetup．S
+ 以及Makefile，u-bot．1ds，config．mk文件
+ ④ 在include／configs目录下创建leopard2a．h
+ ⑤ 打开u-bot目录下Makefile文件，加入如下两行：
+ leopard2a_config :    unconfig
+ @./mkconfig $(@:_config=) arm arm926ejs leopard2a
+ ⑥ 编译。运行命令：
+ 1. make leopard2a_config
+ 2. make
+ 编译成功．生成基本的u—b00t．
+ ⑦ 烧写．把编译成的u-bot．bin
+ 至此移植u-bot过程结束．
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/26/course/embeded/lesson_14/" data-id="cj1zs932b000qjwufi9hfniq4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/26/course/embeded/lesson_13/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          （13）Linux内核编译
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/25/course/embeded/lesson_12/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">（12）Linux字符驱动</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-git/">hexo git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大学生实训/">大学生实训</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/校园采风/">校园采风</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/hexo-git/" style="font-size: 10px;">hexo git</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/大学生实训/" style="font-size: 10px;">大学生实训</a> <a href="/tags/嵌入式开发/" style="font-size: 20px;">嵌入式开发</a> <a href="/tags/校园采风/" style="font-size: 10px;">校园采风</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/04/22/course/embeded/tip_1/">ubuntu apt-get install 加速</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/26/course/embeded/lesson_13/">（13）Linux内核编译</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/26/course/embeded/lesson_14/">（13）Linux内核编译</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/25/course/embeded/lesson_12/">（12）Linux字符驱动</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/24/course/embeded/lesson_11/">（11）Linux模块</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 HighSung<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
