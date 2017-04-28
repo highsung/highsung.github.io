@@ -68,6 +68,114 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-course/embeded/lesson_9" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/22/course/embeded/lesson_9/" class="article-date">
+  <time datetime="2017-03-22T08:52:00.000Z" itemprop="datePublished">2017-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/22/course/embeded/lesson_9/">（9）gdb</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="gdb简介"><a href="#gdb简介" class="headerlink" title="gdb简介"></a>gdb简介</h4><h4 id="程序调试"><a href="#程序调试" class="headerlink" title="程序调试"></a>程序调试</h4><h4 id="gdb进阶"><a href="#gdb进阶" class="headerlink" title="gdb进阶"></a>gdb进阶</h4><hr>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_9/link.jpg" alt="image"></p>
+<h5 id="gdb简介-1"><a href="#gdb简介-1" class="headerlink" title="gdb简介"></a>gdb简介</h5><p>GDB, the GNU Project debugger, allows you to see what is going on ‘inside’ another program while it executes – or what another program was doing at the moment it crashed.</p>
+<p>The program being debugged can be written in Ada, C, C++, Objective-C, Pascal (and many other languages). Those programs might be executing on the same machine as GDB (native) or on another machine (remote). GDB can run on most popular UNIX and Microsoft Windows variants.</p>
+<p>GDB，GNU项目调试器，可以让您看到在执行另一个程序时发生了什么 - 或者其他程序在崩溃时正在做什么。</p>
+<p>被调试的程序可以用Ada，C，C ++，Objective-C，Pascal（和许多其他语言）编写。 这些程序可能与GDB（本地）或另一台机器（远程）在同一台机器上执行。 GDB可以运行在大多数流行的UNIX和Microsoft Windows中。</p>
+<h4 id="程序调试-1"><a href="#程序调试-1" class="headerlink" title="程序调试"></a>程序调试</h4><ul>
+<li>gdb常用指令</li>
+</ul>
+<ol>
+<li><p>检测gdb是否安装及版本号，若未安装gdb会提示“未找到命令”。fedora25默认已安装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> $ gdb -v</div><div class="line">GNU gdb (GDB) Fedora 7.12-24.fc25</div><div class="line">Copyright (C) 2016 Free Software Foundation, Inc.</div></pre></td></tr></table></figure>
+</li>
+<li><p>编写test.c程序，内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line"></div><div class="line">int sum(int n)</div><div class="line">&#123;</div><div class="line">    int sum=0;</div><div class="line">    for(int i=0; i&lt;=n; i++)</div><div class="line">    &#123;</div><div class="line">	sum += i;</div><div class="line">    &#125;</div><div class="line">    return sum;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main(int argv, char *args[])</div><div class="line">&#123;</div><div class="line">    int i;</div><div class="line">    long result=0;</div><div class="line">    for(i=1; i&lt;=10; i++)</div><div class="line">    &#123;</div><div class="line">        result += i;</div><div class="line">    &#125;</div><div class="line">    printf(&quot;result[1-10]=%d\n&quot;,result);</div><div class="line">    printf(&quot;result[1-100]=%d\n&quot;,sum(100));</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>编译debug版本的testd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ gcc -o testd -g test.c</div></pre></td></tr></table></figure>
+</li>
+<li><p>gdb载入test，list或l查看源码，回车可继续浏览</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">  $ gdb testd</div><div class="line">  (gdb) list</div><div class="line">2</div><div class="line">3	int sum(int n)</div><div class="line">4	&#123;</div><div class="line">5	    int sum=0;</div><div class="line">6	    for(int i=0; i&lt;=n; i++)</div><div class="line">7	    &#123;</div><div class="line">8		sum += i;</div><div class="line">9	    &#125;</div><div class="line">10	    return sum;</div><div class="line">11	&#125;</div><div class="line">...</div></pre></td></tr></table></figure>
+</li>
+<li><p>设置断点，break 行号，break 函数名，info break 查看断点信息，break也可简写成b</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">  (gdb) break 19</div><div class="line">Breakpoint 1 at 0x400544: file test.c, line 19.</div><div class="line">(gdb) break sum</div><div class="line">Breakpoint 2 at 0x4004fd: file test.c, line 5.</div><div class="line">(gdb) info break</div><div class="line">Num     Type           Disp Enb Address            What</div><div class="line">1       breakpoint     keep y   0x0000000000400544 in main at test.c:19</div><div class="line">2       breakpoint     keep y   0x00000000004004fd in sum at test.c:5</div><div class="line">(gdb)</div></pre></td></tr></table></figure>
+</li>
+<li><p>清除断点，clear 行号，clear 函数名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">  (gdb) info b</div><div class="line">Num     Type           Disp Enb Address            What</div><div class="line">1       breakpoint     keep y   0x0000000000400544 in main at test.c:19</div><div class="line">	breakpoint already hit 10 times</div><div class="line">2       breakpoint     keep y   0x00000000004004fd in sum at test.c:5</div><div class="line">	breakpoint already hit 1 time</div><div class="line">  第二个断点被清除</div><div class="line">(gdb) clear 5</div><div class="line">Deleted breakpoint 2</div><div class="line">(gdb) info b</div><div class="line">Num     Type           Disp Enb Address            What</div><div class="line">1       breakpoint     keep y   0x0000000000400544 in main at test.c:19</div><div class="line">	breakpoint already hit 10 times</div></pre></td></tr></table></figure>
+</li>
+<li><p>开始调试，输入run或r，停在第一个断点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">  (gdb) run</div><div class="line">Starting program: /home/highsung/dev/lesson_9/test</div><div class="line">Missing separate debuginfos, use: dnf debuginfo-install glibc-2.24-4.fc25.x86_64</div><div class="line"></div><div class="line">Breakpoint 1, main (argv=1, args=0x7fffffffe2b8) at test.c:19</div><div class="line">19	        result += i;</div><div class="line">(gdb)</div></pre></td></tr></table></figure>
+</li>
+<li><p>单步执行，输入next或n</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">  (gdb) next</div><div class="line">17	    for(i=1; i&lt;=10; i++)</div><div class="line">(gdb) n</div><div class="line"></div><div class="line">Breakpoint 1, main (argv=1, args=0x7fffffffe2b8) at test.c:19</div><div class="line">19	        result += i;</div><div class="line">(gdb) n</div><div class="line">17	    for(i=1; i&lt;=10; i++)</div><div class="line">(gdb) n</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看变量值，输入print或p</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">  (gdb) print i</div><div class="line">$4 = 9</div><div class="line">(gdb) print result</div><div class="line">$5 = 45</div><div class="line">(gdb)</div><div class="line">$6 = 45</div><div class="line">(gdb) p i</div><div class="line">$7 = 9</div></pre></td></tr></table></figure>
+</li>
+<li><p>执行到下个断点，continue或c，没有断点程序结束</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">  (gdb) continue</div><div class="line">Continuing.</div><div class="line">result[1-100]=5050</div><div class="line">[Inferior 1 (process 3674) exited normally]</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看程序调用栈信息，当前执行到sum函数中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">  (gdb) bt</div><div class="line">#0  sum (n=100) at test.c:6</div><div class="line">#1  0x0000000000400577 in main (argv=1, args=0x7fffffffe2b8) at test.c:22</div></pre></td></tr></table></figure>
+</li>
+<li><p>退出当前函数，finish</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">  (gdb) finish</div><div class="line">Run till exit from #0  sum (n=100) at test.c:6</div><div class="line">0x0000000000400577 in main (argv=1, args=0x7fffffffe2b8) at test.c:22</div><div class="line">22	    printf(&quot;result[1-100]=%d\n&quot;,sum(100));</div><div class="line">Value returned is $10 = 5050</div><div class="line">(gdb) n</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="gdb进阶-1"><a href="#gdb进阶-1" class="headerlink" title="gdb进阶"></a>gdb进阶</h4><p>一般来说，调试程序时需要编译器带-g参数，如果没有-g，将看不到程序的函数名，变量名，所替代将是运行时的内存地址。<br>启动gdb的方法有以下几种：</p>
+<ol>
+<li>gdb &lt;program&gt;  带调试信息的program程序。</li>
+<li>gdb &lt;program&gt; core core文件是program程序非法执行后生产的文件，可以用它还原程序崩溃现场。</li>
+<li>gdb &lt;program&gt; &lt;PID&gt; 调试一个正常运行的进程，gdb会自动attach上去并调试它。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ sudo gdb /usr/local/nginx/sbin/nginx 3832</div><div class="line">(gdb) quit</div><div class="line">A debugging session is active.</div><div class="line"></div><div class="line">	Inferior 1 [process 3832] will be detached.</div><div class="line"></div><div class="line">Quit anyway? (y or n) y</div><div class="line">Detaching from program: /usr/local/nginx/sbin/nginx, process 3832</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>在gdb准备执行run或r指令前，可以对一些环境参数进行设置：</p>
+<ol>
+<li><p>程序运行参数。<br>set args 指定运行时参数。如：set arg 1 2 3 4<br>show args 可以查看设置好的参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">  (gdb) set args 1 2 3 4</div><div class="line">(gdb) show args</div><div class="line">Argument list to give program being debugged when it is started is &quot;1 2 3 4&quot;.</div></pre></td></tr></table></figure>
+</li>
+<li><p>程序工作路径<br>path &lt;dir&gt; 添加程序的工作路径<br>show paths<br>当前目录被添加到了工作路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">  (gdb) path .</div><div class="line">Executable and object file path: /home/highsung/dev/lesson_9:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/highsung/.local/bin:/home/highsung/bin</div><div class="line">(gdb) show paths</div><div class="line">Executable and object file path: /home/highsung/dev/lesson_9:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/highsung/.local/bin:/home/highsung/bin</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加环境变量<br>set environment varname=[value] 设置环境变量<br>show environment [varname] 查看环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">  (gdb) set env XM1=111</div><div class="line">(gdb) show env XM1</div><div class="line">XM1 = 111</div><div class="line">(gdb) show env</div><div class="line">XDG_VTNR=1</div><div class="line">SSH_AGENT_PID=1183</div><div class="line">...</div><div class="line">LINES=24</div><div class="line">COLUMNS=80</div><div class="line">XM1=111</div></pre></td></tr></table></figure>
+</li>
+<li><p>程序的输入输出<br>info terminal 显示程序用到的终端模式，可以重定向到某个文件，如run &gt; outfile<br>也可用tty 命令指定输入输出的终端设备。如 tty /dev/ttyb</p>
+</li>
+</ol>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_9/20170323135654.png" alt="image"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj21pn2dc001kdkuff2owuhqz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-course/embeded/lesson_8" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/21/course/embeded/lesson_8/" class="article-date">
@@ -173,7 +281,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj214urg10018a8uf299zwvjr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj21pn2d4001gdkufn136sv1k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -297,7 +405,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj214urg5001ca8uf2qmh4ev4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj21pn2d0001cdkufc5tuz9ip" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -518,7 +626,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj214urg3001aa8ufh3rukzot" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj21pn2cw0018dkufap503wmn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -864,7 +972,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj214urfz0016a8ufqlpduptt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj21pn2cy001adkufdr51fw8k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -935,7 +1043,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj214urft0010a8ufulc179xx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj21pn2cr0014dkufidicb3xx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1042,7 +1150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj214urfx0014a8uf5riu0200" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_3/" data-id="cj21pn2ct0016dkufasquumec" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1240,60 +1348,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj214urfr000ya8ufjouf5hln" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_2/" data-id="cj21pn2cf0012dkuf95uaxlsu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-course/html/lesson_1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/16/course/html/lesson_1/" class="article-date">
-  <time datetime="2017-03-16T01:45:00.000Z" itemprop="datePublished">2017-03-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/16/course/html/lesson_1/">（1）课程介绍</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>HTML，CSS，JavaScript</p>
-<h4 id="第一部分："><a href="#第一部分：" class="headerlink" title="第一部分："></a>第一部分：</h4><ol>
-<li>HTML由来</li>
-<li>HTML文档结构</li>
-<li>HTML元素背后</li>
-<li>HTML常用标签</li>
-<li>块级标签</li>
-<li>行内标签</li>
-<li></li>
-</ol>
-<hr>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/html/lesson_1/" data-id="cj214urgh001ka8ufmwna3nv6" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/">html</a></li></ul>
 
     </footer>
   </div>
@@ -1361,7 +1419,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj214urfv0012a8ufpdx3zhwa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/embeded/lesson_1/" data-id="cj21pn2bs000qdkufr4s8kp86" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1373,10 +1431,10 @@
 
 
   
-    <article id="post-school/cdut/2017/shixun_0227_0310" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-course/html/lesson_1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/03/14/school/cdut/2017/shixun_0227_0310/" class="article-date">
-  <time datetime="2017-03-14T08:34:00.000Z" itemprop="datePublished">2017-03-14</time>
+    <a href="/2017/03/16/course/html/lesson_1/" class="article-date">
+  <time datetime="2017-03-16T01:45:00.000Z" itemprop="datePublished">2017-03-16</time>
 </a>
     
   </div>
@@ -1387,7 +1445,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/14/school/cdut/2017/shixun_0227_0310/">成都理工计科学院14级嵌入式实训</a>
+      <a class="article-title" href="/2017/03/16/course/html/lesson_1/">（1）课程介绍</a>
     </h1>
   
 
@@ -1395,15 +1453,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>先来个全家福，对着镜头刚开始都有点害羞<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170309_113342.jpg" alt="image"><br>在陈老的招唤，花儿与绿叶齐齐放开了<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/heying.jpg" alt="image"><br>习主席的祝语，2017撸起袖子加油干<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170309_104357.jpg" alt="image"><br>两边的小伙子，心有灵犀一点笑<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170309_104830.jpg" alt="image"><br>组长貌似犯难了<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170309_104846.jpg" alt="image"><br>小目标有难，熊老亲自开组长大会，各种问题冤情统统上报，总结方法，分工合作，打气加油，向着今晚10点的deadline出发<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/meeting.JPG" alt="image"><br>小伙伴们满血复活<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170310_104544.jpg" alt="image"><br>答辩开始<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170310_134104.jpg" alt="image"><br>曾老点评<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170310_113250.jpg" alt="image"><br>成果展示<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/school/cdut/2017/0227_0310/IMG_20170310_133039.jpg" alt="image"></p>
+        <hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>HTML，CSS，JavaScript</p>
+<h4 id="第一部分："><a href="#第一部分：" class="headerlink" title="第一部分："></a>第一部分：</h4><ol>
+<li>HTML由来</li>
+<li>HTML文档结构</li>
+<li>HTML元素背后</li>
+<li>HTML常用标签</li>
+<li>块级标签</li>
+<li>行内标签</li>
+<li></li>
+</ol>
+<hr>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/14/school/cdut/2017/shixun_0227_0310/" data-id="cj214urh2002ba8ufwjx4womn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/16/course/html/lesson_1/" data-id="cj21pn2eb0029dkufrgikkqcz" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大学生实训/">大学生实训</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/">html</a></li></ul>
 
     </footer>
   </div>
@@ -1460,6 +1529,10 @@
       <ul>
         
           <li>
+            <a href="/2017/04/28/course/embeded/lesson_17/">（17）视频预览和采集图片</a>
+          </li>
+        
+          <li>
             <a href="/2017/04/28/course/embeded/lesson_16/">（15）framebuffer　v4l2</a>
           </li>
         
@@ -1473,10 +1546,6 @@
         
           <li>
             <a href="/2017/04/22/course/embeded/tip_1/">ubuntu apt-get install 加速</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/26/course/embeded/lesson_13/">（13）Linux内核编译</a>
           </li>
         
       </ul>
