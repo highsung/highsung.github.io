@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>HighSung</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;lt;?xml version=”1.0” encoding=”UTF-8”?&amp;gt;
+
+
+    /media/xoming/84E82BBAE82BA8FE/maven_repo                                                                    alimaven            central            a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HighSung">
+<meta property="og:url" content="http://yoursite.com/2017/06/29/course/javaee/remote_settings.xml/index.html">
+<meta property="og:site_name" content="HighSung">
+<meta property="og:description" content="&amp;lt;?xml version=”1.0” encoding=”UTF-8”?&amp;gt;
+
+
+    /media/xoming/84E82BBAE82BA8FE/maven_repo                                                                    alimaven            central            a">
+<meta property="og:updated_time" content="2017-06-29T09:20:21.741Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HighSung">
+<meta name="twitter:description" content="&amp;lt;?xml version=”1.0” encoding=”UTF-8”?&amp;gt;
+
+
+    /media/xoming/84E82BBAE82BA8FE/maven_repo                                                                    alimaven            central            a">
+  
+    <link rel="alternate" href="/atom.xml" title="HighSung" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">HighSung</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Make progress bit by bit every day</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-course/javaee/remote_settings.xml" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/29/course/javaee/remote_settings.xml/" class="article-date">
+  <time datetime="2017-06-29T09:20:21.741Z" itemprop="datePublished">2017-06-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;</p>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<!--
+ | This is the configuration file for Maven. It can be specified at two levels:
+ |
+ |  1. User Level. This settings.xml file provides configuration for a single user,
+ |                 and is normally provided in ${user.home}/.m2/settings.xml.
+ |
+ |                 NOTE: This location can be overridden with the CLI option:
+ |
+ |                 -s /path/to/user/settings.xml
+ |
+ |  2. Global Level. This settings.xml file provides configuration for all Maven
+ |                 users on a machine (assuming they're all using the same Maven
+ |                 installation). It's normally provided in
+ |                 ${maven.home}/conf/settings.xml.
+ |
+ |                 NOTE: This location can be overridden with the CLI option:
+ |
+ |                 -gs /path/to/global/settings.xml
+ |
+ | The sections in this sample file are intended to give you a running start at
+ | getting the most out of your Maven installation. Where appropriate, the default
+ | values (values used when the setting is not specified) are provided.
+ |
+ |-->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"><br>  <!-- localRepository
+   | The path to the local repository maven will use to store artifacts.
+   |
+   | Default: ${user.home}/.m2/repository
+  <localRepository>/path/to/local/repo</localRepository>
+  --><br>  <localrepository>/media/xoming/84E82BBAE82BA8FE/maven_repo</localrepository><br><br>  <!-- interactiveMode
+   | This will determine whether maven prompts you when it needs input. If set to false,
+   | maven will use a sensible default value, perhaps based on some other setting, for
+   | the parameter in question.
+   |
+   | Default: true
+  <interactiveMode>true</interactiveMode>
+  --><br><br>  <!-- offline
+   | Determines whether maven should attempt to connect to the network when executing a build.
+   | This will have an effect on artifact downloads, artifact deployment, and others.
+   |
+   | Default: false
+  <offline>false</offline>
+  --><br><br>  <!-- pluginGroups
+   | This is a list of additional group identifiers that will be searched when resolving plugins by their prefix, i.e.
+   | when invoking a command line like "mvn prefix:goal". Maven will automatically add the group identifiers
+   | "org.apache.maven.plugins" and "org.codehaus.mojo" if these are not already contained in the list.
+   |--><br>  <plugingroups><br>    <!-- pluginGroup
+     | Specifies a further group identifier to use for plugin lookup.
+    <pluginGroup>com.your.plugins</pluginGroup>
+    --><br>  </plugingroups><br><br>  <!-- proxies
+   | This is a list of proxies which can be used on this machine to connect to the network.
+   | Unless otherwise specified (by system property or command-line switch), the first proxy
+   | specification in this list marked as active will be used.
+   |--><br>  <proxies><br>    <!-- proxy
+     | Specification for one proxy, to be used in connecting to the network.
+     |
+    <proxy>
+      <id>optional</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <username>proxyuser</username>
+      <password>proxypass</password>
+      <host>proxy.host.net</host>
+      <port>80</port>
+      <nonProxyHosts>local.net|some.host.com</nonProxyHosts>
+    </proxy>
+    --><br>  </proxies><br><br>  <!-- servers
+   | This is a list of authentication profiles, keyed by the server-id used within the system.
+   | Authentication profiles can be used whenever maven must make a connection to a remote server.
+   |--><br>  <servers><br>    <!-- server
+     | Specifies the authentication information to use when connecting to a particular server, identified by
+     | a unique name within the system (referred to by the 'id' attribute below).
+     |
+     | NOTE: You should either specify username/password OR privateKey/passphrase, since these pairings are
+     |       used together.
+     |
+    <server>
+      <id>deploymentRepo</id>
+      <username>repouser</username>
+      <password>repopwd</password>
+    </server>
+    --><br><br>    <!-- Another sample, using keys to authenticate.
+    <server>
+      <id>siteServer</id>
+      <privateKey>/path/to/private/key</privateKey>
+      <passphrase>optional; leave empty if not used.</passphrase>
+    </server>
+    --><br>  </servers><br><br>  <!-- mirrors
+   | This is a list of mirrors to be used in downloading artifacts from remote repositories.
+   |
+   | It works like this: a POM may declare a repository to use in resolving certain artifacts.
+   | However, this repository may have problems with heavy traffic at times, so people have mirrored
+   | it to several places.
+   |
+   | That repository definition will have a unique id, so we can create a mirror reference for that
+   | repository, to be used as an alternate download site. The mirror site will be the preferred
+   | server for that repository.
+   |--><br>  <!--
+  <mirrors>
+    <mirror>
+        <id>nexus-osc</id>
+        <mirrorOf>central</mirrorOf>
+        <name>Nexus osc</name>
+        <url>http://maven.oschina.net/content/groups/public/</url>
+    </mirror>
+
+    <mirror>
+        <id>nexus-osc-thirdparty</id>
+        <mirrorOf>thirdparty</mirrorOf>
+        <name>Nexus osc thirdparty</name>
+        <url>http://maven.oschina.net/content/repositories/thirdparty/</url>
+    </mirror>
+</mirrors>
+--><br><br> <mirrors><br>     <!-- �����Ʋֿ� --><br>        <mirror><br>            <id>alimaven</id><br>            <mirrorof>central</mirrorof><br>            <name>aliyun maven</name><br>            <url><a href="http://maven.aliyun.com/nexus/content/repositories/central/" target="_blank" rel="external">http://maven.aliyun.com/nexus/content/repositories/central/</a></url><br>        </mirror><br><br>        <!-- ����ֿ�1 --><br>        <mirror><br>            <id>repo1</id><br>            <mirrorof>central</mirrorof><br>            <name>Human Readable Name for this Mirror.</name><br>            <url><a href="http://repo1.maven.org/maven2/" target="_blank" rel="external">http://repo1.maven.org/maven2/</a></url><br>        </mirror><br><br>        <!-- ����ֿ�2 --><br>        <mirror><br>            <id>repo2</id><br>            <mirrorof>central</mirrorof><br>            <name>Human Readable Name for this Mirror.</name><br>            <url><a href="http://repo2.maven.org/maven2/" target="_blank" rel="external">http://repo2.maven.org/maven2/</a></url><br>        </mirror><br>  </mirrors><br><br>  <!-- profiles
+   | This is a list of profiles which can be activated in a variety of ways, and which can modify
+   | the build process. Profiles provided in the settings.xml are intended to provide local machine-
+   | specific paths and repository locations which allow the build to work in the local environment.
+   |
+   | For example, if you have an integration testing plugin - like cactus - that needs to know where
+   | your Tomcat instance is installed, you can provide a variable here such that the variable is
+   | dereferenced during the build process to configure the cactus plugin.
+   |
+   | As noted above, profiles can be activated in a variety of ways. One way - the activeProfiles
+   | section of this document (settings.xml) - will be discussed later. Another way essentially
+   | relies on the detection of a system property, either matching a particular value for the property,
+   | or merely testing its existence. Profiles can also be activated by JDK version prefix, where a
+   | value of '1.4' might activate a profile when the build is executed on a JDK version of '1.4.2_07'.
+   | Finally, the list of active profiles can be specified directly from the command line.
+   |
+   | NOTE: For profiles defined in the settings.xml, you are restricted to specifying only artifact
+   |       repositories, plugin repositories, and free-form properties to be used as configuration
+   |       variables for plugins in the POM.
+   |
+   |--><br>  <profiles><br>    <profile><br>    <id>jdk-1.7</id><br>    <activation><br>        <activebydefault>true</activebydefault><br>        <jdk>1.7</jdk><br>    </activation><br>    <properties><br>        <maven.compiler.source>1.7</maven.compiler.source><br>        <maven.compiler.target>1.7</maven.compiler.target><br>        <maven.compiler.compilerversion>1.7</maven.compiler.compilerversion><br>    </properties><br>    </profile><br><br>    <profile><br>      <id>nexus</id><br>      <repositories><br>        <repository><br>          <id>nexus</id><br>          <name>nexus</name><br>          <url><a href="http://maven.aliyun.com/nexus/content/groups/public/" target="_blank" rel="external">http://maven.aliyun.com/nexus/content/groups/public/</a></url><br>          <releases><enable>true</enable></releases><br>          <snapshots><enable>true</enable></snapshots><br>        </repository><br>      </repositories><br>    </profile><br><br>  </profiles><br><br>  <!-- activeProfiles
+   | List of profiles that are active for all builds.
+   |
+    --><br>  <activeprofiles><br>    <activeprofile>nexus</activeprofile><br>  </activeprofiles><br><br></settings>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/29/course/javaee/remote_settings.xml/" data-id="cj4i7z9j4001q6wp523h359m6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/06/29/course/javaee/tip/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">javaee 环境配置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo-git/">hexo git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大学生实训/">大学生实训</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/校园采风/">校园采风</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/hexo-git/" style="font-size: 10px;">hexo git</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/大学生实训/" style="font-size: 10px;">大学生实训</a> <a href="/tags/嵌入式开发/" style="font-size: 20px;">嵌入式开发</a> <a href="/tags/校园采风/" style="font-size: 10px;">校园采风</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/06/29/course/javaee/remote_settings.xml/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/29/course/javaee/tip/">javaee 环境配置</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/03/course/embeded/lesson_18/">（18）qt信号槽</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/28/course/embeded/lesson_17/">（17）视频预览和采集图片</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/28/course/embeded/lesson_16/">（15）framebuffer　v4l2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 HighSung<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
