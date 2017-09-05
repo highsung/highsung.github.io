@@ -68,6 +68,118 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-course/embeded/lesson_13" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/26/course/embeded/lesson_13/" class="article-date">
+  <time datetime="2017-03-26T08:51:00.000Z" itemprop="datePublished">2017-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/26/course/embeded/lesson_13/">（13）Linux内核编译</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="准备源码和工具"><a href="#准备源码和工具" class="headerlink" title="准备源码和工具"></a>准备源码和工具</h4><h4 id="内核配置选项和编译"><a href="#内核配置选项和编译" class="headerlink" title="内核配置选项和编译"></a>内核配置选项和编译</h4><h4 id="内核编译过程"><a href="#内核编译过程" class="headerlink" title="内核编译过程"></a>内核编译过程</h4><hr>
+<h5 id="准备源码和工具-1"><a href="#准备源码和工具-1" class="headerlink" title="准备源码和工具"></a>准备源码和工具</h5><p>Linux内核源码<a href="https://www.kernel.org/" target="_blank" rel="external">下载</a>，选择需要的版本。<br>这里使用OK6410自带的源码包和交叉工具链。清单如下：</p>
+<ol>
+<li><a href="http://pan.baidu.com/s/1i560zzf" target="_blank" rel="external">linux-3.0.1-2012-09-23.tar.gz</a></li>
+<li><a href="http://pan.baidu.com/s/1hsE9Z72" target="_blank" rel="external">arm-linux-gcc-4.3.2.tgz</a></li>
+</ol>
+<h5 id="内核配置选项和编译-1"><a href="#内核配置选项和编译-1" class="headerlink" title="内核配置选项和编译"></a>内核配置选项和编译</h5><ul>
+<li><p>arm-linux-gcc解压和配置</p>
+<ol>
+<li><p>解压arm-linux-gcc到根目录下，它会自动把文件解压到/usr/local目录下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$tar zxvf arm-linux-gcc-4.3.2.tgz -C /</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加arm-linux-gcc的命令到当前shell环境变量<br>在/etc/profile文件，最后一行添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=/usr/local/arm/4.3.2/bin:$PATH</div></pre></td></tr></table></figure>
+<p>可用echo输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ echo export PATH=/usr/local/arm/4.3.2/bin:$PATH &gt;&gt; /etc/profile</div></pre></td></tr></table></figure>
+<p>使环境变量生效：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ . /etc/profile</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>解压和配置Linux内核</p>
+<ul>
+<li><p>解压源码到当前目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar zxvf linux-3.0.1-2012-09-23.tar.gz</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置内核</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ make menuconfig</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里可能会报错，提示需要ncurses-devel库，则安装之</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo dnf install ncurses-devel</div></pre></td></tr></table></figure>
+<p>再次make后会出现一个界面框（ncurses库提供支持），可进行功能项的配置。<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328164923.png" alt="image"><br>配置交叉工具链<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328165541.png" alt="image"></p>
+<ul>
+<li>配置完，开始编译。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 告诉编译器启动8个编译任务，提高编译速度。根据自己CPU内核个数而定。</div><div class="line">$ make -j8</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里可能会报错，提示/lib/ld-linux.so.2:bad ELF intpreter.原因在64位系统调用了32位程序。<br>所以，安装32位的c语言程序包。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo dnf install glibc.i686</div></pre></td></tr></table></figure>
+<p>提示：error while loading shared libraries: libz.so.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo dnf install zlib.i686</div></pre></td></tr></table></figure>
+<p>继续。。。<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328170632.png" alt="image"><br>中间可以还会报错，提示<br>Can’t use ‘defined(@array)’ (Maybe you should just omit the defined()?) at kernel/timeconst.pl<br>修改方法：<br>将if (!defined(@val))<br>改为if (!@val)</p>
+<ul>
+<li>编译成功！<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328172142.png" alt="image"></li>
+</ul>
+</li>
+</ul>
+<h5 id="内核编译过程-1"><a href="#内核编译过程-1" class="headerlink" title="内核编译过程"></a>内核编译过程</h5><p>当执行$ make menuconfig时会出现内核的配置界面，所有配置工具都是通过读取”arch/$(ARCH)Kconfig”文件来生成配置界面，这个文件就是所有配置的总入口，它会包含其他目录的Kconfig。<br>Kconfig的作用：Kconfig用来配置内核，它就是各种配置界面的源文件，内核的配置工具读取各个Kconfig文件，生成配置界面供开发人员配置内核，最后生成配置文件.config。Kconfig的语法可以参考“Documentation/kbuild/kconfig-language.txt”</p>
+<p>Kconfig文件的基本要素：<br>config条目(entry)<br>  config TMPFS_POSIX_ACL<br>    bool “Tmpfs POSIX Access Control Lists”<br>    depends on TMPFS<br>    select GENERIC_ACL<br>    help<br>      POSIX Access Control Lists (ACLs) support permissions for users and<br>      groups beyond the owner/group/world scheme.<br>      To learn more about Access Control Lists, visit the POSIX ACLs for<br>      If you don’t know what Access Control Lists are, say N.</p>
+<p>解析：<br>   config是关键字，表示一个配置选项的开始；紧跟着的TMPFS_POSIX<em>ACL是配置选项的名称，省略了前缀”CONFIG</em>“<br>   bool表示变量类型，即”CONFIG_ TMPFS_POSIX_ACL “的类型，有5种类型：bool、tristate、string、hex和int。</p>
+<ul>
+<li>bool变量的值：    y和n</li>
+<li>tristate变量的值：y、n和m</li>
+<li>string变量的值：  字符串</li>
+<li>bool之后的字符串“Tmpfs POSIX Access Control Lists”是提示信息，在配置界面中上下移动光标选中它时，就可以通过按空格或回车键来设置CONFIG_ TMPFS_POSIX_ACL的值</li>
+<li>depends on：表示依赖于XXX，“depends on TMPFS”表示只有当TMPFS配置选项被选中时，当前配置选项的提示信息才会出现，才能设置当前配置选项</li>
+</ul>
+<p>在内核中添加自己驱动模块：</p>
+<ul>
+<li>添加配置选项：在linux/drivers/char/Kconfig的endmenu前面一个菜单项，并勾选此项：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">config MY_HELLO</div><div class="line">	tristate &quot;Hello for test&quot;</div><div class="line">	depends on CPU_S3C6410</div><div class="line">	help</div><div class="line">		Hi, just a test.</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328203911.png" alt="image"></p>
+<ul>
+<li><p>新建驱动文件：linux/drivers/char/my-hello.c</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#include &lt;linux/init.h&gt;</div><div class="line">#include &lt;linux/module.h&gt;</div><div class="line">MODULE_LICENSE(&quot;Dual BSD/GPL&quot;);</div><div class="line">static int hello_init(void)</div><div class="line">&#123;</div><div class="line">	printk(KERN_ALERT &quot;Hello, world\n&quot;);</div><div class="line">	return 0;</div><div class="line">&#125;</div><div class="line">static void hello_exit(void)</div><div class="line">&#123;</div><div class="line">	printk(KERN_ALERT &quot;Goodbye, cruel world\n&quot;);</div><div class="line">&#125;</div><div class="line">module_init(hello_init);</div><div class="line">module_exit(hello_exit);</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改Makefile：linux/drivers/char/Makefile，在文件末尾添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">obj-$(CONFIG_MY_HELLO)			+= my-hello.o</div></pre></td></tr></table></figure>
+</li>
+<li><p>再次make<br><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_13/20170328211948.png" alt="image"></p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/26/course/embeded/lesson_13/" data-id="cj76uzha20010kzp5jcukacqj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-course/embeded/lesson_12" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/25/course/embeded/lesson_12/" class="article-date">
@@ -147,7 +259,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/25/course/embeded/lesson_12/" data-id="cj75i455o000qj9p54ho3f396" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/25/course/embeded/lesson_12/" data-id="cj76uzh9x000mkzp5gfhqvc9e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -214,7 +326,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/24/course/embeded/lesson_11/" data-id="cj75i455r000uj9p5ywtet68o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/24/course/embeded/lesson_11/" data-id="cj76uzh9z000skzp5ubugt0f9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -301,7 +413,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/course/embeded/lesson_10/" data-id="cj75i455q000sj9p5h99ixoes" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/23/course/embeded/lesson_10/" data-id="cj76uzh9y000okzp57hvzlclf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -341,7 +453,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/course/embeded/tools/" data-id="cj75i456o001uj9p5m6gkpcjf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/23/course/embeded/tools/" data-id="cj76uzhaa001ikzp5r8qesznz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -449,7 +561,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj75i456i001qj9p5u8pjubph" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/22/course/embeded/lesson_9/" data-id="cj76uzhad001kkzp5rhdp0pus" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -566,7 +678,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj75i4572002tj9p5wi8uvynx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/21/course/embeded/lesson_8/" data-id="cj76uzha9001gkzp5av3t703r" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -690,7 +802,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj75i456h001oj9p5ufvq7fej" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_7/" data-id="cj76uzha8001ekzp53dbv4qsd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -911,7 +1023,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj75i456c001lj9p5izbixxfo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/20/course/embeded/lesson_6/" data-id="cj76uzha8001ckzp5phj2b25x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -1257,78 +1369,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj75i4569001jj9p5srbvuwhd" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-course/embeded/lesson_4" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/19/course/embeded/lesson_4/" class="article-date">
-  <time datetime="2017-03-19T01:45:00.000Z" itemprop="datePublished">2017-03-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/19/course/embeded/lesson_4/">（4）Linux常用命令-账号管理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><h4 id="修改账号密码"><a href="#修改账号密码" class="headerlink" title="修改账号密码"></a>修改账号密码</h4><h4 id="用户组管理"><a href="#用户组管理" class="headerlink" title="用户组管理"></a>用户组管理</h4><h4 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h4><hr>
-<p><img src="http://omn7bkwg7.bkt.clouddn.com/images/course/embeded/lesson_4/user.jpg" alt="image"></p>
-<h5 id="Linux和Windows最大不同之处，就是从账号登录开始。Windows下大多数用户习惯开机即用，跳过登录窗口。而Linux环境则强制用户选择账号密码登录。虽然Linux整体账号设计比Windows更严谨，但增强我们的安全意识更重要。"><a href="#Linux和Windows最大不同之处，就是从账号登录开始。Windows下大多数用户习惯开机即用，跳过登录窗口。而Linux环境则强制用户选择账号密码登录。虽然Linux整体账号设计比Windows更严谨，但增强我们的安全意识更重要。" class="headerlink" title="Linux和Windows最大不同之处，就是从账号登录开始。Windows下大多数用户习惯开机即用，跳过登录窗口。而Linux环境则强制用户选择账号密码登录。虽然Linux整体账号设计比Windows更严谨，但增强我们的安全意识更重要。"></a>Linux和Windows最大不同之处，就是从账号登录开始。Windows下大多数用户习惯开机即用，跳过登录窗口。而Linux环境则强制用户选择账号密码登录。虽然Linux整体账号设计比Windows更严谨，但增强我们的安全意识更重要。</h5><h5 id="对于初学者，习惯拿root账号登录和后续操作，须不知会埋下诸多雷。因为root权限下访问和生成的一些文件，切换成其他账号登录后，很可能无对等权限访问。也有人会说，这个Linux系统就我一人使用，拿root登录可不可以，答案当然是可以。但你要清楚root权限下操作对系统所带来的影响。root账号拥有系统最高权限，所谓权利越大，责任越大。"><a href="#对于初学者，习惯拿root账号登录和后续操作，须不知会埋下诸多雷。因为root权限下访问和生成的一些文件，切换成其他账号登录后，很可能无对等权限访问。也有人会说，这个Linux系统就我一人使用，拿root登录可不可以，答案当然是可以。但你要清楚root权限下操作对系统所带来的影响。root账号拥有系统最高权限，所谓权利越大，责任越大。" class="headerlink" title="对于初学者，习惯拿root账号登录和后续操作，须不知会埋下诸多雷。因为root权限下访问和生成的一些文件，切换成其他账号登录后，很可能无对等权限访问。也有人会说，这个Linux系统就我一人使用，拿root登录可不可以，答案当然是可以。但你要清楚root权限下操作对系统所带来的影响。root账号拥有系统最高权限，所谓权利越大，责任越大。"></a>对于初学者，习惯拿root账号登录和后续操作，须不知会埋下诸多雷。因为root权限下访问和生成的一些文件，切换成其他账号登录后，很可能无对等权限访问。也有人会说，这个Linux系统就我一人使用，拿root登录可不可以，答案当然是可以。但你要清楚root权限下操作对系统所带来的影响。root账号拥有系统最高权限，所谓权利越大，责任越大。</h5><h5 id="建议玩法：创建一个非root账号登录，需要更高权限执行命令时，可以在命令前加sudo，sudo命令的含义是以root权限执行。"><a href="#建议玩法：创建一个非root账号登录，需要更高权限执行命令时，可以在命令前加sudo，sudo命令的含义是以root权限执行。" class="headerlink" title="建议玩法：创建一个非root账号登录，需要更高权限执行命令时，可以在命令前加sudo，sudo命令的含义是以root权限执行。"></a>建议玩法：创建一个非root账号登录，需要更高权限执行命令时，可以在命令前加sudo，sudo命令的含义是以root权限执行。</h5><h4 id="1-修改账号密码"><a href="#1-修改账号密码" class="headerlink" title="1. 修改账号密码"></a>1. 修改账号密码</h4><p>  查看当前账号<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">显示当前账户</div><div class="line">$ whoami   </div><div class="line">highsung</div><div class="line">切换到root</div><div class="line">$ su root  </div><div class="line">密码：</div><div class="line"># whoami</div><div class="line">root</div><div class="line"># su highsung</div><div class="line">$</div></pre></td></tr></table></figure></p>
-<p>  修改密码，fedora25中密码必须是8个及以上字符，且不能全是数字。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ passwd</div><div class="line">更改用户 highsung 的密码 。</div><div class="line">为 highsung 更改 STRESS 密码。</div><div class="line">Current password:</div><div class="line">新的 密码：</div><div class="line">重新输入新的 密码：</div><div class="line">passwd：所有的身份验证令牌已经成功更新。</div></pre></td></tr></table></figure></p>
-<p>  当然也可在root账号下，修改其他账号密码。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ su root</div><div class="line">密码：</div><div class="line"># passwd highsung</div><div class="line">更改用户 highsung 的密码 。</div><div class="line">新的 密码：</div><div class="line">重新输入新的 密码：</div><div class="line">passwd：所有的身份验证令牌已经成功更新。</div></pre></td></tr></table></figure></p>
-<h4 id="2-用户组管理"><a href="#2-用户组管理" class="headerlink" title="2. 用户组管理"></a>2. 用户组管理</h4><p>在操作用户组前，我们先来看看/etc/passwd，/etc/shadow，/etc/group这三个文件内容。<br>/etc/passwd中每一行记录着一个用户信息，每行记录被冒号(:)分隔为7个字段，其格式和具体含义如下：<br>用户名:口令:用户标识ID:组标识ID:注释性描述:主目录:登录Shell。<br>下面的口令字段都是x，代表这项没有值。因为所有用户的口令信息都存放在/etc/shadow中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ sudo cat /etc/passwd</div><div class="line">root:x:0:0:root:/root:/bin/bash</div><div class="line">bin:x:1:1:bin:/bin:/sbin/nologin</div><div class="line">daemon:x:2:2:daemon:/sbin:/sbin/nologin</div><div class="line">...</div><div class="line">highsung:x:1000:1000:highsung:/home/highsung:/bin/bash</div></pre></td></tr></table></figure></p>
-<p>/etc/shadow中每一行记录着一个用户口令信息，每行记录被冒号(:)分隔为9个字段，其格式和具体含义如下：<br>用户名:加密口令:最后一次修改时间:最小时间间隔:最大时间间隔:警告时间:不活动时间:失效时间:标志<br>下面的加密口令为*，代表这项没有值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ sudo cat /etc/shadow</div><div class="line">root:$6$q4pnE9vO4cv6ayga$ywkgbdr8YZQrjXFV0nZ.0HJE.zPrXAgzWErsPYZo67gyXvXRSbxqZAqWvnD1SGBOV/CJ2RSxgjGtXaP6KaYxN/::0:99999:7:::</div><div class="line">bin:*:17004:0:99999:7:::</div><div class="line">daemon:*:17004:0:99999:7:::</div><div class="line">...</div><div class="line">highsung:$6$Qo5xOJ5rqfOEjSb6$Ot1VLazAFvq1c0WQ.Ms1QhJFqgoG0P36FXsrygGfdcJvGDZTAk8vGtOA8wWLmKX5bNDTFCFSGQOKnmcLn5fcn.:17244:0:99999:7:::</div></pre></td></tr></table></figure></p>
-<p>/etc/group中每一行记录着一个用户组信息，每行记录被冒号(:)分隔为4个字段，其格式和具体含义如下：<br>组名:口令:组标识ID:组内用户列表<br>下面的口令为x，代表这项没有值。<br>wheel是管理员组，组员有highsung。因为安装fedora25时，highsung设置成了管理员。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$ sudo cat /etc/group</div><div class="line">root:x:0:</div><div class="line">bin:x:1:</div><div class="line">daemon:x:2:</div><div class="line">sys:x:3:</div><div class="line">adm:x:4:</div><div class="line">tty:x:5:</div><div class="line">disk:x:6:</div><div class="line">lp:x:7:</div><div class="line">mem:x:8:</div><div class="line">kmem:x:9:</div><div class="line">wheel:x:10:highsung</div><div class="line">...</div><div class="line">highsung:x:1000:</div></pre></td></tr></table></figure></p>
-<p>清楚了文件/etc/passwd，/etc/shadow，/etc/group的内容含义，下面先来操作下用户组。</p>
-<ul>
-<li><p>创建用户组</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">创建mygroup1组</div><div class="line">$ sudo groupadd mygroup1      </div><div class="line">创建mygroup2组，同时指定组ID</div><div class="line">$ sudo groupadd -g 1010 mygroup2  </div><div class="line">创建mygroup3组</div><div class="line">$ sudo groupadd mygroup3  </div><div class="line">$ cat /etc/group</div><div class="line">...</div><div class="line">highsung:x:1000:</div><div class="line">组ID是在最后的highsung组ID上加1</div><div class="line">mygroup1:x:1001:  </div><div class="line">组ID强制指定1010</div><div class="line">mygroup2:x:1010:</div><div class="line">组ID是在最后的mygroup2组ID上加1</div><div class="line">mygroup3:x:1011:</div></pre></td></tr></table></figure>
-</li>
-<li><p>修改用户组<br>根据组名来修改，把mygroup3组的组名改成mygroup31，组ID改成1031</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ sudo groupmod -g 1031 -n mygroup31 mygroup3</div><div class="line">$ cat /etc/group</div><div class="line">...</div><div class="line">highsung:x:1000:</div><div class="line">mygroup1:x:1001:</div><div class="line">mygroup2:x:1010:</div><div class="line">mygroup31:x:1031:</div></pre></td></tr></table></figure>
-</li>
-<li><p>删除用户组</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ sudo groupdel mygroup31</div><div class="line">$ sudo groupdel mygroup2</div><div class="line">$ cat /etc/group</div><div class="line">...</div><div class="line">highsung:x:1000:</div><div class="line">mygroup1:x:1001:</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="3-用户管理"><a href="#3-用户管理" class="headerlink" title="3. 用户管理"></a>3. 用户管理</h4><ul>
-<li><p>创建用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">创建user1</div><div class="line">$ sudo useradd user1  </div><div class="line">设置user1密码</div><div class="line">$ sudo passwd user1    </div><div class="line">查看用户组，发现存在以user1命名的用户组</div><div class="line">$ cat /etc/group</div><div class="line">...  </div><div class="line">highsung:x:1000:</div><div class="line">mygroup1:x:1001:</div><div class="line">user1:x:1002:</div><div class="line">创建user2，并指定到mygroup1组，附加到wheel组</div><div class="line">$ sudo useradd user2 -g mygroup1 -G wheel</div><div class="line">$ cat /etc/group</div><div class="line">...</div><div class="line">user2也是管理员权限</div><div class="line">wheel:x:10:highsung,user2</div><div class="line">highsung:x:1000:</div><div class="line">mygroup1:x:1001:</div><div class="line">user1:x:1002:</div></pre></td></tr></table></figure>
-</li>
-<li><p>修改用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">user1添加到wheel组</div><div class="line">$ sudo usermod -G wheel user1</div><div class="line">$ cat /etc/group</div><div class="line">wheel:x:10:highsung,user2,user1</div><div class="line">user1名字改为user11</div><div class="line">$ sudo usermod -l user11 user1</div><div class="line">$ cat /etc/group</div><div class="line">wheel:x:10:highsung,user2,user11</div><div class="line">usr11的主目录还是/home/user1</div><div class="line">$ cat /etc/passwd</div><div class="line">user11:x:1001:1002::/home/user1:/bin/bash</div></pre></td></tr></table></figure>
-</li>
-<li><p>删除用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">删除3个文件中user2的记录，保留home目录</div><div class="line">$ sudo userdel user2</div><div class="line">删除3个文件中user2的记录，删除home目录</div><div class="line">$ sudo userdel -r user1</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>留个问题：root账号密码忘了怎么办？</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_4/" data-id="cj75i4568001gj9p5q4kg5y1e" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/19/course/embeded/lesson_5/" data-id="cj76uzha7001akzp5zolepbym" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
