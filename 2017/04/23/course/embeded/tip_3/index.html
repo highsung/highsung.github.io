@@ -3,36 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>（15）Uboot实验 | HighSung</title>
+  <title>ok6410全套资料 | HighSung</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Uboot启动源码分布启动顺序定义：uboot1.1.6\board\samsung\smdk6410\u-boot.lds
-
-复位启动开始的地方uboot1.1.6/cpu/s3c64xx/Start.S|——-&amp;gt; reset:|--------&amp;gt; start_armboot
-
-
-
-配置板卡的各种硬件信息。board.c|——-&amp;gt; start_armboot|---------">
+  <meta name="description" content="ok6410全套资料
+百度网盘地址ok6410">
 <meta property="og:type" content="article">
-<meta property="og:title" content="（15）Uboot实验">
-<meta property="og:url" content="http://yoursite.com/2017/04/27/course/embeded/lesson_15/index.html">
+<meta property="og:title" content="ok6410全套资料">
+<meta property="og:url" content="http://yoursite.com/2017/04/23/course/embeded/tip_3/index.html">
 <meta property="og:site_name" content="HighSung">
-<meta property="og:description" content="Uboot启动源码分布启动顺序定义：uboot1.1.6\board\samsung\smdk6410\u-boot.lds
-
-复位启动开始的地方uboot1.1.6/cpu/s3c64xx/Start.S|——-&amp;gt; reset:|--------&amp;gt; start_armboot
-
-
-
-配置板卡的各种硬件信息。board.c|——-&amp;gt; start_armboot|---------">
-<meta property="og:updated_time" content="2017-04-27T02:31:04.346Z">
+<meta property="og:description" content="ok6410全套资料
+百度网盘地址ok6410">
+<meta property="og:updated_time" content="2017-09-05T04:51:50.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="（15）Uboot实验">
-<meta name="twitter:description" content="Uboot启动源码分布启动顺序定义：uboot1.1.6\board\samsung\smdk6410\u-boot.lds
-
-复位启动开始的地方uboot1.1.6/cpu/s3c64xx/Start.S|——-&amp;gt; reset:|--------&amp;gt; start_armboot
-
-
-
-配置板卡的各种硬件信息。board.c|——-&amp;gt; start_armboot|---------">
+<meta name="twitter:title" content="ok6410全套资料">
+<meta name="twitter:description" content="ok6410全套资料
+百度网盘地址ok6410">
   
     <link rel="alternate" href="/atom.xml" title="HighSung" type="application/atom+xml">
   
@@ -85,10 +70,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-course/embeded/lesson_15" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-course/embeded/tip_3" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/04/27/course/embeded/lesson_15/" class="article-date">
-  <time datetime="2017-04-27T08:51:00.000Z" itemprop="datePublished">2017-04-27</time>
+    <a href="/2017/04/23/course/embeded/tip_3/" class="article-date">
+  <time datetime="2017-04-23T08:51:00.000Z" itemprop="datePublished">2017-04-23</time>
 </a>
     
   </div>
@@ -99,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      （15）Uboot实验
+      ok6410全套资料
     </h1>
   
 
@@ -107,77 +92,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="Uboot启动源码分布"><a href="#Uboot启动源码分布" class="headerlink" title="Uboot启动源码分布"></a>Uboot启动源码分布</h5><p>启动顺序定义：uboot1.1.6\board\samsung\smdk6410\u-boot.lds</p>
-<ol>
-<li>复位启动开始的地方<br>uboot1.1.6/cpu/s3c64xx/Start.S<br>|——-&gt; reset:<pre><code>|--------&gt; start_armboot
-</code></pre></li>
-</ol>
-<ol>
-<li>配置板卡的各种硬件信息。<br>board.c<br>|——-&gt; start_armboot<pre><code>|-----------&gt; init_fnc_t **init_fnc_ptr;----|---&gt; cpu_init
-|-----------&gt; main_loop                     |---&gt; board_init
-                                            |---&gt; interrupt_init
-                                            |---&gt; env_init
-                                            |---&gt; init_baudrate
-                                            |---&gt; serial_init
-                                            |---&gt; console_init_f
-                                            |---&gt; display_banner
-                                            |---&gt; print_cpuinfo
-                                            |---&gt; checkboard
-                                            |---&gt; dram_init
-                                            |---&gt; display_dram_config
-</code></pre></li>
-</ol>
-<h5 id="Uboot实验"><a href="#Uboot实验" class="headerlink" title="Uboot实验"></a>Uboot实验</h5><p>实验一：修改Uboot启动时的打印Logo</p>
-<hr>
-<p><strong>    u-boot 1.1.6                       </strong></p>
-<p><strong>    Updated for OK6410  TE6410 Board   </strong></p>
-<p><strong>    Version (2012-09-23)               </strong></p>
-<p><strong>    Builder: Lao Embedded              </strong></p>
-<p><strong>    Web: <a href="http://www.hwadee.com" target="_blank" rel="external">http://www.hwadee.com</a>         </strong></p>
-<hr>
-<p>实验二：添加自定义命令：</p>
-<ol>
-<li><p>在对应的开发板配置文件中，添加相应命令的宏定义<br>比如在uboot/include/configs/smdk6410.h<br>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p>
-<ul>
-<li>Command definition<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/<br>#define CONFIG_COMMANDS \<pre><code>(CONFIG_CMD_DFL    | \
-CFG_CMD_CACHE    | \
-CFG_CMD_USB    | \
-CFG_CMD_REGINFO    | \
-CFG_CMD_LOADS    | \
-CFG_CMD_LOADB    | \
-CFG_CMD_ENV    | \
-CFG_CMD_MYTEST
-</code></pre></li>
+        <h4 id="ok6410全套资料"><a href="#ok6410全套资料" class="headerlink" title="ok6410全套资料"></a>ok6410全套资料</h4><ul>
+<li>百度网盘地址<br><a href="https://pan.baidu.com/s/1kVDqRGj" target="_blank" rel="external">ok6410</a></li>
 </ul>
-</li>
-<li><p>在uboot/common/目录下，建立相应的命令执行文件，如cmd_mytest.c，注意命名的规范，必须是cmd_mytest.c才行。<br>#include <common.h><br>#include <command.h><br>#ifdef CFG_CMD_MYTEST</command.h></common.h></p>
-</li>
-</ol>
-<p>int do_mytest()<br>{<br>    printf(“this is my test command. it is a new command.\n”);<br>    return 0;<br>}</p>
-<p>U_BOOT_CMD(mytest, 1, 0, do_mytest, “mytest  - just a demo that add new command\n”, “usage: mytest\n”);</p>
-<p>#endif</p>
-<ol>
-<li><p>在uboot/comman/Makefile文件中，加入生成相应的cmd_mytest.o文件才可以</p>
-</li>
-<li><p>编译烧写uboot，验证修改成果<br>敲入help，显示的结果</p>
-</li>
-</ol>
-<p>#help<br>mytest  - just a demo that add new command</p>
-<p>SMDK6410 # mytest</p>
-<p>this is my test command. it is a new command.</p>
-<p>实验三：修改环境参数<br>// 启动参数</p>
-<p>#define CONFIG_BOOTARGS     “root=/dev/mtdblock2 rootfstype=yaffs2 init=/linuxrc console=ttySAC0,115200”<br>// 网卡MAC地址</p>
-<p>#define CONFIG_ETHADDR        00:40:5c:26:0a:5b<br>// 网卡IP，掩码，网关，nfs服务器IP</p>
-<p>#define CONFIG_IPADDR        10.10.141.234</p>
-<p>#define CONFIG_NETMASK      255.255.255.0</p>
-<p>#define CONFIG_GATEWAYIP    10.10.141.2</p>
-<p>#define CONFIG_SERVERIP        10.10.141.117<br>// 启动参数: 从nandflash的0x200000位置读取0x500000（5M空间）到0xc00080000，然后从0xc0008000开始执行</p>
-<p>#define CONFIG_BOOTCOMMAND    “nand read 0xc0008000 0x200000 0x500000;bootm 0xc0008000”</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/27/course/embeded/lesson_15/" data-id="cj774cbs6000zdhp5x6o2ix0n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/23/course/embeded/tip_3/" data-id="cj774cbsj001ndhp5a5n1cqkg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
@@ -188,19 +110,19 @@ CFG_CMD_MYTEST
     
 <nav id="article-nav">
   
-    <a href="/2017/04/28/course/embeded/lesson_16/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/23/course/embeded/tip_2/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          （15）framebuffer　v4l2
+          nfs服务器安装和使用
         
       </div>
     </a>
   
   
-    <a href="/2017/04/27/course/embeded/lesson_14/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/04/22/course/embeded/tip_1/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">（14）Uboot</div>
+      <div class="article-nav-title">ubuntu apt-get install 加速</div>
     </a>
   
 </nav>
