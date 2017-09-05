@@ -27,7 +27,7 @@
 1$sudo mkdir /home/nfsroot
   setp 2：在文件/etc/exports末尾添加如下配置，注意前面不要到带#
 1/home/nf">
-<meta property="og:updated_time" content="2017-09-05T00:34:06.743Z">
+<meta property="og:updated_time" content="2017-09-05T00:48:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nfs服务器安装和使用">
 <meta name="twitter:description" content="什么是nfs？network file system有什么用？linux系统间共享文件如何安装？
@@ -131,22 +131,18 @@
 </li>
 </ul>
 <h5 id="客户端挂载使用"><a href="#客户端挂载使用" class="headerlink" title="客户端挂载使用"></a>客户端挂载使用</h5><ul>
-<li><ol>
-<li>创建挂载点<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo mkdir /mnt/nfsroot</div></pre></td></tr></table></figure>
+<li><p>1． 创建挂载点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo mkdir /mnt/nfsroot</div></pre></td></tr></table></figure>
 </li>
-</ol>
-</li>
-<li><ol>
-<li>把服务器共享目录挂载在挂载点<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#sudo mount -t nfs -o nolock 127.0.0.1:/home/nfsroot /mnt/nfsroot</div></pre></td></tr></table></figure>
-</li>
-</ol>
+<li><p>２． 把服务器共享目录挂载在挂载点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#sudo mount -t nfs -o nolock 127.0.0.1:/home/nfsroot /mnt/nfsroot</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="下面客户端通过访问本地-mnt-nfsroot来操作，服务器共享目录。"><a href="#下面客户端通过访问本地-mnt-nfsroot来操作，服务器共享目录。" class="headerlink" title="下面客户端通过访问本地/mnt/nfsroot来操作，服务器共享目录。"></a>下面客户端通过访问本地/mnt/nfsroot来操作，服务器共享目录。</h4>
+<h4 id="到这里，客户端通过访问本地-mnt-nfsroot，就可以访问服务器共享目录-home-nfsroot。"><a href="#到这里，客户端通过访问本地-mnt-nfsroot，就可以访问服务器共享目录-home-nfsroot。" class="headerlink" title="到这里，客户端通过访问本地/mnt/nfsroot，就可以访问服务器共享目录/home/nfsroot。"></a>到这里，客户端通过访问本地/mnt/nfsroot，就可以访问服务器共享目录/home/nfsroot。</h4>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/23/course/embeded/tip_2/" data-id="cj76v3wm8001uphp5goy8y42a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/04/23/course/embeded/tip_2/" data-id="cj76vmw6r001s3bp5b7tiatur" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/嵌入式开发/">嵌入式开发</a></li></ul>
